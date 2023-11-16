@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'articles',
     'deposits',
 
-    # rest_framework
+    # DRF
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -57,23 +57,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-SITE_ID = 1
+# SITE_ID = 1
 
-REST_FRAMEWORK = {
+# DRF auth settings
+# Token 인증을 기본으로 사용하도록 설정
+# REST_FRAMEWORK = {
     # Authentication
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    # permission(적용 안해도 같지만 명시를 해주는 느낌)
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ],
-}
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ],
+    # # permission(적용 안해도 같지만 명시를 해주는 느낌)
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.AllowAny',
+    # ],
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-     'corsheaders.middleware.CorsMiddleware',
+    #  'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,10 +83,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173',
-    'http://localhost:5173',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://127.0.0.1:5173',
+#     'http://localhost:5173',
+# ]
 
 ROOT_URLCONF = 'back.urls'
 
@@ -158,3 +160,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 사용자 수정
+AUTH_USER_MODEL = 'accounts.User'
+
+# ALL AUTH 수정
+# dj-rest-auth 는 email 을 필수적으로 사용하도록 구현되어 있으므로, 해당 사항을 수정
+# ACCOUNT_EMAIL_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = None
+# # django 인증 시스템에서 사용할 백엔드 클래스 지정
+# # 기본 인증 백엔드와 allauth 패키지에서 제공하는 인증 백엔드를 모두 사용하겠다는 설정.
+# AUTHENTICATION_BACKENDS = (
+# # django 기본 인증 백엔드
+# "django.contrib.auth.backends.ModelBackend",
+# # django-allauth 패키지에서 제공하는 인증 백엔드 클래스.
+# "allauth.account.auth_backends.AuthenticationBackend",
+# )
+# # MIDDLEWARE 에 아래 내용 추가
+# MIDDLEWARE = [
+#     # Add the account middleware:
+#     "allauth.account.middleware.AccountMiddleware",
+# ]
