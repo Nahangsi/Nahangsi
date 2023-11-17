@@ -1,97 +1,175 @@
 <template>
   <div>
     <h1>회원가입</h1>
-    <form>
-      <input type="text" placeholder="사용할 아이디를 입력해주세요." >
-      <input type="email" name="" id="" placeholder="이메일을 입력해주세요 (선택사항)">
-      <input type="password" placeholder="비밀번호">
-      <input type="password" placeholder="비밀번호 확인">
-      <p>아래는 선택사항입니다!</p>
-      <p>하지만, 선택을 해주신다면 알맞은 금융 상품을 추천해드릴게요!</p>
-      <input type="text" placeholder="나이">
-      <input type="text" placeholder="연봉">
-      <input type="text" placeholder="자산">
-      <select name="직종" id="직종">현재 가입하신 금융상품</select>
-      <select name="" id="">주 거래은행</select>
-      <select name="" id="">저축 목표</select>
-      <select name="" id="">직종</select>
-      <v-autocomplete
-  chips
-  label="Autocomplete"
-  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-  multiple
+    <v-sheet width="300" class="mx-auto">
+
+    <v-form @submit.prevent="signup">
+      <v-text-field
+        v-model.trim="username"
+        :rules="rules"
+        label="First name"
+        variant="outlined"
+      ></v-text-field>
+      <v-text-field
+      v-model.trim="email"
+      hide-details="auto"
+      label="Email address"
+      placeholder="johndoe@gmail.com"
+      type="email"
+      hint="이메일은 선택사항이에요"
+      variant="outlined"
+    ></v-text-field>
+    <v-text-field
+      v-model.trim="password1"
+      label="Password"
+      type="password"
+      hint="Enter your password to access this website"
+      variant="outlined"
+    ></v-text-field>
+    <v-text-field
+      v-model.trim="password2"
+      label="Password"
+      type="password"
+      hint="Enter your password to access this website"
+      variant="outlined"
+    ></v-text-field>
+    <p>아래는 선택사항입니다!</p>
+    <p>하지만, 선택을 해주신다면 알맞은 금융 상품을 추천해드릴게요!</p>
+    <v-autocomplete
+  label="연령대"
+  v-model="age"
+  :items="['10대', '20대', '30대', '40대', '50대', '60대 이상']"
   variant="outlined"
 ></v-autocomplete>
+    <v-combobox
+          v-model="financialProducts"
+          :items="items"
+          label="가입 중인 금융상품을 선택해주세요!"
+          multiple
+          variant="outlined"
+        ></v-combobox>
+        <v-combobox
+          v-model="money"
+          :items="items"
+          label="연봉을 선택해주세요!"
+          variant="outlined"
+        ></v-combobox>
+        <v-combobox
+          v-model="salary"
+          :items="items"
+          label="자산을 선택해주세요!!"
+          variant="outlined"
+        ></v-combobox>
+        <v-combobox
+          v-model="primaryBank"
+          :items="items"
+          label="주거래은행을 선택해주세요!!"
+          variant="outlined"
+        ></v-combobox>
+        <v-combobox
+          v-model="savingsGoal"
+          :items="items"
+          label="저축목표를 선택해주세요!!"
+          variant="outlined"
+        ></v-combobox>
+        <v-combobox
+          v-model="occupation"
+          :items="items"
+          label="직종을 선택해주세요!!"
+          variant="outlined"
+        ></v-combobox>
 
-
-    </form>
-    money = models.IntegerField(blank=True, null=True) # 연봉
-    salary = models.IntegerField(blank=True, null=True) # 자산
-    # 리스트 데이터 저장을 위해 Text 형태로 저장
-    financial_products = models.TextField(blank=True, null=True) # 가입 상품
-    primary_bank = models.CharField(blank=True, max_length=50, null=True) # 주 거래은행
-    savings_goal = models.CharField(blank=True, max_length=50, null=True) # 저축 목표
-    occupation = models.CharField(blank=True, max_length=50, null=True) # 직종
-
-  </div>
-  
-  <v-sheet width="300" class="mx-auto">
-    <v-form fast-fail @submit.prevent>
-      <v-text-field
-        v-model="firstName"
-        label="First name"
-        :rules="firstNameRules"
-      ></v-text-field>
-
-      <v-text-field
-        v-model="lastName"
-        label="Last name"
-        :rules="lastNameRules"
-
-        
-      ></v-text-field>
-
-      <v-btn type="submit" block class="mt-2">Submit</v-btn>
+      <v-btn type="submit" block class="mt-2" variant="outlined">Submit</v-btn>
     </v-form>
   </v-sheet>
-  <p>{{ lastName }}</p>
-
-
+  </div>
+  
 </template>
+
+<script>
+// 여기는 유효성 검사 하는 곳
+// 아이디 검사
+export default {
+  data() {
+    return {
+      username: '',
+      rules: [
+        value => {
+          if (value) return true;
+          return 'You must enter a first name.';
+        },
+      ],
+    };
+  },
+};
+
+</script>
 
 <script setup>
 
 import { ref } from 'vue';
+import {useAccountStore} from '@/stores/account'
 
-const lastName = ref(null)
+const store = useAccountStore()
 
 
+const username = ref(null)
+const email = ref(null)
+const password1 = ref(null)
+const password2 = ref(null)
+const age = ref(null)
+const money = ref(null)
+const salary = ref(null)
+const financialProducts = ref(null)
+const primaryBank = ref(null)
+const occupation = ref(null)
+const savingsGoal = ref(null)
 
-</script>
+const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 
-<script>
-// 여기는 유효성 검사 하는 곳
-export default {
-    data: () => ({
-      firstName: '',
-      firstNameRules: [
-        value => {
-          if (value?.length > 3) return true
+const signup = function () {
+  console.log(username, password1, password2, email)
 
-          return 'First name must be at least 3 characters.'
-        },
-      ],
-      lastName: '123',
-      lastNameRules: [
-        value => {
-          if (/[^0-9]/.test(value)) return true
-
-          return 'Last name can not contain digits.'
-        },
-      ],
-    }),
+  const payload = {
+    username: username.value,
+    password1: password1.value,
+    password2: password2.value,
+    email: email.value,
+    age: age.value,
+    money: money.value,
+    salary: salary.value,
+    financial_products: financialProducts.value,
+    primary_bank: primaryBank.value,
+    occupation: occupation.value,
+    savings_goal: savingsGoal.value,
   }
+
+    // if (email.value !== null && email.value !== '') {
+    //   payload.email = email.value
+    // }
+    // if (age.value !== null && age.value !== '') {
+    //   payload.age = age.value
+    // }if (money.value !== null && money.value !== '') {
+    //   payload.money = money.value
+    // }if (salary.value !== null && salary.value !== '') {
+    //   payload.salary = salary.value
+    // }if (financial_products.value !== null && financial_products.value !== '') {
+    //   payload.financial_products = financial_products.value
+    // }if (primary_bank.value !== null && primary_bank.value !== '') {
+    //   payload.primary_bank = primary_bank.value
+    // }if (occupation.value !== null && occupation.value !== '') {
+    //   payload.occupation = occupation.value
+    // }if (savings_goal.value !== null && savings_goal.value !== '') {
+    //   payload.savings_goal = savings_goal.value
+    // }
+
+  store.signup(payload)
+  
+}
+
 </script>
+
+
 
 <style  scoped>
 
