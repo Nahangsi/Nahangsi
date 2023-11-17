@@ -9,6 +9,7 @@ Django==4.2.4
 django-allauth==0.54.0
 django-cors-headers==4.2.0
 djangorestframework==3.14.0
+environ==1.0
 idna==3.4
 oauthlib==3.2.2
 pycparser==2.21

@@ -19,8 +19,8 @@ def article_list(request):
     elif request.method == 'POST':
         serializer = ArticleCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            # serializer.save(user=request.user)
-            serializer.save
+            serializer.save(user=request.user)
+            # serializer.save
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -44,8 +44,8 @@ def article_detail(request, article_pk):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-@api_view(['GET'])
 # 댓글 전체 조회
+@api_view(['GET'])
 def comment_list(request):
     comments = Comment.objects.all()
     serializer = CommentSerializer(comments, many=True)
