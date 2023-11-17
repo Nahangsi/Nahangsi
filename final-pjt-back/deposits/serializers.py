@@ -12,7 +12,7 @@ class DepositOptionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositOptions
         fields = '__all__'
-        read_only_fields = ('fin_prdt_cd',)
+        read_only_fields = ('product',)
 
 # 적금 상품
 class SavingProductsSerializer(serializers.ModelSerializer):
@@ -25,4 +25,4 @@ class SavingOptionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingOptions
         fields = '__all__'
-        read_only_fields = ('fin_prdt_cd')
+        read_only_fields = ('product',)

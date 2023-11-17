@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-# 예금 상품 목록
+# 적금 상품 목록
 class DepositProducts(models.Model):
     # 상품 코드
     fin_prdt_cd = models.TextField(unique=True) 
@@ -23,10 +23,11 @@ class DepositProducts(models.Model):
     join_way = models.TextField(null=True)               
    
 
-# 예금 상품 옵션
+# 적금 상품 옵션
 class DepositOptions(models.Model):
+    product = models.ForeignKey(DepositProducts, on_delete = models.CASCADE)
     # 상품 코드
-    fin_prdt_cd = models.ForeignKey(DepositProducts, on_delete = models.CASCADE)
+    fin_prdt_cd = models.TextField(null=True)
     # 저축 금리 유형명
     intr_rate_type_nm = models.CharField(max_length=100, null=True)
     # 저축 기간
@@ -37,7 +38,7 @@ class DepositOptions(models.Model):
     intr_rate2 = models.FloatField(null=True)
 
 
-# 적금 상품 목록
+# 예금 상품 목록
 class SavingProducts(models.Model):
     # 상품 코드
     fin_prdt_cd = models.TextField(unique=True) 
@@ -59,10 +60,11 @@ class SavingProducts(models.Model):
     join_way = models.TextField(null=True)
 
 
-# 적금 상품 옵션
+# 예금 상품 옵션
 class SavingOptions(models.Model):
+    product = models.ForeignKey(SavingProducts, on_delete = models.CASCADE)
     # 상품 코드
-    fin_prdt_cd = models.ForeignKey(SavingProducts, on_delete = models.CASCADE)
+    fin_prdt_cd = models.TextField(null=True)
     # 저축 금리 유형명
     intr_rate_type_nm = models.CharField(max_length=100, null=True)
     # 저축 기간

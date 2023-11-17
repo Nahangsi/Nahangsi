@@ -3,6 +3,5 @@ from . import views
 
 urlpatterns = [
    # 금융 상품 가져오는 url
-   path('', views.index),
-    path('save-deposit-products/', views.save_deposit_products),
+   path('save-deposit-products/', views.save_deposit_products),
 ]
