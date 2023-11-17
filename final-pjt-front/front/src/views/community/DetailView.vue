@@ -38,7 +38,8 @@ onMounted(() => {
     })
     .then(res=> {
         // 응답 데이터 저장
-      article.value = res.data
+        console.log(res.data)
+    //   article.value = res.data
     })
     .catch(err => console.log(err))
 })

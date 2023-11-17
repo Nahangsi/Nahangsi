@@ -10,11 +10,12 @@ export const useCounterStore = defineStore('counter', () => {
    const getArticles = function () {
     axios({
       method: 'get',
-      url: `${API_URL}/api/v1/articles`
+      url: `${API_URL}/api/v1/articles/`
     })
     .then((res)=> {
       // store에 게시글 목록 데이터 저장
       console.log(res.data)
+      console.log('성공')
       articles.value = res.data
     })
     .catch(err => console.log(err))

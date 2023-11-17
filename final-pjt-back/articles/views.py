@@ -20,7 +20,7 @@ def article_list(request):
         serializer = ArticleCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             # serializer.save(user=request.user)
-            serializer.save
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
