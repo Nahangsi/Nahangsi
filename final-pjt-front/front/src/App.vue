@@ -1,12 +1,12 @@
 <template>
-  <ExchangeRateCal />
+  <CurrencyCal />
 
   <RouterView />
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import ExchangeRateCal from "@/components/ExchangeRateCal.vue";
+import CurrencyCal from "@/components/CurrencyCal.vue";
 </script>
 
 <style scoped></style>
