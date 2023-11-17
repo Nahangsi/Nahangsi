@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     # DRF
     'rest_framework',
     'rest_framework.authtoken',
-
+    # 11-17 경범 수정: 'django.contrib.sites', 'dj_rest_auth.registration', 추가
     # auth 권한 설정
+    'django.contrib.sites',
     'dj_rest_auth',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     # url 권한 설정
     'corsheaders',
@@ -57,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# SITE_ID = 1
+SITE_ID = 1
 
 # DRF auth settings
 # Token 인증을 기본으로 사용하도록 설정
@@ -73,16 +75,21 @@ REST_FRAMEWORK = {
     # ],
 }
 
+# 11.17 10:14 경범 수정 코드 추가
+# 미들웨어 건 들 지 말 것.
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #  'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 # CORS_ALLOWED_ORIGINS = [
 #     'http://127.0.0.1:5173',
@@ -179,8 +186,9 @@ AUTHENTICATION_BACKENDS = (
 # django-allauth 패키지에서 제공하는 인증 백엔드 클래스.
 "allauth.account.auth_backends.AuthenticationBackend",
 )
-# # MIDDLEWARE 에 아래 내용 추가
-MIDDLEWARE = [
-    # Add the account middleware:
-    "allauth.account.middleware.AccountMiddleware",
-]
+
+
+REST_AUTH = {
+'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+

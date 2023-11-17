@@ -30,11 +30,11 @@ class DepositOptions(models.Model):
     # 저축 금리 유형명
     intr_rate_type_nm = models.CharField(max_length=100)
     # 저축 기간
-    save_trm = models.IntegerField(default=-1)
+    save_trm = models.IntegerField(null=True)
     # 저축 금리
-    intr_rate = models.FloatField(default=-1)
+    intr_rate = models.FloatField(null=True)
     # 최대 우대 금리
-    intr_rate2 = models.FloatField(default=-1)
+    intr_rate2 = models.FloatField(null=True)
 
 
 # 예금 상품 목록
@@ -66,8 +66,8 @@ class SavingOptions(models.Model):
     # 저축 금리 유형명
     intr_rate_type_nm = models.CharField(max_length=100)
     # 저축 기간
-    save_trm = models.IntegerField(default=-1)
+    save_trm = models.IntegerField(null=True)
     # 저축 금리
-    intr_rate = models.FloatField(default=-1)
+    intr_rate = models.FloatField(null=True)
     # 최대 우대 금리
-    intr_rate2 = models.FloatField(default=-1)
+    intr_rate2 = models.FloatField(null=True)
