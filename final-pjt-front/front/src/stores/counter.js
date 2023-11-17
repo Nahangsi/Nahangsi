@@ -1,12 +1,23 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+   const articles = ref([])
+   const API_URL = 'http://127.0.0.1:8000'
 
-  return { count, doubleCount, increment }
-})
+  //  DRF 서버로 요청 보내고 응답 데이터 처리하는 getArticles 함수
+   const getArticles = function () {
+    axios({
+      method: 'get',
+      url: `${API_URL}/api/v1/articles`
+    })
+    .then((res)=> {
+      // store에 게시글 목록 데이터 저장
+      console.log(res.data)
+      articles.value = res.data
+    })
+    .catch(err => console.log(err))
+    }
+    return {articles, getArticles}
+}, {persist : true}) 
