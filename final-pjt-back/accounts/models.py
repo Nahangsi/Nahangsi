@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from allauth.account.adapter import DefaultAccountAdapter
+from allauth.account.utils import user_email, user_field, user_username
+
 # 11-17 10:56 경범 User 모델 내용 추가
 # 주거래은행 , 저축목표, 직종 추가
 class User(AbstractUser):
@@ -15,6 +17,10 @@ class User(AbstractUser):
     primary_bank = models.CharField(blank=True, max_length=50, null=True) # 주 거래은행
     savings_goal = models.CharField(blank=True, max_length=50, null=True) # 저축 목표
     occupation = models.CharField(blank=True, max_length=50, null=True) # 직종
+    primary_bank = models.CharField(max_length=50, blank=True, null=True) # 주 거래은행
+    savings_goal = models.CharField(max_length=50, blank=True, null=True) # 저축 목표
+    occupation = models.CharField(max_length=50, blank=True, null=True) # 직종
+
 
     # superuser fields
     is_active = models.BooleanField(default=True)
@@ -24,7 +30,7 @@ class User(AbstractUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
-from allauth.account.utils import user_email, user_field, user_username
+
 class CustomAccountAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
         
@@ -39,11 +45,13 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         financial_product = data.get('financial_products')
         primary_bank = data.get('primary_bank')
         savings_goal = data.get('savings_goal')
+
         occupation = data.get('occupation')
 
         user_email(user, email)
         user_username(user, username)
         if first_name:
+
             user_field(user, 'first_name', first_name)
         
         if last_name:
@@ -58,11 +66,13 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if salary:
             user_field(user, 'salary', salary)
         
+
         if financial_product:
             financial_products = user.financial_products.split(',')
             financial_products.append(financial_product)
             if len(financial_products) > 1:
                 financial_products = ','.join(financial_products)
+
                 user_field(user, "financial_products", financial_products)
         
         if primary_bank:
@@ -74,11 +84,11 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if occupation:
             user_field(user, 'occupation', occupation)
         
-
         if "password1" in data:
             user.set_password(data["password1"])
         else:
             user.set_unusable_password()
+
             self.populate_username(request, user)
         if commit:
             # Ability not to commit makes it easier to derive from

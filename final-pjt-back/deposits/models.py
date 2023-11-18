@@ -21,7 +21,7 @@ class DepositProducts(models.Model):
     join_member = models.TextField(null=True)            
     # 가입 방법
     join_way = models.TextField(null=True)               
-   
+
 
 # 적금 상품 옵션
 class DepositOptions(models.Model):
@@ -73,3 +73,5 @@ class SavingOptions(models.Model):
     intr_rate = models.FloatField(null=True)
     # 최대 우대 금리
     intr_rate2 = models.FloatField(null=True)
+
+

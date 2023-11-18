@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # DRF
     'rest_framework',
     'rest_framework.authtoken',
-
+    # 11-17 경범 수정: 'django.contrib.sites', 'dj_rest_auth.registration', 추가
     # auth 권한 설정
     'allauth',
     'allauth.account',
@@ -73,6 +73,8 @@ SITE_ID = 1
 
 # DRF auth settings
 # Token 인증을 기본으로 사용하도록 설정
+
+# 11.16 23:05 경범 수정 : REST_FRAMEWORK 코드 주석 해제
 REST_FRAMEWORK = {
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -84,7 +86,9 @@ REST_FRAMEWORK = {
     ],
 }
 
+
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -97,8 +101,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
     'http://127.0.0.1:5174',
     'http://localhost:5174',
+]
 
 ROOT_URLCONF = 'back.urls'
 
@@ -175,7 +182,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 사용자 수정
 AUTH_USER_MODEL = 'accounts.User'
-# ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 
 # ALL AUTH 수정
 # dj-rest-auth 는 email 을 필수적으로 사용하도록 구현되어 있으므로, 해당 사항을 수정

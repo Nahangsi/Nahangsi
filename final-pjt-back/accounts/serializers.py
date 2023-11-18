@@ -1,3 +1,6 @@
+
+# 11-17 10:56 경범 회원가입 커스텀 기능 추가
+
 from rest_framework import serializers
 from allauth.account import app_settings as allauth_settings
 from allauth.utils import get_username_max_length
@@ -11,8 +14,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     age = serializers.IntegerField(required=False)
     money = serializers.IntegerField(required=False)
     salary = serializers.IntegerField(required=False)
-    financial_products = serializers.ListField(child=serializers.CharField()
-                                               , required=False)
+    financial_products = serializers.ListField(child=serializers.CharField(), required=False)
     primary_bank = serializers.CharField(required=False)
     savings_goal = serializers.CharField(required=False)
     occupation = serializers.CharField(required=False)
@@ -37,3 +39,4 @@ class CustomRegisterSerializer(RegisterSerializer):
         adapter.save_user(request, user, self)
         self.custom_signup(request, user)
         return user
+
