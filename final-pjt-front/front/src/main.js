@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+=======
+// import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+>>>>>>> develop_jik
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
 import router from './router'
 // Vuetify
@@ -18,9 +21,15 @@ const vuetify = createVuetify({
 const app = createApp(App)
 const pinia = createPinia()
 
+<<<<<<< HEAD
 pinia.use(piniaPluginPersistedstate)
 
 // app.use(createPinia())
+=======
+// pinia.use(piniaPluginPersistedstate)
+
+app.use(pinia) 
+>>>>>>> develop_jik
 app.use(router)
 app.use(pinia)
 app.use(vuetify)
