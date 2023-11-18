@@ -68,7 +68,7 @@ REST_FRAMEWORK = {
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ],
+    ]
     # # permission(적용 안해도 같지만 명시를 해주는 느낌)
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.AllowAny',
@@ -79,6 +79,7 @@ REST_FRAMEWORK = {
 # 미들웨어 건 들 지 말 것.
 
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -181,14 +182,16 @@ ACCOUNT_EMAIL_VERIFICATION = None
 # # 기본 인증 백엔드와 allauth 패키지에서 제공하는 인증 백엔드를 모두 사용하겠다는 설정.
 # 11.16 23:05 경범 수정 : 176-186 코드 주석 해제
 AUTHENTICATION_BACKENDS = (
-# django 기본 인증 백엔드
-"django.contrib.auth.backends.ModelBackend",
-# django-allauth 패키지에서 제공하는 인증 백엔드 클래스.
-"allauth.account.auth_backends.AuthenticationBackend",
+    # django 기본 인증 백엔드
+    "django.contrib.auth.backends.ModelBackend",
+    # django-allauth 패키지에서 제공하는 인증 백엔드 클래스.
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 
 REST_AUTH = {
 'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
+
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 

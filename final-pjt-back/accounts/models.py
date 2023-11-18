@@ -12,9 +12,9 @@ class User(AbstractUser):
     salary = models.IntegerField(blank=True, null=True) # 자산
     # 리스트 데이터 저장을 위해 Text 형태로 저장
     financial_products = models.TextField(blank=True, null=True) # 가입 상품
-    primary_bank = models.CharField(blank=True, max_length=50, null=True) # 주 거래은행
-    savings_goal = models.CharField(blank=True, max_length=50, null=True) # 저축 목표
-    occupation = models.CharField(blank=True, max_length=50, null=True) # 직종
+    primary_bank = models.CharField(max_length=50, blank=True, null=True) # 주 거래은행
+    savings_goal = models.CharField(max_length=50, blank=True, null=True) # 저축 목표
+    occupation = models.CharField(max_length=50, blank=True, null=True) # 직종
 
     # superuser fields
     is_active = models.BooleanField(default=True)
@@ -23,7 +23,6 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'username'
 
-    REQUIRED_FIELDS = []
 
 
 from allauth.account.utils import user_email, user_field, user_username
@@ -38,25 +37,17 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         
         # 기존 코드를 참고하여 새로운 필드들을 작성해줍니다.
         data = form.cleaned_data
-
         first_name = data.get("first_name")
         last_name = data.get("last_name")
         email = form.data.get("email")
         username = data.get("username")
-
         age = data.get("age")
         money = data.get("money")
         salary = data.get("salary")
         financial_product = data.get("financial_products")
-
-            age = models.IntegerField(blank=True, null=True)
-    money = models.IntegerField(blank=True, null=True) # 연봉
-    salary = models.IntegerField(blank=True, null=True) # 자산
-    # 리스트 데이터 저장을 위해 Text 형태로 저장
-    financial_products = models.TextField(blank=True, null=True) # 가입 상품
-    primary_bank = models.CharField(blank=True, max_length=50, null=True) # 주 거래은행
-    savings_goal = models.CharField(blank=True, max_length=50, null=True) # 저축 목표
-    occupation = models.CharField(blank=True, max_length=50, null=True) # 직종
+        primary_bank = data.get('primary_bank')
+        savings_goal = data.get("savings_goal")
+        occupation = data.get('occupation')
 
         user_email(user, email)
         user_username(user, username)
@@ -64,20 +55,18 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user_field(user, "first_name", first_name)
         if last_name:
             user_field(user, "last_name", last_name)
-        if nickname:
-            user_field(user, "nickname", nickname)
         if age:
             user.age = age
         if money:
             user.money = money
         if salary:
             user.salary = salary
-        if address:
-            address = user.address
-        if risk_aversion:
-            risk_aversion = user.risk_aversion
-        if profile_image:
-            profile_image = user.profile_image
+        if primary_bank:
+            user.primary_bank = primary_bank
+        if savings_goal:
+            user.savings_goal = savings_goal
+        if occupation:
+            user.occupation = occupation
         if financial_product:
             financial_products = user.financial_products.split(',')
             financial_products.append(financial_product)
@@ -89,7 +78,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.set_password(data["password1"])
         else:
             user.set_unusable_password()
-            self.populate_username(request, user)
+        self.populate_username(request, user)
         if commit:
             # Ability not to commit makes it easier to derive from
             # this adapter by adding
