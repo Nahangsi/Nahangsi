@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    # API 문서화
+    'drf_spectacular',
+
     # auth 권한 설정
     'allauth',
     'allauth.account',
@@ -74,6 +77,9 @@ SITE_ID = 1
 # DRF auth settings
 # Token 인증을 기본으로 사용하도록 설정
 REST_FRAMEWORK = {
+    # DRF를 위한 OPEN API 문서화
+    	'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+        
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
