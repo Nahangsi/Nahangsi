@@ -1,22 +1,33 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-
+import axios from "axios";
 
 export const useCounterStore = defineStore("counter", () => {
   const deposits = ref([]);
   const API_URL = "http://127.0.0.1:8000";
 
+  const gogo = function (payload) {
+    const username = payload.username
+    const password1 = payload.password1
+    const password2 = payload.password2
+
   axios({
-    method: 'get',
-    url: `${API_URL}/api/deposits/save-deposit-products/`,
-  })
-    .then(response => {
-      console.log(response.data);
-      deposits.value = response.data;
+      method: 'post',
+      url: `${API_URL}/accounts/signup/`,
+      data: {
+        username, password1, password2
+      }
     })
-    .catch(error => {
-      console.error(error);
-    });
-  
-  return { deposits, API_URL, getDeposits };
-});
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+  }
+
+
+  return { gogo, deposits, API_URL}
+}, {persist : true}
+);
