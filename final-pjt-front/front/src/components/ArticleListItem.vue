@@ -23,7 +23,7 @@
 const props = defineProps({
     article : Object
 })
-import {RouterLink} from 'vue-router'
+import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>

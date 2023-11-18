@@ -55,7 +55,6 @@
           // }
         })
         .then((res) => {
-          console.log(res)
           this.$router.push({ name: 'ArticleView' })
         })
         .catch((err) => {
