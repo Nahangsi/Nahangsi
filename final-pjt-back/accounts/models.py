@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from allauth.account.adapter import DefaultAccountAdapter
 # 11-17 10:56 경범 User 모델 내용 추가
 # 주거래은행 , 저축목표, 직종 추가
 class User(AbstractUser):
@@ -22,3 +22,66 @@ class User(AbstractUser):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+from allauth.account.utils import user_email, user_field, user_username
+class CustomAccountAdapter(DefaultAccountAdapter):
+    def save_user(self, request, user, form, commit=True):
+        
+        data = form.cleaned_data
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = form.data.get("email")
+        username = data.get('username')
+        age = data.get('age')
+        money = data.get('money')
+        salary = data.get('salary')
+        financial_product = data.get('financial_products')
+        primary_bank = data.get('primary_bank')
+        savings_goal = data.get('savings_goal')
+        occupation = data.get('occupation')
+
+        user_email(user, email)
+        user_username(user, username)
+        if first_name:
+            user_field(user, 'first_name', first_name)
+        
+        if last_name:
+            user_field(user, 'last_name', last_name)
+        
+        if age:
+            user_field(user, 'age', age)
+        
+        if money:
+            user_field(user, 'money', money)
+        
+        if salary:
+            user_field(user, 'salary', salary)
+        
+        if financial_product:
+            financial_products = user.financial_products.split(',')
+            financial_products.append(financial_product)
+            if len(financial_products) > 1:
+                financial_products = ','.join(financial_products)
+                user_field(user, "financial_products", financial_products)
+        
+        if primary_bank:
+            user_field(user, 'primary_bank', primary_bank)
+        
+        if savings_goal:
+            user_field(user, 'savings_goal', savings_goal)
+        
+        if occupation:
+            user_field(user, 'occupation', occupation)
+        
+
+        if "password1" in data:
+            user.set_password(data["password1"])
+        else:
+            user.set_unusable_password()
+            self.populate_username(request, user)
+        if commit:
+            # Ability not to commit makes it easier to derive from
+            # this adapter by adding
+            user.save()
+        return user

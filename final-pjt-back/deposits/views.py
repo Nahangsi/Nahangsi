@@ -9,6 +9,7 @@ from .serializers import *
 from .models import *
 
 # API_KEY = settings.API_KEY
+# 데이터 저장
 
 @api_view(['GET'])
 def save_deposit_products(request):
@@ -53,3 +54,31 @@ def save_deposit_products(request):
     return Response(saving_option_serializer.data, status=status.HTTP_200_OK)
 
 
+# 정기 예금 상품 목록 반환
+@api_view(['GET'])
+def deposit_products(request):
+    depositproducts = DepositProducts.objects.all()
+    serializer = DepositProductsSerializer(depositproducts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 정기 예금 상품 상세 정보 반환
+@api_view(['GET'])
+def deposit_product_detail(request, product_id):
+    depositproduct = DepositProducts.objects.get(id=product_id)
+    serialier = DepositProductsSerializer(depositproduct)
+    return Response(serialier.data, status=status.HTTP_200_OK)
+
+# 적금 상품 목록 반환
+@api_view(['GET'])
+def saving_products(request):
+    savingproducts = SavingProducts.objects.all()
+    serializer = SavingProductsSerializer(savingproducts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 적금 상품 상세 정보 반환
+@api_view(['GET'])
+def saving_product_detail(request, product_id):
+    savingproduct = SavingProducts.objects.get(id=product_id)
+    serializer = SavingProductsSerializer(savingproduct)
+    return Response(serializer.data, status=status.HTTP_200_OK)

@@ -20,12 +20,12 @@ def article_list(request):
         serializer = ArticleCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             # serializer.save(user=request.user)
-            serializer.save
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # 게시글 상세 조회 && 수정 && 삭제
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE', 'POST'])
 def article_detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     
@@ -44,8 +44,18 @@ def article_detail(request, article_pk):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-@api_view(['GET'])
+    elif request.method == 'POST':
+        user = request.user
+        if user in article.like_users.all():
+            article.like_users.remove(user)
+            return Response({'status': 'unliked'}, status=status.HTTP_200_OK)
+        else:
+            article.like_users.add(user)
+            return Response({'status': 'liked'}, status=status.HTTP_200_OK)
+
+    
 # 댓글 전체 조회
+@api_view(['GET'])
 def comment_list(request):
     comments = Comment.objects.all()
     serializer = CommentSerializer(comments, many=True)
