@@ -1,11 +1,9 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import PiniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 import App from "./App.vue";
 import router from "./router";
-
-// 로컬스토리지
-import PiniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 // Vuetify
 import "vuetify/styles";
