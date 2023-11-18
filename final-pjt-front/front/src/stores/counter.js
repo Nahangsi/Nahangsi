@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useCounterStore = defineStore("counter", () => {
-  const deposits = ref([]);
+ 
   const API_URL = "http://127.0.0.1:8000";
 
   const gogo = function (payload) {
@@ -27,7 +27,23 @@ export const useCounterStore = defineStore("counter", () => {
 
   }
 
+  const deposits = ref([]);
+  const getDeposits = function () {
+    axios({
+      method: 'get',
+      url: `${API_URL}/api/deposits/deposit-products/`,
+    })
+    .then((res) => {
+      console.log(res)
+      deposits.value = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
-  return { gogo, deposits, API_URL}
+
+
+  return { gogo, deposits, API_URL, getDeposits}
 }, {persist : true}
 );
