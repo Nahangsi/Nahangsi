@@ -11,34 +11,90 @@
 
 <script setup>
 import axios from "axios";
-import {ref} from "vue";
-import {useCounterStore} from "@/stores/counter";
-import {useAccountStore} from "@/stores/account";
+import { useAccountStore } from "@/stores/account";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const store = useCounterStore();
-const store2 = useAccountStore();
-const title = ref("");
-const content = ref("");
+const title = ref(null);
+const content = ref(null);
+const category = ref(null);
+
+const store = useAccountStore();
+const router = useRouter();
 
 const createArticle = () => {
+  if (!title.value) {
+    alert("제목을 입력해주세요");
+    return;
+  } else if (!content.value) {
+    alert("내용을 입력해주세요");
+    return;
+  } else if (!category.value) {
+    alert("카테고리를 지정해주세요");
+  }
+
   axios({
-        method: "post",
-        url: `${store.API_URL}/api/v1/articles/`,
-        data: {
-          title: title.value,
-          content: content.value,
-        },
-        headers: {
-          Authorization: `Token ${store2.token}`,
-      },
-      })
+    method: "post",
+    url: `${store.API_URL}/api/v1/articles/`,
+    data: {
+      title: title.value,
+      content: content.value,
+      category: category.value,
+    },
+    headers: {
+      Authorization: `Token ${store.token}`,
+    },
+  })
     .then((res) => {
-      console.log(res.data);
+      router.push({ name: "ArticleView" });
+
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+// export default {
+//   name: "CreateView",
+//   data() {
+//     return {
+//       title: null,
+//       content: null,
+//       category: null,
+//     };
+//   },
+//   methods: {
+//     createArticle() {
+//       const title = this.title;
+//       const content = this.content;
+//       const category = this.category;
+
+//       if (!title) {
+//         alert("제목을 입력해주세요");
+//         return;
+//       } else if (!content) {
+//         alert("내용을 입력해주세요");
+//         return;
+//       } else if (!category) {
+//         alert("카테고리를 지정해주세요");
+//       }
+//       axios({
+//         method: "POST",
+//         url: `${store.API_URL}/api/v1/articles/`,
+//         data: { title, content, category },
+//         headers: {
+//           Authorization: `Token ${store.token.value}`,
+//         },
+//       })
+//         .then((res) => {
+//           this.$router.push({ name: "ArticleView" });
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//         });
+//     },
+//   },
+// };
 
 </script>
 
