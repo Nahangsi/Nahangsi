@@ -40,10 +40,3 @@ class CustomRegisterSerializer(RegisterSerializer):
         self.custom_signup(request, user)
         return user
 
-class CustomUserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User  # 사용자 모델 설정
-        fields = ('id', 'username', 'email', 'age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation')  # 필요한 필드들 추가
-
-    # 필요한 경우 추가적인 유효성 검사 또는 필드 조작을 위한 메소드들을 정의할 수 있습니다.
-
