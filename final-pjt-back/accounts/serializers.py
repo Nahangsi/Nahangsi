@@ -56,3 +56,44 @@ class CustomUserDetailSerializer(UserSerailzer):
     primary_bank = serializers.CharField(required=False)
     savings_goal = serializers.CharField(required=False)
     occupation = serializers.CharField(required=False)
+
+    class Meta(UserSerailzer.Meta):
+        fields = ['id', 'username', 'email', 'age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation']
+    
+    def get_cleaned_data(self):
+        data_dict = super().get_cleaned_data()
+
+        data_dict['age'] = self.validated_data.get('age', None)
+        data_dict['money'] = self.validated_data.get('money', None)
+        data_dict['salary'] = self.validated_data.get('salary', None)
+        data_dict['financial_products'] = self.validated_data.get('financial_products', None)
+        data_dict['primary_bank'] = self.validated_data.get('primary_bank', None)
+        data_dict['savings_goal'] = self.validated_data.get('savings_goal', None)
+        data_dict['occupation'] = self.validated_data.get('occupation', None)
+
+        return data_dict
+    
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        instance.age = validated_data.get('age', instance.age)
+        instance.money = validated_data.get('money', instance.money)
+        instance.salary = validated_data.get('salary', instance.salary)
+        instance.financial_products = validated_data.get('financial_products', instance.financial_products)
+        instance.primary_bank = validated_data.get('primary_bank', instance.primary_bank)
+        instance.savings_goal = validated_data.get('savings_goal', instance.savings_goal)
+        instance.occupation = validated_data.get('occupation', instance.occupation)
+        instance.save()
+
+        return instance
+    
+    def save(self):
+        user = super().save()
+        user.age = self.cleaned_data.get('age')
+        user.money = self.cleaned_data.get('money')
+        user.salary = self.cleaned_data.get('salary')
+        user.financial_products = self.cleaned_data.get('financial_products')
+        user.primary_bank = self.cleaned_data.get('primary_bank')
+        user.savings_goal = self.cleaned_data.get('savings_goal')
+        user.occupation = self.cleaned_data.get('occupation')
+        user.save()
+        return user
