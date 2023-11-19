@@ -40,3 +40,19 @@ class CustomRegisterSerializer(RegisterSerializer):
         self.custom_signup(request, user)
         return user
 
+
+class UserSerailzer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation', 'date_joined', 'last_login']
+
+
+class CustomUserDetailSerializer(UserSerailzer):
+    email = serializers.EmailField(required=False)
+    age = serializers.IntegerField(required=False)
+    money = serializers.IntegerField(required=False)
+    salary = serializers.IntegerField(required=False)
+    financial_products = serializers.ListField(child=serializers.CharField(), required=False)
+    primary_bank = serializers.CharField(required=False)
+    savings_goal = serializers.CharField(required=False)
+    occupation = serializers.CharField(required=False)
