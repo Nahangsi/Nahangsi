@@ -84,7 +84,27 @@ export const useAccountStore = defineStore(
         });
     };
 
-    return { API_URL, signup, login, token, isLogin, logout };
+    const UserInfo = (context) => {
+      const token = context.state.token
+      const userinfo = ref(null)
+      axios({
+        methods : "get",
+        url : `${API_URL}/accounts/user/`,
+        headers : {
+          Authorization : `Token ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res)
+        userinfo = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    }
+
+    return { API_URL, signup, login, token, isLogin, logout, UserInfo };
   },
   { persist: true }
 );
