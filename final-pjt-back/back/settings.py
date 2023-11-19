@@ -79,7 +79,7 @@ REST_FRAMEWORK = {
 # 미들웨어 건 들 지 말 것.
 
 MIDDLEWARE = [
-    
+    "allauth.account.middleware.AccountMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
