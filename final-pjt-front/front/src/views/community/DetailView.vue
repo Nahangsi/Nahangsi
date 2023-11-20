@@ -12,16 +12,17 @@
       <hr />
       <form @submit.prevent="createComment">
         <label for="content">댓글 내용 : </label>
-        <input type="text" v-model="newCommentContent" />
+        <input type="text" v-model="content" />
         <input type="submit" value="댓글 작성" />
       </form>
       <div v-for="comment in article.comments" :key="comment.id">
         <p>{{ comment.id }} - {{ comment.content }}</p>
         <button @click="deleteComment(comment.id)">댓글 삭제</button>
-      </div>
+</div>
+
     </div>
   </div>
-  <RouterView />
+  <!-- <RouterView /> -->
 </template>
 
 <script setup>
@@ -33,8 +34,11 @@ import { useAccountStore } from '@/stores/account';
 const store = useAccountStore();
 const route = useRoute();
 const router = useRouter();
+
 const article = ref({});
-const newCommentContent = ref({});
+const content = ref("");
+
+
 
 const moveUpdate = () => {
   router.push({ name: "UpdateView", params: { id: article.value.id } });
@@ -58,11 +62,12 @@ const deleteArticle = () => {
 };
 
 const createComment = () => {
+  
   axios({
     method: "post",
     url: `${store.API_URL}/api/v1/articles/${route.params.id}/comments/`,
     data: {
-      content: newCommentContent.value,
+      content: content.value,
     },
     headers: {
       Authorization: `Token ${store.token}`,
@@ -70,10 +75,15 @@ const createComment = () => {
   })
     .then((res) => {
       console.log(res.data);
-      // article.value.comment_set.push(res.data);
-      // article.value = { ...article.value };
+      // router.push({ name: "DetailView" });
+      console.log("댓글이 생성되었습니다.")
+      if (article.value && Array.isArray(article.value.comments)) {
+        article.value.comments.push(res.data);
+        article.value = { ...article.value };
+      }
+      
       content.value = "";
-      // router.push({ name: "DetailView"})
+      console.log(article.value.comment)
     })
     .catch((err) => {
       console.log(err);
@@ -83,14 +93,15 @@ const createComment = () => {
 const deleteComment = (commentId) => {
   axios({
     method: "delete",
-    url: `${store.API_URL}/api/v1/articles/${route.params.id}/comments/` ,
+    url: `${store.API_URL}/api/v1/comments/${commentId}/`,
     headers: {
       Authorization: `Token ${store.token}`,
     },
   })
     .then((res) => {
       console.log("댓글 삭제 완료");
-      router.push({ name: "DetailView"})
+      router.go();
+
     })
     .catch((err) => {
       console.log(err);
