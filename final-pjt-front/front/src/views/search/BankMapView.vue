@@ -1,256 +1,238 @@
 <template>
-    <div class="container">
-      
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <br>
-          
-          <h4 class="text-center">가까운 은행을 검색해보세요</h4>
-          <div>
-            <input type="text" @keyup.enter="search" placeholder="찾으시는 은행명 혹은 지역명을 입력하세요" v-model="searchKeyword" style="width:90%;">
-            <button type="button" @click="search"  style="margin-top:1px; margin-left:7px" class="btn btn-outline-success btn-sm">검색</button>
-  
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center mt-4">
-        <div >
-          <div id="map" class="map-container"></div>
-        </div>
-      </div>
-      <div class="row justify-content-center mt-4" v-if="bankList.length">
+  <div>
+    <h2>가까운 은행 검색하기</h2>
+    <div>
+      <div>
         <div>
-          <p>근처에 총 {{ bankList.length }} 개의 은행이 있습니다.</p>
-          <hr>
-          <div v-for="(bank, index) in bankList" :key="bank.id">
+          <div>
+            <label for="mainList">시/도</label>
+            <select
+              @change="selectedProvince"
+              id="mainList"
+              v-model="selectPro"
+            >
+              <option v-for="province in store.mainList" :key="province">
+                {{ province }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label for="subList">시/군/구</label>
+            <select @change="selectedCity" id="subList" v-model="selectCity">
+              <option v-for="city in store.subList[selectPro]" :key="city">
+                {{ city }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label for="bankList">은행</label>
+            <select @change="selectedBank" id="bankList" v-model="selectB">
+              <option v-for="bank in store.bankList" :key="bank">
+                <li>
+                  {{ bank }}
+                </li>
+
+              </option>
+            </select>
+
+            <button @click="searchNow">찾기</button>
+          </div>
+        </div>
+
+        <div class="map" id="map" style="width: 900px; height: 450px"></div>
+        
+        <div>
+          <div v-if="bankMarkers.length > 0">
+            <h6>
+              {{ searchResultText }}
+            </h6>
             <ul>
-              <li style="list-style-type: none;">{{ index + 1 }}번째 은행</li>
-              <li>{{ bank.place_name }}</li>
-              <li>{{ bank.category_name }}</li>
-              <li v-if="bank.phone">{{ bank.phone }}</li>
-              <li v-if="bank.road_address_name">{{ bank.road_address_name }}</li>
-              <li><a :href="bank.place_url">{{ bank.place_url }}</a></li>
+              <p
+                v-for="bankMarker in bankMarkers"
+                :key="bankMarker.place_name"
+              >
+                {{ bankMarker.place_name }}
+              </p>
             </ul>
-            <hr>
+          </div>
+          <div v-else>
+            <h6>검색 목록이 없습니다.</h6>
           </div>
         </div>
       </div>
+
     </div>
-  </template>
-  
-  <script>
-//   import { BIconBoundingBox } from 'bootstrap-vue';
-  
-  
-  export default {
-    name: 'BankSearch',
-    data() {
-      return {
-        apiKey: this.$root.$data.apiKey,
-        map:null,
-        latitude:null,
-        longitude:null,
-        infowindow:null,
-        basicControl: null,
-        zoomControl: null,
-        ps: null,
-        bs: null,
-        searchKeyword:null,
-        bankList: []
+  </div>
+</template>
+
+<script setup>
+  import { ref, onMounted } from "vue";
+  import { useLocationStore } from "@/stores/location";
+
+  const store = useLocationStore();
+
+  // 시도 / 시군구 / 은행 저장하는 변수
+  const selectPro = ref("");
+  const selectCity = ref("");
+  const selectB = ref("");
+
+  // 지도 저장
+  const map = ref(null);
+
+  // 은행 마커 저장
+  const bankMarkers = ref([]);
+
+  // 현재 열려있는 인포윈도우
+  let currentInfowindow = null;
+
+  // 드롭다운 선택
+  const selectedProvince = (event) => {
+    selectPro.value = event.target.value;
+  };
+  const selectedCity = (event) => {
+    selectCity.value = event.target.value;
+  };
+  const selectedBank = (event) => {
+    selectB.value = event.target.value;
+  };
+
+  // 지도가 넘 느려서 비동기로 처리...( 흠 어려움 )
+  const loadMap = async () => {
+    if (!window.kakao || !window.kakao.maps) {
+      console.error("Kakao Maps API is not loaded.");
+      return;
+    }
+
+    // 초기값은 우선... 싸피 구미캠 근처로...
+    const mapContainer = document.getElementById("map");
+    const mapOption = {
+      center: new kakao.maps.LatLng(36.107071, 128.419289),
+      level: 5,
+    };
+
+    // 지도 객체 생성
+    map.value = new kakao.maps.Map(mapContainer, mapOption);
+  };
+
+  // 검색 결과 지도에 표시
+  const placesSearchCB = async (data, status, pagination) => {
+    if (status === kakao.maps.services.Status.OK) {
+      // 이전 은행 목록과 마커 초기화
+      clearMarkers();
+
+      // 검색 결과가 있으면 지도에 마커 표시 및 은행 목록 업데이트
+      const bounds = new kakao.maps.LatLngBounds();
+
+      for (let i = 0; i < data.length; i++) {
+        // 마커 지도에 찍고 경계 만들긩
+        displayMarker(data[i]);
+        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
       }
-    },
-    mounted() {
-      const API_KEY = '45ad51701d079e3bc224d1817a994683';
-  
-      const script = document.createElement('script');
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&autoload=false`
-      const scriptForLib = document.createElement('script');
-      scriptForLib.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&libraries=services,clusterer,drawing&autoload=false`
-      /* global kakao */
-      script.onload = () => {
-        kakao.maps.load(this.fetchLocation)
-      }
-      document.body.appendChild(script);
-      document.body.appendChild(scriptForLib);
-    },
-    methods: {
-      fetchLocation() {
-        const compo = this
-  
-        const options = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        };
-  
-        function success(pos) {
-          const crd = pos.coords;
-  
-          compo.latitude = crd.latitude;
-          compo.longitude = crd.longitude;
-          compo.createMap()
-        }
-  
-        function error(err) {
-          console.warn(`ERROR(${err.code}): ${err.message}`);
-        }
-  
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(success, error, options);
-        } else {
-          alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
-        }
-      },
-      createMap() {
-        const container = document.getElementById('map');
-        const options = {
-          // center: new kakao.maps.LatLng(33.450701, 126.570667),
-          center: new kakao.maps.LatLng(this.latitude, this.longitude),
-          level: 5
-        };
-  
-        this.map = new kakao.maps.Map(container, options);
-        this.bs = new kakao.maps.services.Places(this.map);
-        this.basicControl = new kakao.maps.MapTypeControl();
-        this.zoomControl = new kakao.maps.ZoomControl();
-  
-        this.map.addControl(this.basicControl, kakao.maps.ControlPosition.TOPRIGHT);
-        this.map.addControl(this.zoomControl, kakao.maps.ControlPosition.RIGHT);
-        const compo = this
-        const kakaoo = kakao.maps
-  
-        function placeSearchCB(data, status, pagination) {
-          //무슨함수어쩌고
-          // console.log(kakaoo.services.Status.OK)
-          if (status == kakaoo.services.Status.OK) {
-  
-            for (var i = 0; i < data.length; i++) {
-              // console.log(data[i]);
-              compo.displayMarker(data[i]);
-            // this.displayMarker(data[i]);
-            }
-          }
-        }
-        this.bs.categorySearch('BK9',placeSearchCB,{useMapBounds:true})
-      },
-      search() {
-        this.ps = new kakao.maps.services.Places();
-        
-        const compo = this
-        const kakaoo = kakao.maps
-        console.log(compo.bankList,this.bankList)
-        
-  
-        function placeSearchCB(data, status, pagination) {
-          if (status == kakaoo.services.Status.OK) {
-           
-            var bounds = new kakao.maps.LatLngBounds();
-            console.log('이거목록',data)
-            for (var i = 0; i < data.length; i++) {
-              
-              if (data[i].category_group_code == 'BK9') {
-              compo.bankList.push(data[i])
-            }
-          
-              compo.displayMarker(data[i]);
-              bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-            }
-          compo.map.setBounds(bounds);
-          
-          }
-        }
-  
-        this.ps.keywordSearch(this.searchKeyword,placeSearchCB)
-        this.bankList=[]
-  
-      },
-      displayMarker(place) {
-        const compo = this
-        this.infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        const marker = new kakao.maps.Marker({
-          map: this.map,
-          position: new kakao.maps.LatLng(place.y, place.x)
-        })
-        //마커를 클릭 이벤트에 등록
-        kakao.maps.event.addListener(marker, 'click', function() {
-          //마커를 클릭하면 장소명이 인포윈도에 출력되게
-          compo.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-          compo.infowindow.open(compo.map, marker);
-        })
-      },
+
+      // 마커 포함 지도 경계로 재설정
+      map.value.setBounds(bounds);
+
+      // 은행 목록 업데이트
+      updateBankList(data);
+    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+      console.warn("검색 결과가 없어요 !!");
+      // 검색 결과 없는 경우 메세지 표시하기
+    } else {
+      console.error(`검색 실패 : ${status}`);
+    }
+  };
+
+  // 은행 목록 업데이트 함수
+  function updateBankList(data) {
+    // 새로운 은행 목록 추가하기
+    for (const marker of data) {
+      bankMarkers.value.push({
+        marker: null,
+        place_name: marker.place_name,
+      });
+
+      // 콘솔 확인용 (나중에 지우기)
+      console.log("은행: ", marker.place_name);
     }
   }
-  </script>
-  
-  <style scoped>
-  /* @import "@/assets/css/search.css"; */
-  /* #map {
-    width: 600px;
-    height: 500px;
-  } */
-  #map {
-    width: 100%; 
-    height: 500px;
-    margin-right: 30px;
+
+  const searchResultText = ref("");
+
+  // 검색 버튼 클릭
+  const searchNow = () => {
+    const ps = new kakao.maps.services.Places(map.value);
+    // 검색 키워드 저장
+    const keyword = `${selectPro.value} ${selectCity.value} ${selectB.value}`;
+
+    // 이전 은행 목록과 마커 초기화
+    clearMarkers();
+
+    // 검색
+    ps.keywordSearch(
+      keyword,
+      (data, status, pagination) => {
+        // 검색 결과가 있는 경우에만 텍스트 업데이트
+        if (status === kakao.maps.services.Status.OK) {
+          searchResultText.value = "";
+        } else {
+          searchResultText.value = "검색 목록이 없습니다.";
+        }
+
+        placesSearchCB(data, status, pagination);
+      },
+      {
+        useMapBounds: false,
+      }
+    );
+  };
+
+  // 이전 마커 및 검색 결과 초기화 함수
+  const clearMarkers = () => {
+    for (const marker of bankMarkers.value) {
+      if (marker.marker) {
+        marker.marker.setMap(null);
+      }
+    }
+    bankMarkers.value = [];
+  };
+
+  // 지도에 마커 표시
+  function displayMarker(place) {
+    const marker = new kakao.maps.Marker({
+      map: map.value,
+      position: new kakao.maps.LatLng(place.y, place.x),
+    });
+
+    // 마커 리스트 추가하기
+    bankMarkers.value.push({
+      marker: marker,
+      place_name: place.place_name,
+    });
+
+    kakao.maps.event.addListener(marker, "click", function () {
+      // 현재 열려있는 인포윈도우 닫기
+      if (currentInfowindow) {
+        currentInfowindow.close();
+      }
+
+      // 새로운 인포윈도우 열기
+      const infowindow = new kakao.maps.InfoWindow({
+        zIndex: 1,
+        content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`,
+      });
+
+      infowindow.open(map.value, marker);
+      currentInfowindow = infowindow;
+    });
   }
-  
-  .map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  body{
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-  }
-  .search-box{
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    height: 30px;
-    background-color: #fff;
-    border: 1px solid #51e3d4;
-    border-radius: 30px;
-    transition: 0.4s;
-    width:30px;
-  }
-  .search-box:hover{
-    box-shadow: 0px 0px .5px 1px #51e3d4;
-    width: 282px;
-  }
-  .search-btn{
-    text-decoration: none;
-    float: right;
-    width: 30px;
-    height: 30px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #51e3d4;
-  }
-  .search-box:hover > .search-btn{
-    background-color: #fff;
-  }
-  .search-txt{
-    display: flex;
-    padding: 0;
-    width: 0px;
-    border:none;
-    background: none;
-    outline: none;
-    float: left;
-    font-size: 1rem;
-    line-height: 30px;
-    transition: .4s;
-  }
-  .search-box:hover > .search-txt{
-    width: 240px;
-    padding: 0 6px;
-  }
-  
-  </style>
+
+  // 컴포넌트가 마운트된 후 지도 로딩
+  onMounted(loadMap);
+</script>
+
+<style scoped>
+
+
+
+
+</style>
