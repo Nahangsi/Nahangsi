@@ -26,6 +26,7 @@ export const useAccountStore = defineStore(
           primary_bank: payload.primary_bank,
           occupation: payload.occupation,
           savings_goal: payload.savings_goal,
+          savings_term: payload.savings_term
         },
       })
         .then((res) => {
