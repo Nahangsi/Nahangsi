@@ -72,6 +72,12 @@
             variant="outlined"
           ></v-combobox>
           <v-combobox
+            v-model="savingsTerm"
+            :items="savingsTermItmes"
+            label="저축기간 선택해주세요!!"
+            variant="outlined"
+          ></v-combobox>
+          <v-combobox
             v-model="occupation"
             :items="occupationItmes"
             label="직종을 선택해주세요!!"
@@ -120,6 +126,7 @@
   const primaryBank = ref(null);
   const occupation = ref(null);
   const savingsGoal = ref(null);
+  const savingsTerm = ref(null)
   
   const items = ["Programming", "Design", "Vue", "Vuetify"];
   const salaryItems = [
@@ -172,12 +179,25 @@
     "직장인",
     "학생",
   ];
+  const savingsTermItmes = [
+    "6개월",
+    "12개월",
+    "24개월",
+    "36개월"
+  ]
   const signup = function () {
     const payload = {
       username: username.value,
       password1: password1.value,
       password2: password2.value,
+      // age: Number(age.value.replace(/[^0-9]/g, '')) || "",
+      // money: Number(money.value.replace(/([^0-9].*)$/g, '')) || "",
+      // financial_products: financialProducts.value|| "",
+      // primary_bank: primaryBank.value|| "",
+      // occupation: occupation.value|| "",
+      // savings_goal: savingsGoal.value|| ""
     };
+
   
     if (email.value !== null && email.value !== "") {
       payload.email = email.value;
@@ -203,6 +223,9 @@
     }
     if (savingsGoal.value !== null && savingsGoal.value !== "") {
       payload.savings_goal = savingsGoal.value;
+    }
+    if (savingsTerm.value !== null && savingsTerm.value !== "") {
+      payload.savings_term = savingsTerm.value;
     }
   
     store.signup(payload);
