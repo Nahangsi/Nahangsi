@@ -5,6 +5,7 @@
         <h5 class="id">{{ article.id }}</h5>
         <p class="title">{{ article.title }}</p>
         <p class="content">{{ article.content }}</p>
+        <!-- <p class="category">{{ article.category }}</p> -->
             </div>
         <RouterLink :to="{ name: 'DetailView', params: {id: article.id}}">
         [DETAIL]
