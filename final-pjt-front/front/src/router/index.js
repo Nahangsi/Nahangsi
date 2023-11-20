@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // deposits
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
+
+// serach 
+import BankMapView from "@/views/search/BankMapView.vue"
+
 // community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
@@ -80,6 +84,12 @@ const router = createRouter({
       name: "profile",
       component: ProfileView,
     },
+    // 가까운 은행 찾기
+    {
+      path : '/bankmap',
+      name : 'bankmap',
+      component : BankMapView
+    }
   ],
 });
 

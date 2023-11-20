@@ -1,6 +1,7 @@
 <template>
   <nav>
     <RouterLink to="/">Home</RouterLink>
+
     <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink>
     <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
     <div v-if="store.isLogin">
