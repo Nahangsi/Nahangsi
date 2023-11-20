@@ -85,27 +85,27 @@ export const useAccountStore = defineStore(
         });
     };
 
-    const UserInfo = (context) => {
-      const token = context.state.token
-      const userinfo = ref(null)
-      axios({
-        methods : "get",
-        url : `${API_URL}/accounts/user/`,
-        headers : {
-          Authorization : `Token ${token}`
-        }
-      })
-      .then((res) => {
-        console.log(res)
-        userinfo = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // const UserInfo = (context) => {
+    //   const token = context.state.token
+    //   const userinfo = ref(null)
+    //   axios({
+    //     methods : "get",
+    //     url : `${API_URL}/accounts/user/`,
+    //     headers : {
+    //       Authorization : `Token ${token}`
+    //     }
+    //   })
+    //   .then((res) => {
+    //     console.log(res)
+    //     userinfo = res.data
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
 
-    }
+    // }
 
-    return { API_URL, signup, login, token, isLogin, logout, UserInfo };
+    return { API_URL, signup, login, token, isLogin, logout };
   },
   { persist: true }
 );
