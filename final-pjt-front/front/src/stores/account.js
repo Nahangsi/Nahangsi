@@ -8,6 +8,7 @@ export const useAccountStore = defineStore(
   () => {
     const API_URL = "http://127.0.0.1:8000";
     const token = ref(null);
+    const userinfo = ref(null)
     const router = useRouter();
 
     const signup = (payload) => {
@@ -56,13 +57,27 @@ export const useAccountStore = defineStore(
         .then((res) => {
           token.value = res.data.key;
           // localStorage.setItem("isLogin", isLogin.value);
-          alert("환영합니다! 자유롭게 이용해주세요!");
-          router.push("/");
         })
-        .catch((err) => {
-          console.log(err);
-          alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요!!");
-        });
+        .then((res) => {
+          axios({
+            method: "get",
+            url: `${API_URL}/accounts/user_info/`,
+            headers: {
+              Authorization: `Token ${token.value}`,
+            },
+          })
+          .then((res) => {
+            userinfo.value = res.data
+          })
+          .then((res) => {
+            alert("환영합니다! 자유롭게 이용해주세요!");
+            router.push("/");
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요!!");
+          });
+          })
     };
 
     const logout = () => {
