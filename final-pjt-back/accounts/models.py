@@ -8,13 +8,14 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254, blank=True, null=True)
     ## 밑으로는 선택사항
     age = models.IntegerField(blank=True, null=True)
-    money = models.IntegerField(blank=True, null=True) # 연봉
-    salary = models.IntegerField(blank=True, null=True) # 자산
+    money = models.IntegerField(blank=True, null=True)                      # 연봉
+    salary = models.IntegerField(blank=True, null=True)                     # 자산
     # 리스트 데이터 저장을 위해 Text 형태로 저장
-    financial_products = models.TextField(blank=True, null=True) # 가입 상품
-    primary_bank = models.CharField(max_length=50, blank=True, null=True) # 주 거래은행
-    savings_goal = models.CharField(max_length=50, blank=True, null=True) # 저축 목표
-    occupation = models.CharField(max_length=50, blank=True, null=True) # 직종
+    financial_products = models.TextField(blank=True, null=True)            # 가입 상품
+    primary_bank = models.CharField(max_length=50, blank=True, null=True)   # 주 거래은행
+    savings_goal = models.CharField(max_length=50, blank=True, null=True)   # 저축 목표
+    occupation = models.CharField(max_length=50, blank=True, null=True)     # 직종
+    savings_term = models.IntegerField(blank=True, null=True)                # 저축 기간
 
     # superuser fields
     is_active = models.BooleanField(default=True)
@@ -48,6 +49,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         primary_bank = data.get('primary_bank')
         savings_goal = data.get("savings_goal")
         occupation = data.get('occupation')
+        savings_term = data.get('savings_term')
 
         user_email(user, email)
         user_username(user, username)
@@ -67,6 +69,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.savings_goal = savings_goal
         if occupation:
             user.occupation = occupation
+        if savings_term:
+            user.savings_term = savings_term
         if financial_product:
             financial_products = user.financial_products.split(',')
             financial_products.append(financial_product)

@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+// deposits
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
+// community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
 import DetailView from '@/views/community/DetailView.vue'
 import UpdateView from '@/views/community/UpdateView.vue'
+// home 
 import HomeView from "../views/HomeView.vue";
+// accounts
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
 import ProfileView from "../views/accounts/ProfileView.vue"
+// mypage
+import MypageMainView from "../views/mypage/MypageMainView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +66,12 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    // 마이페이지 메인
+    {
+      path: "/mypage",
+      name: "mypage",
+      component: MypageMainView,
     },
     // 프로필
     {

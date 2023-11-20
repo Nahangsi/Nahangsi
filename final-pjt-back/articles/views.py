@@ -24,7 +24,7 @@ def article_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# 게시글 상세 조회 && 수정 && 삭제
+# 게시글 상세 조회 && 수정 && 삭제 && 좋아요
 @api_view(['GET', 'PUT', 'DELETE', 'POST'])
 def article_detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
@@ -44,6 +44,7 @@ def article_detail(request, article_pk):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+    # 좋아요 기능 : 구현하다가 안되면 url 파서 data로 넘겨서 구현해보기
     elif request.method == 'POST':
         user = request.user
         if user in article.like_users.all():
