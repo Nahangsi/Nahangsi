@@ -69,6 +69,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.savings_goal = savings_goal
         if occupation:
             user.occupation = occupation
+        if savings_term:
+            user.savings_term = savings_term
         if financial_product:
             financial_products = user.financial_products.split(',')
             financial_products.append(financial_product)
