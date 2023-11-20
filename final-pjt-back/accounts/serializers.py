@@ -25,6 +25,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     primary_bank = serializers.CharField(required=False, max_length = 255)
     savings_goal = serializers.CharField(required=False, max_length = 50)
     occupation = serializers.CharField(required=False, max_length = 50)
+    savings_term = serializers.IntegerField(required=False)
 
     def get_cleaned_data(self):
         return {
@@ -36,7 +37,8 @@ class CustomRegisterSerializer(RegisterSerializer):
         'financial_products': self.validated_data.get('financial_products', ''),
         'primary_bank': self.validated_data.get('primary_bank', ''),
         'savings_goal': self.validated_data.get('savings_goal', ''),
-        'occupation': self.validated_data.get('occupation', '')
+        'occupation': self.validated_data.get('occupation', ''),
+        'savings_term' : self.validated_data.get('savings_term', '')
     }
 
     def save(self, request):
@@ -52,7 +54,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'email', 'age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation']
+        fields = ['id', 'username', 'email', 'age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation', 'savings_term']
 
 
 # 유저 수정 시리얼라이저
@@ -65,16 +67,17 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
     primary_bank = serializers.CharField(required=False)
     savings_goal = serializers.CharField(required=False)
     occupation = serializers.CharField(required=False)
+    savings_term = serializers.IntegerField(required=False)
 
     class Meta(UserDetailsSerializer.Meta):
         # 기본적으로 pk, username, email, first_name, last_name 출력함(UserDetailsSerializer.Meta.fields)
-        fields = UserDetailsSerializer.Meta.fields + ('age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation')
+        fields = UserDetailsSerializer.Meta.fields + ('age', 'money', 'salary', 'financial_products', 'primary_bank', 'savings_goal', 'occupation', 'savings_term')
         # 안 넣으면 빈값 허용 한딩...
-        # read_only_fields = ('username')
+        read_only_fields = ('username',)
 
     def get_cleaned_data(self):
-        # data_dict  = {}
-        data_dict = super().get_cleaned_data()
+        data_dict  = {}
+        # data_dict = super().get_cleaned_data()
 
         data_dict['age'] = self.validated_data.get('age', None)
         data_dict['money'] = self.validated_data.get('money', None)
@@ -83,6 +86,7 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         data_dict['primary_bank'] = self.validated_data.get('primary_bank', None)
         data_dict['savings_goal'] = self.validated_data.get('savings_goal', None)
         data_dict['occupation'] = self.validated_data.get('occupation', None)
+        data_dict['savings_term'] = self.validated_data.get('savings_term', None)
 
         return data_dict
     
@@ -95,19 +99,21 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         instance.primary_bank = validated_data.get('primary_bank', instance.primary_bank)
         instance.savings_goal = validated_data.get('savings_goal', instance.savings_goal)
         instance.occupation = validated_data.get('occupation', instance.occupation)
+        instance.savings_term = validated_data.get('savings_term', instance.savings_term)
         instance.save()
 
         return instance
     
     def save(self):
         user = super().save()
-        user.age = self.cleaned_data.get('age')
-        user.money = self.cleaned_data.get('money')
-        user.salary = self.cleaned_data.get('salary')
-        user.financial_products = self.cleaned_data.get('financial_products')
-        user.primary_bank = self.cleaned_data.get('primary_bank')
-        user.savings_goal = self.cleaned_data.get('savings_goal')
-        user.occupation = self.cleaned_data.get('occupation')
+        user.age = self.validated_data.get('age')
+        user.money = self.validated_data.get('money')
+        user.salary = self.validated_data.get('salary')
+        user.financial_products = self.validated_data.get('financial_products')
+        user.primary_bank = self.validated_data.get('primary_bank')
+        user.savings_goal = self.validated_data.get('savings_goal')
+        user.occupation = self.validated_data.get('occupation')
+        user.savings_term = self.validated_data.get('savings_term')
         user.save()
 
         return user
