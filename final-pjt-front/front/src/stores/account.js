@@ -59,25 +59,16 @@ export const useAccountStore = defineStore(
           // localStorage.setItem("isLogin", isLogin.value);
         })
         .then((res) => {
-          axios({
-            method: "get",
-            url: `${API_URL}/accounts/user_info/`,
-            headers: {
-              Authorization: `Token ${token.value}`,
-            },
-          })
-          .then((res) => {
-            userinfo.value = res.data
-          })
-          .then((res) => {
-            alert("환영합니다! 자유롭게 이용해주세요!");
-            router.push("/");
-          })
-          .catch((err) => {
-            console.log(err);
-            alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요!!");
-          });
-          })
+          Getuserinfo()
+        })
+        .then((res) => {
+          alert("환영합니다! 자유롭게 이용해주세요!");
+          router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요!!");
+        })
     };
 
     const logout = () => {
@@ -100,27 +91,22 @@ export const useAccountStore = defineStore(
         });
     };
 
-    const UserInfo = (context) => {
-      const token = context.state.token
-      const userinfo = ref(null)
-      axios({
-        methods : "get",
-        url : `${API_URL}/accounts/user/`,
-        headers : {
-          Authorization : `Token ${token}`
-        }
-      })
-      .then((res) => {
-        console.log(res)
-        userinfo = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
+    const Getuserinfo = () => {
+        axios({
+          method: "get",
+          url: `${API_URL}/accounts/user_info/`,
+          headers: {
+            Authorization: `Token ${token.value}`,
+          },
+        })
+        .then((res) => {
+          userinfo.value = res.data
+        })
     }
 
-    return { API_URL, signup, login, token, isLogin, logout, UserInfo };
+
+
+    return { API_URL, signup, login, token, isLogin, logout, userinfo, Getuserinfo };
   },
   { persist: true }
 );

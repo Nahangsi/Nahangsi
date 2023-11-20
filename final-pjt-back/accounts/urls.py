@@ -11,7 +11,7 @@ urlpatterns = [
     # 기본 auth 기능
     path('', include('dj_rest_auth.urls')),
     # 회원가입
-     path('signup/', CustomRegisterView.as_view(), name='account_signup'),
+    path('signup/', CustomRegisterView.as_view(), name='account_signup'),
     # 유저 정보 조회
     path('user_info/', views.user_info),
     # 유저 정보 업데이트

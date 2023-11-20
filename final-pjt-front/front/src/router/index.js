@@ -14,6 +14,8 @@ import LoginView from "../views/accounts/LoginView.vue";
 import ProfileView from "../views/accounts/ProfileView.vue"
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue"
+import MypageUpdateView from "../views/mypage/MypageUpdateView.vue"
+import MypagePasswordUpdateView from '../views/mypage/MypagePasswordUpdateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +67,18 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MypageMainView,
+    },
+    // 회원정보 수정
+    {
+      path: "/mypageupdate",
+      name: "mypageupdate",
+      component: MypageUpdateView,
+    },
+    // 회원정보 수정
+    {
+      path: "/mypagepasswordupdate",
+      name: "mypagepasswordupdate",
+      component: MypagePasswordUpdateView,
     },
     // 프로필
     {
