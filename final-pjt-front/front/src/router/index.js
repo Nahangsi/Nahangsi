@@ -7,6 +7,7 @@ import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
 import DetailView from '@/views/community/DetailView.vue'
 import UpdateView from '@/views/community/UpdateView.vue'
+
 // home 
 import HomeView from "../views/HomeView.vue";
 // accounts
