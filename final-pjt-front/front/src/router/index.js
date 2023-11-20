@@ -4,6 +4,7 @@ import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
 import DetailView from '@/views/community/DetailView.vue'
+import UpdateView from '@/views/community/UpdateView.vue'
 import HomeView from "../views/HomeView.vue";
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
@@ -35,6 +36,12 @@ const router = createRouter({
       path:'/create',
       name:'CreateView',
       component: CreateView
+    },
+    // 게시글 수정 페이지
+    {
+      path:'/articles/:id/update',
+      name:'UpdateView',
+      component: UpdateView
     },
     // 메인 홈페이지
     {  
