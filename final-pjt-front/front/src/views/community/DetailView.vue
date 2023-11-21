@@ -7,18 +7,25 @@
       <p>내용 : {{ article?.content }}</p>
       <p>작성일 : {{ formatDate(article?.created_at) }}</p>
       <p>수정일 : {{ formatDate(article?.updated_at) }}</p>
-      <button @click="moveUpdate">수정</button>
+      <button @click="moveUpdate">수정</button> |
       <button @click="deleteArticle">삭제</button>
       <hr />
       <form @submit.prevent="createComment">
         <label for="content">댓글 내용 : </label>
-        <input type="text" v-model="content" />
+        <input type="text" v-model="content" /> /
         <input type="submit" value="댓글 작성" />
       </form>
       <div v-for="comment in article.comments" :key="comment.id">
-        <p>{{ comment.id }} - {{ comment.content }}</p>
+      <p>{{ comment.id }} - {{ comment.content }}</p>
+        <button @click="editComment(comment)">댓글 수정</button> |
         <button @click="deleteComment(comment.id)">댓글 삭제</button>
-</div>
+      <div v-if="comment.editing">
+      <label for="editedContent">수정 내용 : </label>
+      <input type="text" v-model="comment.editedContent" />
+      <button @click="saveComment(comment)">저장</button> |
+      <button @click="cancelEdit(comment)">취소</button>
+    </div>
+  </div>
 
     </div>
   </div>
@@ -39,7 +46,7 @@ const article = ref({});
 const content = ref("");
 
 
-
+// 수정 페이지로 이동
 const moveUpdate = () => {
   router.push({ name: "UpdateView", params: { id: article.value.id } });
 };
@@ -61,6 +68,8 @@ const deleteArticle = () => {
     });
 };
 
+
+// 댓글 생성
 const createComment = () => {
   
   axios({
@@ -90,6 +99,8 @@ const createComment = () => {
     });
 };
 
+
+// 댓글 삭제
 const deleteComment = (commentId) => {
   axios({
     method: "delete",
@@ -100,14 +111,51 @@ const deleteComment = (commentId) => {
   })
     .then((res) => {
       console.log("댓글 삭제 완료");
-      router.go();
-
+      // router.go(); - 이걸 쓰게 되면 새로고침 되면서 삭제됨
+      article.value.comments = article.value.comments.filter(comment =>
+        comment.id !== commentId
+      )
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
+// 댓글 수정
+const editComment = (comment) => {
+  comment.editing = true;
+  comment.originalContent = comment.content;
+  comment.editedContent = comment.content;
+};
+
+const saveComment = (comment) => {
+  axios({
+    method: "put",
+    url: `${store.API_URL}/api/v1/comments/${comment.id}/`,
+    data: {
+      content: comment.editedContent,
+    },
+    headers: {
+      Authorization: `Token ${store.token}`,
+    },
+  })
+    .then((res) => {
+      console.log("댓글 수정 완료");
+      comment.content = comment.editedContent;
+      comment.editing = false;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const cancelEdit = (comment) => {
+  comment.editedContent = comment.originalContent;
+  comment.editing = false;
+};
+
+
+// 생성일 수정일을 연,월,일 까지만 나타내도록
 const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('ko-KR', options);
