@@ -45,7 +45,9 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         age = data.get("age")
         money = data.get("money")
         salary = data.get("salary")
-        financial_product = data.get("financial_products")
+        print( request.data)
+        financial_product = request.data.get("financial_products")
+        print(financial_product)
         primary_bank = data.get('primary_bank')
         savings_goal = data.get("savings_goal")
         occupation = data.get('occupation')
@@ -71,12 +73,20 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.occupation = occupation
         if savings_term:
             user.savings_term = savings_term
+
         if financial_product:
-            financial_products = user.financial_products.split(',')
-            financial_products.append(financial_product)
-            if len(financial_products) > 1:
-                financial_products = ','.join(financial_products)
-            user_field(user, "financial_products", financial_products)
+            if user.financial_products:
+                l = user.financial_products[1:len(user.financial_products)-1].split(',')
+                l.append(financial_product)
+                user.financial_products = '[' + ','.join(l) + ']'
+            else:
+                user.financial_products =  financial_product 
+        #     # 리스트를 다시 문자열로 합침
+        #     financial_products_str = ','.join(unique_financial_products)
+            
+        #     # 업데이트된 financial_products 값을 user 객체에 설정
+        #     user_field(user, "financial_products", financial_products_str)
+
 
         if "password1" in data:
             user.set_password(data["password1"])
