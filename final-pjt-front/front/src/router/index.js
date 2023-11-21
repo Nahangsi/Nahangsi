@@ -5,7 +5,7 @@ import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
 
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
-
+import Bank from "@/views/search/Bank.vue"
 // community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
@@ -89,6 +89,12 @@ const router = createRouter({
       path : '/bankmap',
       name : 'bankmap',
       component : BankMapView
+    },
+    // bank map vuetify
+    {
+      path : '/bank',
+      name : 'Bank',
+      component : Bank
     }
   ],
 });

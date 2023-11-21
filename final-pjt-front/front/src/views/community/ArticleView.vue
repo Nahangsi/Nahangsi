@@ -3,7 +3,7 @@
     <div class="community">
         <div class="container">
             <h1 class="header d-flex justify-content-center text-center mt-4">게시판</h1>
-            <h4 class="text d-flex justify-content-center text-center mt-4">회원들 간 금융 상품을 소개하고, 의견을 공유하는 공간입니다.</h4>
+            <h4 class="text d-flex justify-content-center text-center mt-4">회원들 간 금융 상품을 소개하고, 의견을 공유하는 소중한 공간입니다.</h4>
             <!-- <div class="d-flex justify-content-end">
                 <button class="create-button" @click="CreateView">글 작성</button> -->
             <RouterLink :to="{name:'CreateView'}">[글 작성]</RouterLink>
