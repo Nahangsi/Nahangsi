@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // deposits
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue";
+import DepositProductView from "@/views/deposits/DepositProductView.vue"
+import SavingProductView from "@/views/deposits/SavingProductView.vue"
+
 // community
 import CreateView from "@/views/community/CreateView.vue";
 import ArticleView from "@/views/community/ArticleView.vue";
@@ -16,6 +19,7 @@ import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,7 +90,19 @@ const router = createRouter({
       name: "mypageendmembership",
       component: MypageUserdeleteView,
     },
-  ],
+    // 예금 상품 
+    {
+      path: "/depositproduct",
+      name: "depositproduct",
+      component: DepositProductView,
+    },
+    // 적금 상품 
+    {
+      path: "/savingproduct",
+      name: "savingproduct",
+      component: SavingProductView,
+    },
+],
 });
 
 export default router;

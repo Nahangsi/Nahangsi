@@ -3,6 +3,9 @@
     <RouterLink to="/">Home</RouterLink>
     <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink>
     <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
+    <RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink>
+    <RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink>
+
     <div v-if="store.isLogin">
       <RouterLink :to="{ name: 'mypage' }">Mypage</RouterLink>
       <p @click="logout">로그아웃</p>
