@@ -83,3 +83,18 @@ def saving_product_options(request, fin_prdt_cd):
     savingoptions = SavingOptions.objects.filter(product__fin_prdt_cd=fin_prdt_cd)
     serializer = SavingOptionsSerializer(savingoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 예금 상품 중복 없이 반환
+@api_view(['GET'])
+def get_info(request):
+    depositproducts = DepositProducts.objects.all()
+    serializer = SelectDepositSerializer(depositproducts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 적금 상품 중복 없이 반환
+@api_view(['GET'])
+def get_info2(request):
+    savingproducts = SavingProducts.objects.all()
+    serializers = SelectSavingSerializer(savingproducts, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)
