@@ -64,8 +64,8 @@ class CustomRegisterSerializer(RegisterSerializer):
     savings_term = serializers.IntegerField(required=False)
 
     def get_cleaned_data(self):
-        obj = self.validated_data['financial_products']
-        print(obj)
+        # obj = self.validated_data['financial_products']
+        # print(obj)
         return {
         'username': self.validated_data.get('username', ''),
         'password1': self.validated_data.get('password1', ''),

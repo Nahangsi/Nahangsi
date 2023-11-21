@@ -12,6 +12,7 @@
       <select id="category" v-model="category">
         <option value="예금">예금</option>
         <option value="적금">적금</option>
+        
         <option value="기타">기타</option></select
       ><br />
       <input type="submit" id="submit" />

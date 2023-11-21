@@ -12,10 +12,10 @@
             <label for="content">내용:</label>
             <textarea id="content" v-model="content"></textarea>
         </div>
-        <!-- <input type="submit" /> -->
             <div class="pt-4">
+                <button type="submit" class="btn btn-primary" @click="updatePost">수정</button> |
+
                 <button type="button" class="btn btn-outline-danger me-2" @click="goDetailView">취소</button>
-                <button type="submit" class="btn btn-primary" @click="updatePost">수정</button>
             </div>
         </form>
     </div>
@@ -35,6 +35,7 @@
   const title = ref('');
   const content = ref('');
 
+  // 게시글 수정 페이지에서 게시글 수정하기
   const updatePost = () => {
     
     axios({
@@ -57,6 +58,7 @@
         });
     };
 
+// 수정하고 나면 게시글 상세페이지로 이동함
   const goDetailView = () => {
     router.push({
         name: 'DetailView',
@@ -67,7 +69,6 @@
     )}
     
     onMounted(() => {
-    // Fetch existing post data and populate title and content
     axios({
         method: 'get',
         url: `${store.API_URL}/api/v1/articles/${route.params.id}/`,
@@ -76,7 +77,6 @@
         },
     })
     .then((res) => {
-        // Populate title and content with existing values
         title.value = res.data.title;
         content.value = res.data.content;
     })
