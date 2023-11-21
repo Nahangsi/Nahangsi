@@ -2,23 +2,24 @@
     <div class="article-list-item">
         <div class="container">
             <div class="article-info">
-        <h5 class="id">{{ article.id }}</h5>
-        <p class="title">{{ article.title }}</p>
-        <p class="content">{{ article.content }}</p>
+        <h5 class="id, font-weight-black">{{ article.id }}</h5>
+        <p class="title, font-weight-medium">{{ article.title }}</p>
+        <p class="content, font-weight-medium">{{ article.content }}</p>
         <!-- <p class="category">{{ article.category }}</p> -->
             </div>
-        <RouterLink :to="{ name: 'DetailView', params: {id: article.id}}">
-        [DETAIL]
-        </RouterLink>
+            <v-btn size="small" variant="tonal" @click="goToDetailView">
+                상세 보기
+            </v-btn>
         <div class="additional-info">
             <div class="info-group">
-                <p class="comment-count">댓글 수: {{ article.comment_count }}</p>
+                <!-- <p class="comment-count">댓글 수: {{ article.comments_count }}</p> -->
                 <p class="username">작성자: {{ article.username }}</p>
             </div>
             <!-- 좋아요 버튼 만들기 -->
             <button @click="likeArticle" :class="{ 'liked': article.liked }">
                 {{ article.liked ? '좋아요 취소' : '좋아요' }}
             </button>
+            <v-divider></v-divider>
         </div>
         </div>
     </div>
@@ -56,10 +57,13 @@ const addToCart = (article) => {
 //   router.push({ name: 'cart' })
 // }
 
-
+const goToDetailView = () => {
+      router.push({ name: 'DetailView', params: {id: props.article.id} });
+    };
 
 </script>
 
 <style scoped>
+
 
 </style>
