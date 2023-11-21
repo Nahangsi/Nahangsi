@@ -5,6 +5,7 @@
     메인프로필 수정중
     <RouterLink :to="{ name: 'mypageupdate' }">정보수정</RouterLink>
     <RouterLink :to="{ name: 'mypagepasswordupdate' }">비밀번호 변경</RouterLink>
+    <RouterLink :to="{ name: 'mypageendmembership' }">탈퇴하기</RouterLink>
     
   </div>
 </template>

@@ -9,6 +9,7 @@ class DepositProductsSerializer(serializers.ModelSerializer):
 
 # 예금 옵션
 class DepositOptionsSerializer(serializers.ModelSerializer):
+    product = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = DepositOptions
         fields = '__all__'
@@ -22,6 +23,7 @@ class SavingProductsSerializer(serializers.ModelSerializer):
 
 # 적금 옵션 
 class SavingOptionsSerializer(serializers.ModelSerializer):
+    product = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = SavingOptions
         fields = '__all__'

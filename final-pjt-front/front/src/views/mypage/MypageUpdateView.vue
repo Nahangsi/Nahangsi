@@ -66,10 +66,10 @@
           variant="outlined"
         ></v-combobox>
         <v-btn type="submit" block class="mt-2" variant="outlined"
-          >수정완료</v-btn>
+          >수정완료</v-btn
+        >
       </v-form>
     </v-sheet>
-
   </div>
 </template>
 
@@ -79,21 +79,21 @@ import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const store = useAccountStore()
-const router = useRouter()
+const store = useAccountStore();
+const router = useRouter();
 
-const User = store.userinfo
+const User = store.userinfo;
 
 const username = ref(User.username);
 const email = ref(User.email);
-const age = ref(User.age + '대');
-const money = ref(User.money +'만원 이상');
-const salary = ref(User.salary + '이상');
+const age = ref(User.age + "대");
+const money = ref(User.money + "만원 이상");
+const salary = ref(User.salary + "이상");
 const financialProducts = ref(User.financial_products);
 const primaryBank = ref(User.primary_bank);
 const occupation = ref(User.occupation);
 const savingsGoal = ref(User.savings_goal);
-const savingsTerm = ref(User.savings_term +'개월')
+const savingsTerm = ref(User.savings_term + "개월");
 
 const items = ["Programming", "Design", "Vue", "Vuetify"];
 const salaryItems = [
@@ -146,17 +146,10 @@ const occupationItmes = [
   "직장인",
   "학생",
 ];
-const savingsTermItmes = [
-  "6개월",
-  "12개월",
-  "24개월",
-  "36개월"
-]
+const savingsTermItmes = ["6개월", "12개월", "24개월", "36개월"];
 
 const updateinfo = () => {
-
   const payload = {};
-
 
   if (email.value !== null && email.value !== "") {
     payload.email = email.value;
@@ -187,30 +180,34 @@ const updateinfo = () => {
   }
 
   axios({
-          method: "put",
-          url: `${store.API_URL}/accounts/user_detail/`,
-          data : {email: payload.email, age: payload.age, money: payload.money, salary: payload.salary, financial_products: payload.financial_products,
-            primary_bank: payload.primary_bank, occupation: payload.occupation, savings_goal: payload.savings_goal, savings_term: payload.savings_term
-          },
-          headers: {
-            Authorization: `Token ${store.token}`,
-          },
-        })
-        .then((res) => {
-          alert("회원정보가 수정되었습니다!");
-          store.Getuserinfo()
-          router.push({name: "mypage"});
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
-          router.push({name: "mypage"});
-        });
-
-}
-
+    method: "put",
+    url: `${store.API_URL}/accounts/user_detail/`,
+    data: {
+      email: payload.email,
+      age: payload.age,
+      money: payload.money,
+      salary: payload.salary,
+      financial_products: payload.financial_products,
+      primary_bank: payload.primary_bank,
+      occupation: payload.occupation,
+      savings_goal: payload.savings_goal,
+      savings_term: payload.savings_term,
+    },
+    headers: {
+      Authorization: `Token ${store.token}`,
+    },
+  })
+    .then((res) => {
+      alert("회원정보가 수정되었습니다!");
+      store.Getuserinfo();
+      router.push({ name: "mypage" });
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
+      router.push({ name: "mypage" });
+    });
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

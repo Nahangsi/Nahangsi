@@ -2,17 +2,27 @@
   <div>
     <v-sheet width="300" class="mx-auto">
       <v-form @submit.prevent="passwordupdate">
-        <v-text-field label="이전 비밀번호" variant="underlined" v-model="oldPassword" :rules="rules"></v-text-field>
-        <v-text-field label="변경할 비밀번호" variant="underlined" v-model="newPassword" :rules="rules"></v-text-field>
+        <v-text-field
+          label="이전 비밀번호"
+          variant="underlined"
+          v-model="oldPassword"
+          :rules="rules"
+          type="password"
+        ></v-text-field>
+        <v-text-field
+          label="변경할 비밀번호"
+          variant="underlined"
+          v-model="newPassword"
+          :rules="rules"
+          type="password"
+        ></v-text-field>
         <v-btn type="submit" block class="mt-2" variant="outlined"
-          >비밀번호 변경하기</v-btn>
-
+          >비밀번호 변경하기</v-btn
+        >
       </v-form>
     </v-sheet>
-
   </div>
 </template>
-
 
 <script>
 // 여기는 유효성 검사 하는 곳
@@ -38,45 +48,43 @@ import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const store = useAccountStore()
-const router = useRouter()
+const store = useAccountStore();
+const router = useRouter();
 
-const oldPassword = ref(null)
-const newPassword = ref(null)
-
+const oldPassword = ref(null);
+const newPassword = ref(null);
 
 const passwordupdate = () => {
-  if (oldPassword.value !== null && newPassword !== null) {
-    axios({
-    method: "post",
-    url: `${store.API_URL}/accounts/change_password/`,
-    data : { old_password: oldPassword.value, new_password: newPassword.value
-    },
-    headers: {
-      Authorization: `Token ${store.token}`,
-    },
-  })
-  .then((res) => {
-    alert("회원정보가 수정되었습니다!");
-    store.Getuserinfo()
-    router.push({name: "mypage"});
-  })
-  .catch((err) => {
-    console.log(err);
-    alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
-    router.push({name: "mypage"});
-  });
-
+  if (oldPassword.value !== null && newPassword.value !== null) {
+    if (oldPassword.value !== newPassword.value) {
+      axios({
+        method: "post",
+        url: `${store.API_URL}/accounts/change_password/`,
+        data: {
+          old_password: oldPassword.value,
+          new_password: newPassword.value,
+        },
+        headers: {
+          Authorization: `Token ${store.token}`,
+        },
+      })
+        .then((res) => {
+          alert("회원정보가 수정되었습니다!");
+          store.Getuserinfo();
+          router.push({ name: "mypage" });
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
+          router.push({ name: "mypage" });
+        });
+    } else {
+      alert("이전 비밀번호와 동일한 비밀번호를 사용할 수 없어요!");
+    }
   } else {
-    alert("비밀번호 입력란이 비어있습니다. 확인해주세요!")
+    alert("비밀번호 입력란이 비어있습니다. 확인해주세요!");
   }
-
-
-}
-
-
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

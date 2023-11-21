@@ -1,51 +1,51 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // deposits
-import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
+import CurrencyCal from "@/views/deposits/CurrencyCal.vue";
 // community
-import CreateView from '@/views/community/CreateView.vue'
-import ArticleView from '@/views/community/ArticleView.vue'
-import DetailView from '@/views/community/DetailView.vue'
-// home 
+import CreateView from "@/views/community/CreateView.vue";
+import ArticleView from "@/views/community/ArticleView.vue";
+import DetailView from "@/views/community/DetailView.vue";
+// home
 import HomeView from "../views/HomeView.vue";
 // accounts
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
-import ProfileView from "../views/accounts/ProfileView.vue"
 // mypage
-import MypageMainView from "../views/mypage/MypageMainView.vue"
-import MypageUpdateView from "../views/mypage/MypageUpdateView.vue"
-import MypagePasswordUpdateView from '../views/mypage/MypagePasswordUpdateView.vue'
+import MypageMainView from "../views/mypage/MypageMainView.vue";
+import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
+import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
+import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     // 환율 계산
     {
-      path : '/currency',
-      name : 'CurrencyCal',
-      component : CurrencyCal
+      path: "/currency",
+      name: "CurrencyCal",
+      component: CurrencyCal,
     },
     // 게시글 메인페이지
-    { 
-      path:'/',
-      name:'ArticleView',
-      component: ArticleView
+    {
+      path: "/",
+      name: "ArticleView",
+      component: ArticleView,
     },
     // 게시글 상세 페이지
     {
-      path:'/articles/:id',
-      name:'DetailView',
-      component: DetailView
+      path: "/articles/:id",
+      name: "DetailView",
+      component: DetailView,
     },
     // 게시글 생성 페이지
     {
-      path:'/create',
-      name:'CreateView',
-      component: CreateView
+      path: "/create",
+      name: "CreateView",
+      component: CreateView,
     },
     // 메인 홈페이지
-    {  
+    {
       path: "/",
       name: "home",
       component: HomeView,
@@ -74,17 +74,17 @@ const router = createRouter({
       name: "mypageupdate",
       component: MypageUpdateView,
     },
-    // 회원정보 수정
+    // 비밀번호 수정
     {
       path: "/mypagepasswordupdate",
       name: "mypagepasswordupdate",
       component: MypagePasswordUpdateView,
     },
-    // 프로필
+    // 회원 탈퇴
     {
-      path: "/profile",
-      name: "profile",
-      component: ProfileView,
+      path: "/mypageendmembership",
+      name: "mypageendmembership",
+      component: MypageUserdeleteView,
     },
   ],
 });

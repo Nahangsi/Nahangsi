@@ -23,7 +23,6 @@ import { useAccountStore } from "@/stores/account";
 const store = useAccountStore();
 const logout = () => {
   store.logout();
-  console.log(store.isLogin);
 };
 </script>
 
