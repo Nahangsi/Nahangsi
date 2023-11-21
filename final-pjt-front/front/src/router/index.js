@@ -20,6 +20,8 @@ import LoginView from "../views/accounts/LoginView.vue";
 import ProfileView from "../views/accounts/ProfileView.vue"
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue"
+// cart
+import CartView from '../views/CartView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -89,6 +91,12 @@ const router = createRouter({
       path : '/bankmap',
       name : 'bankmap',
       component : BankMapView
+    },
+    // 찜한 상품으로 이동
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartView
     }
   ],
 });
