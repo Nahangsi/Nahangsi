@@ -172,7 +172,6 @@ onMounted(() => {
     url: `${store.API_URL}/api/v1/articles/${route.params.id}/`,
   })
     .then((res) => {
-      console.log(res.data);
       article.value = res.data;
     })
     .catch((err) => {

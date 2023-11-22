@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet width="300" class="mx-auto" style="margin-bottom: 50px;">
+    <v-sheet width="300" class="mx-auto" style="margin-bottom: 50px">
       <v-form @submit.prevent="updateinfo">
         <label for="">아이디</label>
         <v-text-field
@@ -14,12 +14,14 @@
           v-model.trim="email"
           type="email"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-text-field>
         연령대
         <v-autocomplete
           v-model="age"
           :items="['10대', '20대', '30대', '40대', '50대', '60대 이상']"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-autocomplete>
         가입한 금융 상품
         <v-combobox
@@ -27,44 +29,51 @@
           :items="items"
           multiple
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         월별 저축 금액
         <v-combobox
           v-model="money"
           :items="moneyItems"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         연봉
         <v-combobox
           v-model="salary"
           :items="salaryItems"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         주 거래은행
         <v-combobox
           v-model="primaryBank"
           :items="primaryBankItems"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         저축 목표
         <v-combobox
           v-model="savingsGoal"
           :items="savingsGoalItmes"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         저축 기간
         <v-combobox
           v-model="savingsTerm"
           :items="savingsTermItmes"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
         직종
         <v-combobox
           v-model="occupation"
           :items="occupationItmes"
           variant="outlined"
+          placeholder="추가 정보를 입력해주세요"
         ></v-combobox>
-        <v-btn type="submit" block class="mt-2" variant="outlined"
+        <v-btn type="submit" block class="mt-2 submit" variant="outlined"
           >수정완료</v-btn
         >
       </v-form>
@@ -85,14 +94,14 @@ const User = store.userinfo;
 
 const username = ref(User.username);
 const email = ref(User.email);
-const age = ref(User.age + "대");
-const money = ref(User.money + "만원 이상");
-const salary = ref(User.salary + "이상");
+const age = ref(null);
+const money = ref(null);
+const salary = ref(null);
 const financialProducts = ref(User.financial_products);
 const primaryBank = ref(User.primary_bank);
 const occupation = ref(User.occupation);
 const savingsGoal = ref(User.savings_goal);
-const savingsTerm = ref(User.savings_term + "개월");
+const savingsTerm = ref(null);
 
 const items = ["Programming", "Design", "Vue", "Vuetify"];
 const salaryItems = [
@@ -146,6 +155,25 @@ const occupationItmes = [
   "학생",
 ];
 const savingsTermItmes = ["6개월", "12개월", "24개월", "36개월"];
+console.log(financialProducts.value);
+if (User.age !== null) {
+  age.value = User.age + "대";
+}
+if (User.money !== null) {
+  money.value = User.money + "만원 이상";
+}
+if (User.salary !== null) {
+  salary.value = User.salary + "이상";
+}
+if (User.savings_term !== null) {
+  savingsTerm.value = User.savings_term + "개월";
+}
+if (User.financial_products !== undefined) {
+  financialProducts.value = User.financial_products.substring(
+    1,
+    User.financial_products.length - 1
+  );
+}
 
 const updateinfo = () => {
   const payload = {};
@@ -163,6 +191,7 @@ const updateinfo = () => {
     payload.salary = Number(salary.value.slice(0, 4));
   }
   if (financialProducts.value !== null && financialProducts.value !== "") {
+    // financialProducts.value.push()
     payload.financial_products = financialProducts.value;
   }
   if (primaryBank.value !== null && primaryBank.value !== "") {
@@ -209,4 +238,8 @@ const updateinfo = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.submit {
+  margin-bottom: 100px;
+}
+</style>
