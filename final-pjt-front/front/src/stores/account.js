@@ -12,27 +12,31 @@ export const useAccountStore = defineStore(
     const router = useRouter();
 
     const signup = (payload) => {
+      const { username, email, password1, password2, age, money, salary, financial_products, primary_bank, occupation, savings_goal, savings_term } = payload;
       axios({
         method: "post",
         url: `${API_URL}/accounts/signup/`,
         data: {
-          username: payload.username,
-          email: payload.email,
-          password1: payload.password1,
-          password2: payload.password2,
-          age: payload.age,
-          money: payload.money,
-          salary: payload.salary,
-          financial_products: payload.financial_products,
-          primary_bank: payload.primary_bank,
-          occupation: payload.occupation,
-          savings_goal: payload.savings_goal,
-          savings_term: payload.savings_term
+          username,
+          email,
+          password1,
+          password2,
+          age,
+          money,
+          salary,
+          financial_products,
+          primary_bank,
+          occupation,
+          savings_goal,
+          savings_term
         },
       })
         .then((res) => {
           window.alert("회원가입을 축하드려요!");
-          router.push("/");
+          // const username = payload.value.username
+          const password = password1
+          login({username, password})
+          // router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -100,27 +104,27 @@ export const useAccountStore = defineStore(
         });
     };
 
-    const UserInfo = (context) => {
-      const token = context.state.token
-      const userinfo = ref(null)
-      axios({
-        methods : "get",
-        url : `${API_URL}/accounts/user/`,
-        headers : {
-          Authorization : `Token ${token}`
-        }
-      })
-      .then((res) => {
-        console.log(res)
-        userinfo = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // const UserInfo = (context) => {
+    //   const token = context.state.token
+    //   const userinfo = ref(null)
+    //   axios({
+    //     methods : "get",
+    //     url : `${API_URL}/accounts/user/`,
+    //     headers : {
+    //       Authorization : `Token ${token}`
+    //     }
+    //   })
+    //   .then((res) => {
+    //     console.log(res)
+    //     userinfo = res.data
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
 
-    }
+    // }
 
-    return { API_URL, signup, login, token, isLogin, logout, UserInfo };
+    return { API_URL, signup, login, token, isLogin, logout };
   },
   { persist: true }
 );

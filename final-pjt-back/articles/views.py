@@ -30,7 +30,7 @@ def article_detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     
     if request.method == 'GET':
-        serializer = ArticleListSerializer(article)
+        serializer = ArticleDetailSerializer(article)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     elif request.method == 'PUT':
@@ -38,7 +38,7 @@ def article_detail(request, article_pk):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUSET)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         article.delete()
@@ -91,6 +91,6 @@ def comment_create(request, article_pk):
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
     # if serializer.is_valid(): => 기본이 False라 실패했을때의 경우를 적어줘야 한다..
-        serializer.save(article.article) # article 클래스의 article을 넣어준다(commit=False와 기능 같음)
+        serializer.save(user=request.user, article=article) # article 클래스의 article을 넣어준다(commit=False와 기능 같음)
         # 생성된 결과물을 리턴, 생성에 대한 성공 메세지 또한 return
         return Response(serializer.data, status=status.HTTP_201_CREATED)

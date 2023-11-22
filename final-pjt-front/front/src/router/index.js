@@ -2,10 +2,16 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // deposits
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
+
+// serach 
+import BankMapView from "@/views/search/BankMapView.vue"
+import Bank from "@/views/search/Bank.vue"
 // community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
 import DetailView from '@/views/community/DetailView.vue'
+import UpdateView from '@/views/community/UpdateView.vue'
+
 // home 
 import HomeView from "../views/HomeView.vue";
 // accounts
@@ -14,6 +20,8 @@ import LoginView from "../views/accounts/LoginView.vue";
 import ProfileView from "../views/accounts/ProfileView.vue"
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue"
+// cart
+import CartView from '../views/CartView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +49,12 @@ const router = createRouter({
       path:'/create',
       name:'CreateView',
       component: CreateView
+    },
+    // 게시글 수정 페이지
+    {
+      path:'/articles/:id/update',
+      name:'UpdateView',
+      component: UpdateView
     },
     // 메인 홈페이지
     {  
@@ -72,6 +86,26 @@ const router = createRouter({
       name: "profile",
       component: ProfileView,
     },
+    // 가까운 은행 찾기
+    {
+      path : '/bankmap',
+      name : 'bankmap',
+      component : BankMapView
+    },
+
+    // 찜한 상품으로 이동
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartView
+    },
+    // bank map vuetify
+    {
+      path : '/bank',
+      name : 'Bank',
+      component : Bank
+
+    }
   ],
 });
 

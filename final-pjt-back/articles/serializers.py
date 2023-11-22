@@ -6,7 +6,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        read_only_fields = ('user',)
+        read_only_fields = ('user', 'article',)
 
 class ArticleListSerializer(serializers.ModelSerializer):
     # username = serializers.CharField(source='user.username', read_only=True)
@@ -15,6 +15,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
+        read_only_fields = ('user',)
+
 
 class ArticleCreateSerializer(serializers.ModelSerializer):
     # username = serializers.CharField(source='user.username', read_only=True)
@@ -24,3 +26,10 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
         model = Article
         fields = '__all__'
         read_only_fields = ('user',)
+        
+class ArticleDetailSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Article
+        fields = '__all__'   

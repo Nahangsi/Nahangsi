@@ -62,12 +62,13 @@ def deposit_products(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-# 정기 예금 상품 상세 정보 반환
-@api_view(['GET'])
-def deposit_product_detail(request, product_id):
-    depositproduct = DepositProducts.objects.get(id=product_id)
-    serialier = DepositProductsSerializer(depositproduct)
-    return Response(serialier.data, status=status.HTTP_200_OK)
+# 특정 예금 상품의 옵션 리스트 반환
+@api_view(["GET"])
+def deposit_product_options(request, fin_prdt_cd):
+    depositoptions = DepositOptions.objects.filter(product__fin_prdt_cd=fin_prdt_cd)
+    serializer = DepositOptionsSerializer(depositoptions, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 # 적금 상품 목록 반환
 @api_view(['GET'])
@@ -76,9 +77,24 @@ def saving_products(request):
     serializer = SavingProductsSerializer(savingproducts, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# 적금 상품 상세 정보 반환
+# 특정 적금 상품의 옵션 리스트 반환
 @api_view(['GET'])
-def saving_product_detail(request, product_id):
-    savingproduct = SavingProducts.objects.get(id=product_id)
-    serializer = SavingProductsSerializer(savingproduct)
+def saving_product_options(request, fin_prdt_cd):
+    savingoptions = SavingOptions.objects.filter(product__fin_prdt_cd=fin_prdt_cd)
+    serializer = SavingOptionsSerializer(savingoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 예금 상품 중복 없이 반환
+@api_view(['GET'])
+def get_info(request):
+    depositproducts = DepositProducts.objects.all()
+    serializer = SelectDepositSerializer(depositproducts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 적금 상품 중복 없이 반환
+@api_view(['GET'])
+def get_info2(request):
+    savingproducts = SavingProducts.objects.all()
+    serializers = SelectSavingSerializer(savingproducts, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)

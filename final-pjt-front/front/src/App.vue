@@ -1,8 +1,10 @@
 <template>
   <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink>
-    <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
+    <RouterLink to="/">Home</RouterLink> |
+    <RouterLink :to="{ name: 'Bank' }">은행</RouterLink> |
+    <RouterLink :to="{name : 'bankmap'}">가까운 은행 찾기</RouterLink> |
+    <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink> |
+    <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink> |
     <div v-if="store.isLogin">
       <RouterLink :to="{ name: 'mypage' }">Mypage</RouterLink>
       <p @click="logout">로그아웃</p>
