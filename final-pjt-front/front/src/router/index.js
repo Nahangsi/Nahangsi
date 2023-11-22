@@ -20,18 +20,19 @@ import HomeView from "../views/HomeView.vue";
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
 // mypage
-import MypageMainView from "../views/mypage/MypageMainView.vue"
-// cart
-import CartView from '../views/CartView.vue'
 import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
+// cart
+import CartView from '../views/CartView.vue'
+
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+
     // 환율 계산
     {
       path: "/currency",

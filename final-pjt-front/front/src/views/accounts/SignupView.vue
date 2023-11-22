@@ -83,7 +83,7 @@
           label="직종을 선택해주세요!!"
           variant="outlined"
         ></v-combobox>
-        <v-btn type="submit" block class="mt-2" variant="outlined"
+        <v-btn  type="submit" block class="mt-2 submit" variant="outlined"
           >Submit</v-btn
         >
       </v-form>
@@ -259,4 +259,9 @@ const signup = function () {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.submit {
+  margin-bottom: 100px;
+}
+</style>

@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-import ProfileView from '../accounts/ProfileView.vue';
 import { useAccountStore } from "@/stores/account";
 
 
