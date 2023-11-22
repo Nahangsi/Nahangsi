@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>회원 정보 수정</h1>
-    <v-sheet width="300" class="mx-auto">
+    <v-sheet width="300" class="mx-auto" style="margin-bottom: 50px;">
       <v-form @submit.prevent="updateinfo">
         <label for="">아이디</label>
         <v-text-field

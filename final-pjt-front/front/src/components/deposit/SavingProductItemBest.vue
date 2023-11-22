@@ -24,7 +24,7 @@
 
 <script setup>
 import { useAccountStore } from "@/stores/account";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 
@@ -36,20 +36,23 @@ if (props.savingProduct.savingoptions_set[0].save_trm === 6) {
   console.log(props.savingProduct);
 }
 
-const maxRate1 = ref(null);
+// const maxRate1 = ref(null);
 // 최고 최고우대 금리
-const maxRate2 = ref(null);
+// const maxRate2 = ref(null);
 const maxrateitme = ref(null);
 
 const everyone = ref("");
 const remote = ref("직접가입");
 const saving = ref("");
-
-maxRate1.value = Math.max(
+ 
+const maxRate1 = computed(() => {
+  return Math.max(
   ...props.savingProduct.savingoptions_set.map((item) => item.intr_rate)
 );
+})
 
-maxRate2.value = props.savingProduct.savingoptions_set.reduce(
+const maxRate2 = computed(() => {
+  return props.savingProduct.savingoptions_set.reduce(
   (max, currentValue) => {
     if (currentValue.intr_rate2 > max) {
       maxrateitme.value = currentValue;
@@ -59,6 +62,8 @@ maxRate2.value = props.savingProduct.savingoptions_set.reduce(
   },
   0
 );
+})
+
 
 if (props.savingProduct.join_deny === 1) {
   everyone.value = "누구나가입";
@@ -72,11 +77,11 @@ if (
 ) {
   remote.value = "방문없이가입";
 }
-if (maxrateitme.value.rsrv_type_nm === "자유적립식") {
-  saving.value = "자유적금";
-} else {
-  saving.value = "정기적금";
-}
+// if (maxrateitme.value.rsrv_type_nm === "자유적립식") {
+//   saving.value = "자유적금";
+// } else {
+//   saving.value = "정기적금";
+// }
 </script>
 
 <style scoped>

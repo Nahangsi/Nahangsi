@@ -21,10 +21,9 @@
           block
           variant="text"
           >로그인
-          <v-icon icon="$vuetify"></v-icon>
-          <v-icon icon="md:home"></v-icon>
+          <v-icon> mdi-lock</v-icon>
           </v-btn>
-        <v-btn variant="text" class="footer"> 회원가입 > </v-btn>
+        <v-btn variant="text" class="footer"> <RouterLink :to="{ name: 'signup'}" style="color:darkgrey; text-decoration: none;">회원가입 > </RouterLink></v-btn>
         <v-btn variant="text" class="footer"> 비밀번호찾기 > </v-btn>
       </v-form>
     </v-sheet>
