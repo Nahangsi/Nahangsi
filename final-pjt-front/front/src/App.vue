@@ -31,26 +31,6 @@
     </v-tabs>
   </v-card>
 
-  <nav>
-    <RouterLink to="/">Home</RouterLink> |
-    <RouterLink :to="{ name: 'Bank' }">은행</RouterLink> |
-    <RouterLink :to="{name : 'bankmap'}">가까운 은행 찾기</RouterLink> |
-    <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink> |
-    <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink> |
-
-    <RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink> |
-    <RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink> |
-    <RouterLink :to="{ name: 'cart' }">찜한 상품</RouterLink>
-
-    <div v-if="store.isLogin">
-      <p @click="logout">로그아웃</p>
-    </div>
-    <div v-else>
-      <RouterLink :to="{ name: 'signup' }">회원가입</RouterLink>
-      <RouterLink :to="{ name: 'login' }">로그인</RouterLink>
-    </div>
-  </nav>
-
   <v-layout class="overflow-visible" style="height: 56px">
     <v-bottom-navigation v-model="value" color="teal" grow>
       <v-btn>

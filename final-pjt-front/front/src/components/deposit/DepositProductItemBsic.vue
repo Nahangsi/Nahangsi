@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="godetail">
     <v-avatar class="icon" image="https://item.kakaocdn.net/do/9fc0462374fa73111ee6b47046b9ce7b8b566dca82634c93f811198148a26065" size="40"></v-avatar>
     {{ depositProduct.kor_co_nm }}
     {{ depositProduct.fin_prdt_nm }}
@@ -11,14 +11,15 @@
 <v-chip>
   {{ remote }}
 </v-chip>
-<button @click="likeArticle" :class="{ 'liked': article.liked }">
-                {{ article.liked ? '좋아요 취소' : '좋아요' }}
+</div>
+<button @click="likedepositProduct" :class="{ 'liked': depositProduct.liked }">
+  {{ depositProduct.liked ? '좋아요 취소' : '좋아요' }}
 </button>
 <v-divider :thickness="1"></v-divider>
 
     
 
-  </div>
+  
 </template>
 
 <script setup>
@@ -52,7 +53,6 @@ const addToCart = (article) => {
 // const navigateToCartView = () => {
 //   router.push({ name: 'cart' })
 // }
-
 
 
 const props = defineProps({
