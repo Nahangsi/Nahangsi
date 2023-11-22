@@ -238,7 +238,7 @@ const signup = function () {
     payload.money = parseInt(money.value.slice(0, 3));
   }
   if (salary.value !== null && salary.value !== "") {
-    payload.salary = Number(salary.value.slice(0, 3));
+    payload.salary = Number(salary.value.slice(0, 4));
   }
   if (financialProducts.value !== null && financialProducts.value !== "") {
     payload.financial_products = financialProducts.value;
