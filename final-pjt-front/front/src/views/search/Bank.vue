@@ -1,8 +1,8 @@
 <template>
     <v-app>
-      <v-container>
+      <v-container class="map">
         <v-form>
-          <v-row>
+          <v-row >
               <v-select
                 v-model="selectPro"
                 :items="store.mainList"
@@ -28,7 +28,7 @@
   
         </v-form>
   
-        <div class="map" id="map" style="width: 100%; height: 90vh"></div>
+        <div class="map" id="map" style="width: 100%; height: 100vh"></div>
   
         <v-divider class="my-4"></v-divider>
   
@@ -182,5 +182,6 @@
     position: absolute; /* position을 absolute로 변경 */
     z-index: 5; /* 찾기 버튼을 지도 위로 올리기 위한 z-index 값 */
   }
+  .map { }
 </style>
   

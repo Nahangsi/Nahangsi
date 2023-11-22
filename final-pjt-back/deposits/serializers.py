@@ -57,4 +57,9 @@ class SavingProductsSortSerializer(serializers.ModelSerializer):
     savingoptions_set = SavingOptionslistSerializer(many=True, read_only=True)
     class Meta:
         model = SavingProducts
+<<<<<<< HEAD
         fields = '__all__'
+=======
+        fields = ('fin_prdt_nm',)
+
+>>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2

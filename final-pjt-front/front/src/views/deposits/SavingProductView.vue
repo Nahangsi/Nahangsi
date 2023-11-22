@@ -19,7 +19,7 @@
   
       <div>
         <div v-show="rate === true">
-          <div v-for="savingProduct in bestproducts">
+          <div v-for="savingProduct in bestproducts" :key="savingProduct.id">
             <SavingProductItemBest :savingProduct="savingProduct" />
           </div>
         </div>
@@ -39,8 +39,6 @@
   import SavingProductItemBasic from "@/components/deposit/SavingProductItemBasic.vue";
   import SavingProductItemBest from "@/components/deposit/SavingProductItemBest.vue";
   
-
-  const selectedTerm = ref(36);
   const savingProducts = ref(null);
   const basicproducts = ref(null);
   const bestproducts = ref(null);
@@ -50,7 +48,6 @@
   const rate = ref(true);
   
   const selectterm = (term) => {
-    selectedTerm.value = term;
     const result = [];
     for (const product of savingProducts.value) {
       const filteredItems = product.savingoptions_set.filter((item) => {
@@ -66,8 +63,7 @@
     }
   
     if (rate.value === true) {
-        
-      bestproducts.value = [...result].sort((a, b) => {
+      bestproducts.value = result.sort((a, b) => {
         const getMaxIntrRate = (arr) => {
           return Math.max(...arr.map((item) => item.intr_rate2));
         };
@@ -83,7 +79,7 @@
       // });
   
       // basicproducts.value = result;
-      basicproducts.value = [...result].sort((a, b) => {
+      basicproducts.value = result.sort((a, b) => {
         const getMaxIntrRate = (arr) => {
           return Math.max(...arr.map((item) => item.intr_rate));
         };
@@ -96,7 +92,6 @@
     }
     bottomSheetOpen.value = false;
   };
-
   
   onMounted(() => {
     axios({
@@ -104,7 +99,6 @@
       url: "http://127.0.0.1:8000/api/deposits/saving-product/",
     }).then((res) => {
       savingProducts.value = res.data;
-    //   기본 금리 순
       basicproducts.value = res.data.slice().sort((a, b) => {
         const getMaxIntrRate = (arr) => {
           return Math.max(...arr.map((item) => item.intr_rate));
@@ -115,7 +109,6 @@
   
         return maxIntrRateB - maxIntrRateA;
       });
-      // 최고 금리 순
       bestproducts.value = res.data.slice().sort((a, b) => {
         const getMaxIntrRate = (arr) => {
           return Math.max(...arr.map((item) => item.intr_rate2));

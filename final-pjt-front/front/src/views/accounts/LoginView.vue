@@ -1,34 +1,41 @@
 <template>
   <div>
-    <div>
-      <h1>로그인</h1>
-      <v-sheet width="300" class="mx-auto">
-        <v-form @submit.prevent="login">
-          <v-text-field
-            v-model.trim="username"
-            label="First name"
-            variant="outlined"
-          ></v-text-field>
-          <v-text-field
-            v-model.trim="password1"
-            label="Password"
-            type="password"
-            hint="Enter your password to access this website"
-            variant="outlined"
-          ></v-text-field>
-          <v-btn type="submit" block class="mt-2" variant="outlined"
-            >Submit</v-btn
-          >
-        </v-form>
-      </v-sheet>
-    </div>
+    <v-sheet width="300" class="mx-auto">
+      <p class="login">Login</p>
+      <v-form @submit.prevent="login">
+        <v-text-field
+          v-model.trim="username"
+          label="아이디"
+          variant="outlined"
+        ></v-text-field>
+        <v-text-field
+          v-model.trim="password1"
+          label="비밀번호"
+          type="password"
+          hint="비밀번호는 8자리 이상 입력해주세요!"
+          variant="outlined"
+        ></v-text-field>
+        <v-btn
+          class="font-weight-black mt-2 submit"
+          type="submit"
+          block
+          variant="text"
+          >로그인
+          <v-icon> mdi-lock</v-icon>
+          </v-btn>
+        <v-btn variant="text" class="footer"> <RouterLink :to="{ name: 'signup'}" style="color:darkgrey; text-decoration: none;">회원가입 > </RouterLink></v-btn>
+        <v-btn variant="text" class="footer"> 비밀번호찾기 > </v-btn>
+      </v-form>
+    </v-sheet>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useAccountStore } from "@/stores/account";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useAccountStore();
 const username = ref(null);
 const password1 = ref(null);
@@ -40,6 +47,28 @@ const login = () => {
   };
   store.login(payload);
 };
+
+const moverouter = (go) => {
+  router.push({name: 'signup'})
+
+}
+
+
 </script>
 
-<style scoped></style>
+<style scoped>
+.login {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+.submit {
+  background-color: #1565c0;
+  color: whitesmoke;
+}
+.footer {
+  margin-left: 37px;
+  color: darkgrey;
+  padding: 4px;
+}
+</style>

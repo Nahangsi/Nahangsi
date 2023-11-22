@@ -7,7 +7,6 @@
       <p>내용 : {{ article?.content }}</p>
       <p>작성일 : {{ formatDate(article?.created_at) }}</p>
       <p>수정일 : {{ formatDate(article?.updated_at) }}</p>
-
       <div v-if="article.user == userInfo">
         <button @click="moveUpdate">수정</button> |
         <button @click="deleteArticle">삭제</button>
@@ -18,21 +17,19 @@
         <input type="text" v-model="content" /> /
         <input type="submit" value="댓글 작성" />
       </form>
- 
       <div v-for="comment in article.comments" :key="comment.id">
       <p>{{ comment.id }} - {{ comment.content }}</p>
-        <div v-if="comment.user == userInfo">
+      <div v-if="comment.user == userInfo">
           <button @click="editComment(comment)">댓글 수정</button> |
           <button @click="deleteComment(comment.id)">댓글 삭제</button>
         </div>
-        <div v-if="comment.editing">
-        <label for="editedContent">수정 내용 : </label>
-        <input type="text" v-model="comment.editedContent" />
-        <button @click="saveComment(comment)">저장</button> |
-        <button @click="cancelEdit(comment)">취소</button>
+      <div v-if="comment.editing">
+      <label for="editedContent">수정 내용 : </label>
+      <input type="text" v-model="comment.editedContent" />
+      <button @click="saveComment(comment)">저장</button> |
+      <button @click="cancelEdit(comment)">취소</button>
     </div>
-  </div>
-
+    </div>
     </div>
   </div>
   <!-- <RouterView /> -->
@@ -73,6 +70,7 @@ const deleteArticle = () => {
       console.log(err);
     });
 };
+
 
 
 // 댓글 생성
@@ -174,7 +172,7 @@ onMounted(() => {
     url: `${store.API_URL}/api/v1/articles/${route.params.id}/`,
   })
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
       article.value = res.data;
     })
     .catch((err) => {
@@ -195,8 +193,9 @@ onMounted(() => {
     .catch((err) => {
       console.log(err);
     });
-  });
+});
 </script>
+
 
 <style scoped>
 

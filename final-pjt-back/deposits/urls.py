@@ -14,8 +14,16 @@ urlpatterns = [
    path('saving-product/', views.saving_products),
    # 특정 적금 상품 상세 정보 반환
    path('saving-product/<str:fin_prdt_cd>/', views.saving_product_options),
+<<<<<<< HEAD
    # 예금 상품 최고 우대 금리, 저축금리 정렬해서 반환
    path('deposit-product-sort/', DepositProductsSortView.as_view()),
    # 적금 상품 최고 우대 금리, 저축금리 정렬해서 반환
    path('saving-product-sort/', SavingProductsSortView.as_view()),
+=======
+   # 예금 상품 중복 없이 반환
+   path('get_info/', views.get_info),
+   # 적금 상품 중복 없이 반환
+   path('get_info2/', views.get_info2),
+>>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2
 ]
+
