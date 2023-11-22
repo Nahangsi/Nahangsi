@@ -1,6 +1,7 @@
 # url 입니당
 from django.urls import path
 from . import views
+from .views import DepositProductsSortView, SavingProductsSortView
 
 urlpatterns = [
    # 금융 상품 가져오는 url
@@ -13,8 +14,8 @@ urlpatterns = [
    path('saving-product/', views.saving_products),
    # 특정 적금 상품 상세 정보 반환
    path('saving-product/<str:fin_prdt_cd>/', views.saving_product_options),
-   # 예금 상품 중복 없이 반환
-   path('get_info/', views.get_info),
-   # 적금 상품 중복 없이 반환
-   path('get_info2/', views.get_info2)
+   # 예금 상품 최고 우대 금리, 저축금리 정렬해서 반환
+   path('deposit-product-sort/', DepositProductsSortView.as_view()),
+   # 적금 상품 최고 우대 금리, 저축금리 정렬해서 반환
+   path('saving-product-sort/', SavingProductsSortView.as_view()),
 ]

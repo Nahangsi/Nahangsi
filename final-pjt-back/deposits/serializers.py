@@ -1,8 +1,15 @@
 from rest_framework import serializers
 from .models import *
 
+class DepositOptionslistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepositOptions
+        fields = '__all__'
+        
+
 # 예금 상품
 class DepositProductsSerializer(serializers.ModelSerializer):
+    depositoptions_set = DepositOptionslistSerializer(many=True, read_only=True)
     class Meta:
         model = DepositProducts
         fields = '__all__'
@@ -15,8 +22,16 @@ class DepositOptionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('product',)
 
-# 적금 상품
+class SavingOptionslistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SavingOptions
+        fields = '__all__'
+
+# 적금 상품 + 그 상품 옵션까지한꺼번에
 class SavingProductsSerializer(serializers.ModelSerializer):
+    savingoptions_set = SavingOptionslistSerializer(many=True, read_only=True)
+
     class Meta:
         model = SavingProducts
         fields = '__all__'
@@ -29,14 +44,17 @@ class SavingOptionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('product',)
 
-# 예금 상품 이름만 뽑아올 시리얼라이저
-class SelectDepositSerializer(serializers.ModelSerializer):
+
+# 예금 상품 금리, 최대금리 정렬
+class DepositProductsSortSerializer(serializers.ModelSerializer):
+    depositoptions_set = DepositOptionslistSerializer(many=True, read_only=True)
     class Meta:
         model = DepositProducts
-        fields = ('fin_prdt_nm',)
+        fields = '__all__'
 
-# 적금 상품 이름만 뽑아올 시리얼라이저
-class SelectSavingSerializer(serializers.ModelSerializer):
+# 적금 상품 금리, 최대금리 정렬
+class SavingProductsSortSerializer(serializers.ModelSerializer):
+    savingoptions_set = SavingOptionslistSerializer(many=True, read_only=True)
     class Meta:
         model = SavingProducts
-        fields = ('fin_prdt_nm',)
+        fields = '__all__'

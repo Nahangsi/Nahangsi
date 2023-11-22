@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // deposits
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
+import DepositProductView from "@/views/deposits/DepositProductView.vue"
+import SavingProductView from "@/views/deposits/SavingProductView.vue"
+
 
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
@@ -20,6 +23,10 @@ import LoginView from "../views/accounts/LoginView.vue";
 import ProfileView from "../views/accounts/ProfileView.vue"
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue"
+import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
+import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
+import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -95,7 +102,38 @@ const router = createRouter({
       path : '/bank',
       name : 'Bank',
       component : Bank
-    }
+    },
+     // 회원정보 수정
+     {
+      path: "/mypageupdate",
+      name: "mypageupdate",
+      component: MypageUpdateView,
+    },
+    // 비밀번호 수정
+    {
+      path: "/mypagepasswordupdate",
+      name: "mypagepasswordupdate",
+      component: MypagePasswordUpdateView,
+    },
+    // 회원 탈퇴
+    {
+      path: "/mypageendmembership",
+      name: "mypageendmembership",
+      component: MypageUserdeleteView,
+    },
+    // 예금 상품 
+    {
+      path: "/depositproduct",
+      name: "depositproduct",
+      component: DepositProductView,
+    },
+    // 적금 상품 
+    {
+      path: "/savingproduct",
+      name: "savingproduct",
+      component: SavingProductView,
+    },
+
   ],
 });
 
