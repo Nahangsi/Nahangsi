@@ -7,8 +7,10 @@
       <p>내용 : {{ article?.content }}</p>
       <p>작성일 : {{ formatDate(article?.created_at) }}</p>
       <p>수정일 : {{ formatDate(article?.updated_at) }}</p>
-      <button @click="moveUpdate">수정</button> |
-      <button @click="deleteArticle">삭제</button>
+      <div v-if="article.user == userInfo">
+        <button @click="moveUpdate">수정</button> |
+        <button @click="deleteArticle">삭제</button>
+      </div>
       <hr />
       <form @submit.prevent="createComment">
         <label for="content">댓글 내용 : </label>
@@ -17,16 +19,17 @@
       </form>
       <div v-for="comment in article.comments" :key="comment.id">
       <p>{{ comment.id }} - {{ comment.content }}</p>
-        <button @click="editComment(comment)">댓글 수정</button> |
-        <button @click="deleteComment(comment.id)">댓글 삭제</button>
+      <div v-if="comment.user == userInfo">
+          <button @click="editComment(comment)">댓글 수정</button> |
+          <button @click="deleteComment(comment.id)">댓글 삭제</button>
+        </div>
       <div v-if="comment.editing">
       <label for="editedContent">수정 내용 : </label>
       <input type="text" v-model="comment.editedContent" />
       <button @click="saveComment(comment)">저장</button> |
       <button @click="cancelEdit(comment)">취소</button>
     </div>
-  </div>
-
+    </div>
     </div>
   </div>
   <!-- <RouterView /> -->
@@ -67,6 +70,7 @@ const deleteArticle = () => {
       console.log(err);
     });
 };
+
 
 
 // 댓글 생성
@@ -161,6 +165,7 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('ko-KR', options);
 };
 
+const userInfo = ref(null)
 onMounted(() => {
   axios({
     method: 'GET',
@@ -173,8 +178,28 @@ onMounted(() => {
     .catch((err) => {
       console.log(err);
     });
+
+    axios({
+    method: "get",
+    url: `http://127.0.0.1:8000/accounts/user_info/`,
+    headers: {
+      Authorization: `Token ${store.token}`,
+    },
+  })
+    .then((res) => {
+      userInfo.value = res.data.id
+      // console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 </script>
+
+
+
+</script>
+
 
 <style scoped>
 

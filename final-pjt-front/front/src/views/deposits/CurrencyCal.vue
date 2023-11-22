@@ -5,7 +5,7 @@
     <div>
       <select v-model="select1">
         <option v-for="payment in payments" :key="payment" :value="payment">
-          {{ payment }} ({{ currencyCode }})
+          {{ payment }} 
         </option>
         <br />
       </select>  :

@@ -37,6 +37,9 @@ export const useCounterStore = defineStore(
         .catch((err) => console.log(err));
     };
 
+    
+    
+
     return { deposits, API_URL, getDeposits, articles, getArticles };
   },
   { persist: true }

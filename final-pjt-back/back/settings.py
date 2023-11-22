@@ -69,13 +69,13 @@ SITE_ID = 1
 # 11.16 23:05 경범 수정 : REST_FRAMEWORK 코드 주석 해제
 REST_FRAMEWORK = {
     # DRF를 위한 OPEN API 문서화
-    	'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
         
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    # # permission(적용 안해도 같지만 명시를 해주는 느낌)
+    # permission
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
