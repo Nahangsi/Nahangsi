@@ -4,11 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
 import DepositProductView from "@/views/deposits/DepositProductView.vue"
 import SavingProductView from "@/views/deposits/SavingProductView.vue"
-<<<<<<< HEAD
-
-=======
 import DepositProductDetailView from '@/views/deposits/DepositProductDetailView.vue'
->>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2
 
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
@@ -25,21 +21,14 @@ import HomeView from "../views/HomeView.vue";
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
 // mypage
-<<<<<<< HEAD
-import MypageMainView from "../views/mypage/MypageMainView.vue"
-import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
-import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
-import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
-=======
 import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
-// import Calendar from "../views/mypage/Calendar.vue";
+import Calendar from "../views/mypage/Calendar.vue";
 // cart
 import CartView from '../views/CartView.vue'
 
->>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2
 
 
 const router = createRouter({
@@ -124,16 +113,13 @@ const router = createRouter({
       path : '/bank',
       name : 'Bank',
       component : Bank
-<<<<<<< HEAD
+
     },
      // 회원정보 수정
      {
       path: "/mypageupdate",
       name: "mypageupdate",
       component: MypageUpdateView,
-=======
-
->>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2
     },
     // 비밀번호 수정
     {
@@ -159,25 +145,20 @@ const router = createRouter({
       name: "savingproduct",
       component: SavingProductView,
     },
-
-<<<<<<< HEAD
-  ],
-=======
     // 금융상품 상세 페이지
     {
       path: "/productdetail/:id",
       name: "productdetail",
       component: DepositProductDetailView,
     },
-    // // 캘린더
-    // {
-    //   path: "/calendar",
-    //   name: "calendar",
-    //   component : Calendar,
-    // },
+    // 캘린더
+    {
+      path: "/calendar",
+      name: "calendar",
+      component : Calendar,
+    },
 ],
 
->>>>>>> fa6a661173855b4afbb32b5aa2ba05591c5121e2
 });
 
 export default router;
