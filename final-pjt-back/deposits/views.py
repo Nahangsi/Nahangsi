@@ -86,28 +86,3 @@ def saving_product_options(request, fin_prdt_cd):
     serializer = SavingProductsSerializer(savingoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# 예금 상품 최고 우대 금리, 저축금리 정렬해서 반환
-class DepositProductsSortView(generics.ListAPIView):
-    # queryset = DepositProducts.objects.all().order_by('-product_intr_rate')
-    serializer_class = DepositProductsSortSerializer
-
-    def get_queryset(self):
-        # DepositOptions를 상품별로 그룹화하고 각 그룹에서 최대 intr_rate를 가져오기
-        max_intr_rates_subquery = DepositOptions.objects.filter(
-            product=OuterRef('pk')
-        ).values('product').annotate(max_intr_rate=Max('intr_rate')).values('max_intr_rate')[:1]
-
-        # 모든 DepositOptions를 가져오면서 최대 intr_rate로 정렬하기
-        sorted_deposit_options = DepositOptions.objects.annotate(
-            max_intr_rate=Subquery(max_intr_rates_subquery)
-        ).order_by('-max_intr_rate')
-
-        # 정렬된 DepositOptions를 기준으로 DepositProducts 가져오기
-        deposit_products_ids = sorted_deposit_options.values_list('product', flat=True)
-        deposit_products = DepositProducts.objects.filter(pk__in=deposit_products_ids)
-
-        return deposit_products
-
-# 적금 상품 최고 우대 금리, 저축금리 정렬해서 반환
-class SavingProductsSortView(generics.ListAPIView):
-    serializer_class = SavingProductsSortSerializer
