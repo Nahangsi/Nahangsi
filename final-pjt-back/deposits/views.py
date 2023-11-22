@@ -65,8 +65,8 @@ def deposit_products(request):
 # 특정 예금 상품의 옵션 리스트 반환
 @api_view(["GET"])
 def deposit_product_options(request, fin_prdt_cd):
-    depositoptions = DepositOptions.objects.filter(product__fin_prdt_cd=fin_prdt_cd)
-    serializer = DepositOptionsSerializer(depositoptions, many=True)
+    depositoptions = DepositProducts.objects.filter(fin_prdt_cd=fin_prdt_cd)
+    serializer = DepositProductsSerializer(depositoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -80,8 +80,8 @@ def saving_products(request):
 # 특정 적금 상품의 옵션 리스트 반환
 @api_view(['GET'])
 def saving_product_options(request, fin_prdt_cd):
-    savingoptions = SavingOptions.objects.filter(product__fin_prdt_cd=fin_prdt_cd)
-    serializer = SavingOptionsSerializer(savingoptions, many=True)
+    savingoptions = SavingProducts.objects.filter(fin_prdt_cd=fin_prdt_cd)
+    serializer = SavingProductsSerializer(savingoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 

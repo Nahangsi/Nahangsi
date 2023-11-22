@@ -21,10 +21,8 @@
           block
           variant="text"
           >로그인
-          <v-icon icon="$vuetify"></v-icon>
-          <v-icon icon="md:home"></v-icon>
           </v-btn>
-        <v-btn variant="text" class="footer"> 회원가입 > </v-btn>
+        <v-btn variant="text" class="footer" @click="moverouter()"> 회원가입 > </v-btn>
         <v-btn variant="text" class="footer"> 비밀번호찾기 > </v-btn>
       </v-form>
     </v-sheet>
@@ -34,7 +32,9 @@
 <script setup>
 import { ref } from "vue";
 import { useAccountStore } from "@/stores/account";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useAccountStore();
 const username = ref(null);
 const password1 = ref(null);
@@ -46,6 +46,13 @@ const login = () => {
   };
   store.login(payload);
 };
+
+const moverouter = (go) => {
+  router.push({name: 'signup'})
+
+}
+
+
 </script>
 
 <style scoped>

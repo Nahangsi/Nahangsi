@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import CurrencyCal from "@/views/deposits/CurrencyCal.vue"
 import DepositProductView from "@/views/deposits/DepositProductView.vue"
 import SavingProductView from "@/views/deposits/SavingProductView.vue"
+import DepositProductDetailView from '@/views/deposits/DepositProductDetailView.vue'
 
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
@@ -136,6 +137,12 @@ const router = createRouter({
       path: "/savingproduct",
       name: "savingproduct",
       component: SavingProductView,
+    },
+    // 금융상품 상세 페이지
+    {
+      path: "/productdetail/:id",
+      name: "productdetail",
+      component: DepositProductDetailView,
     },
 ],
 });

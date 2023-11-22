@@ -6,24 +6,28 @@
         <v-text-field
           v-model.trim="username"
           :rules="rules"
-          label="First name"
+          label="아이디"
           variant="outlined"
+          class="mb-2"
+          
         ></v-text-field>
         <v-text-field
           v-model.trim="email"
-          hide-details="auto"
-          label="Email address"
-          placeholder="johndoe@gmail.com"
+
+          label="Email"
+          placeholder="kimhyeonsu@magic.com"
           type="email"
           hint="이메일은 선택사항이에요"
           variant="outlined"
+          class="m-6 email"
         ></v-text-field>
         <v-text-field
           v-model.trim="password1"
           label="Password"
           type="password"
-          hint="Enter your password to access this website"
+          hint="비밀번호는 영문, 숫자 조합 8자리 이상이에요!"
           variant="outlined"
+          class="mb-1"
         ></v-text-field>
         <v-text-field
           v-model.trim="password2"
@@ -101,7 +105,7 @@ export default {
       rules: [
         (value) => {
           if (value) return true;
-          return "You must enter a first name.";
+          return "아이디는 필수입력입니다!";
         },
       ],
     };
@@ -263,5 +267,8 @@ const signup = function () {
 
 .submit {
   margin-bottom: 100px;
+}
+.email {
+  margin-bottom: 5px;
 }
 </style>
