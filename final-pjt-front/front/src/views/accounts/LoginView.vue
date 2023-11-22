@@ -20,8 +20,10 @@
           type="submit"
           block
           variant="text"
-          >로그인</v-btn
-        >
+          >로그인
+          <v-icon icon="$vuetify"></v-icon>
+          <v-icon icon="md:home"></v-icon>
+          </v-btn>
         <v-btn variant="text" class="footer"> 회원가입 > </v-btn>
         <v-btn variant="text" class="footer"> 비밀번호찾기 > </v-btn>
       </v-form>
@@ -49,7 +51,7 @@ const login = () => {
 <style scoped>
 .login {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   font-size: 24px;
 }
 .submit {
