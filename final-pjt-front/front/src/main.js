@@ -13,6 +13,11 @@ import * as directives from "vuetify/directives";
 //mdi
 import '@mdi/font/css/materialdesignicons.css'
 
+// aos
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -26,5 +31,7 @@ pinia.use(PiniaPluginPersistedstate);
 app.use(router);
 app.use(pinia);
 app.use(vuetify);
+app.use(AOS)
+
 
 app.mount("#app");
