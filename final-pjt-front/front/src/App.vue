@@ -1,37 +1,46 @@
 <template>
   <v-layout>
     <v-system-bar>
-    <v-icon icon="mdi-wifi-strength-4"></v-icon>
-    <v-icon icon="mdi-signal" class="ms-2"></v-icon>
-    <v-icon icon="mdi-battery" class="ms-2"></v-icon>
+      <v-icon icon="mdi-wifi-strength-4"></v-icon>
+      <v-icon icon="mdi-signal" class="ms-2"></v-icon>
+      <v-icon icon="mdi-battery" class="ms-2"></v-icon>
 
-    <span class="ms-2">3:13PM</span> 
+      <span class="ms-2">3:13PM</span>
     </v-system-bar>
   </v-layout>
 
-   <v-card class="nav">
-    <v-tabs
-      v-model="tab"
-      bg-color="blue-darken-1"
-    >
-      <v-tab value="three"><RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink></v-tab>
-      <v-tab value="four"><RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink></v-tab>
+  <v-card class="nav">
+    <v-tabs v-model="tab" bg-color="blue-darken-1">
+      <v-tab value="three"
+        ><RouterLink :to="{ name: 'depositproduct' }"
+          >예금 상품</RouterLink
+        ></v-tab
+      >
+      <v-tab value="four"
+        ><RouterLink :to="{ name: 'savingproduct' }"
+          >적금 상품</RouterLink
+        ></v-tab
+      >
       <div v-if="store.isLogin">
-        <v-tab value="five"  @click="logout">로그아웃</v-tab>
-        <v-tab value="six"><RouterLink :to="{ name : 'mypagepasswordupdate'}">비밀번호변경</RouterLink></v-tab>
+        <v-tab value="five" @click="logout">로그아웃</v-tab>
+        <v-tab value="six"
+          ><RouterLink :to="{ name: 'mypagepasswordupdate' }"
+            >비밀번호변경</RouterLink
+          ></v-tab
+        >
       </div>
       <div v-else>
         <v-tab value="five">
           <RouterLink :to="{ name: 'login' }">로그인</RouterLink>
         </v-tab>
         <v-tab value="six">
-          <RouterLink :to="{ name: 'signup'}">회원가입</RouterLink>
+          <RouterLink :to="{ name: 'signup' }">회원가입</RouterLink>
         </v-tab>
       </div>
     </v-tabs>
   </v-card>
 
-  <v-layout class="overflow-visible" style="height: 56px">
+  <v-layout class="overflow-visible">
     <v-bottom-navigation v-model="value" color="teal" grow>
       <v-btn>
         <v-icon>mdi-history</v-icon>
@@ -73,12 +82,12 @@ const logincon = () => {
 };
 </script>
 
-
 <style scoped>
 a {
   color: inherit;
   text-decoration: none;
 }
-.nav {margin-top: 25px;}
+.nav {
+  margin-top: 25px;
+}
 </style>
-
