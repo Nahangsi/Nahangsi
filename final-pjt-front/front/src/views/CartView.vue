@@ -19,7 +19,7 @@
     <hr>
     <p class="font-weight-bold">예금!</p>
     <div v-if="likedDepositProducts.length === 0">
-      <p>동록된 상품이 없습니다.</p>
+      <p>동록된 예금 상품이 없습니다.</p>
     </div>
     <div v-else>
       <ul>
@@ -33,7 +33,7 @@
     <hr>
     <p class="font-weight-bold">적금!</p>
     <div v-if="likedsavingProducts.length === 0">
-      <p>동록된 상품이 없습니다.</p>
+      <p>동록된 적금 상품이 없습니다.</p>
     </div>
     <div v-else>
       <ul>
