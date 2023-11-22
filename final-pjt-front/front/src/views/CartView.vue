@@ -16,13 +16,29 @@
     </div> -->
     <div>
     <h2>Cart View</h2>
-    <div v-if="likedArticles.length === 0">
-      <p>No liked articles in the cart.</p>
+    <hr>
+    <p class="font-weight-bold">예금!</p>
+    <div v-if="likedDepositProducts.length === 0">
+      <p>동록된 상품이 없습니다.</p>
     </div>
     <div v-else>
       <ul>
-        <li v-for="article in likedArticles" :key="article.id">
-          {{ article.title }}
+        <li v-for="depositProduct in likedDepositProducts" :key="depositProduct.id">
+          {{ depositProduct.fin_prdt_nm }}
+        </li>
+      </ul>
+    </div>
+
+    <hr>
+    <hr>
+    <p class="font-weight-bold">적금!</p>
+    <div v-if="likedsavingProducts.length === 0">
+      <p>동록된 상품이 없습니다.</p>
+    </div>
+    <div v-else>
+      <ul>
+        <li v-for="savingProduct in likedsavingProducts" :key="savingProduct.id">
+          {{ savingProduct.fin_prdt_nm }}
         </li>
       </ul>
     </div>
@@ -33,7 +49,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const likedArticles = JSON.parse(localStorage.getItem('likedArticles')) || []
+const likedDepositProducts = JSON.parse(localStorage.getItem('likedDepositProducts')) || [];
+const likedsavingProducts = JSON.parse(localStorage.getItem('likedsavingProducts')) || [];
 
 
 // const router = useRouter()

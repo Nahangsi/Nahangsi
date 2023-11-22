@@ -11,9 +11,12 @@
 <v-chip>
   {{ remote }}
 </v-chip>
+<button @click="likedepositProduct" :class="{ 'liked': depositProduct.liked }">
+  {{ depositProduct.liked ? '좋아요 취소' : '좋아요' }}
+</button>
 <v-divider :thickness="1"></v-divider>
 
-    
+
 
   </div>
 </template>
@@ -21,9 +24,36 @@
 <script setup>
 import { useAccountStore } from "@/stores/account";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
+
+const router = useRouter()
+
+
+// 좋아요를 누르면 좋아요 취소를, 좋아요 취소 누르면 좋아요를 보이도록 하기
+const likedepositProduct = () => {
+//   router.push({ name: 'cart' })
+props.depositProduct.liked = !props.depositProduct.liked;
+
+if (props.depositProduct.liked) {
+  addToDepositCart(props.depositProduct);
+    // navigateToCartView()
+  }
+}
+
+// 좋아요 버튼을 누른 상품(게시글)이 cart에 담기도록 하기
+const addToDepositCart = (depositProduct) => {
+  const likedDepositProducts = JSON.parse(localStorage.getItem('likedDepositProducts')) || []
+  likedDepositProducts.push(depositProduct)
+  localStorage.setItem('likedDepositProducts', JSON.stringify(likedDepositProducts))
+}
+
+// 좋아요를 누르면 바로 cart로 이동하면서 담긴 상품 표시됨
+// const navigateToCartView = () => {
+//   router.push({ name: 'cart' })
+// }
+
 
 
 const item = ref(null)

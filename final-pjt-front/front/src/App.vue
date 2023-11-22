@@ -6,8 +6,9 @@
     <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink> |
     <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink> |
 
-    <RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink>
-    <RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink>
+    <RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink> |
+    <RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink> |
+    <RouterLink :to="{ name: 'cart' }">찜한 상품</RouterLink>
 
     <div v-if="store.isLogin">
       <p @click="logout">로그아웃</p>
