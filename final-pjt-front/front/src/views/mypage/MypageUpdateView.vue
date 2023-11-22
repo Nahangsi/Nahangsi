@@ -209,4 +209,6 @@ const updateinfo = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

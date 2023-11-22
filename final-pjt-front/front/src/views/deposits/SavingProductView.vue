@@ -16,6 +16,17 @@
         <v-btn height="50" @click="selectterm(36)">36개월</v-btn>
       </v-card>
     </v-bottom-sheet>
+    <v-form @submit.prevent="selectbank(bank)">
+      <v-autocomplete
+  label="은행 선택"
+  :items="primaryBankItems"
+  variant="outlined"
+  v-model="bank"
+></v-autocomplete>
+<v-btn  type="submit" block class="mt-2 submit" variant="outlined"
+          >Submit</v-btn
+        >
+    </v-form>
 
     <div>
       <div v-show="rate === true">
@@ -91,6 +102,41 @@ const selectterm = (term) => {
     });
   }
   bottomSheetOpen.value = false;
+  
+};
+
+const selectbank = (bank) => {
+
+const result = [];
+for (const product of savingProducts.value) {
+  if (product.kor_co_nm === bank) {
+    result.push(product)
+  }
+}
+
+if (rate.value === true) {
+  bestproducts.value = result.sort((a, b) => {
+    const getMaxIntrRate = (arr) => {
+      return Math.max(...arr.map((item) => item.intr_rate2));
+    };
+
+    const maxIntrRateA = getMaxIntrRate(a.savingoptions_set);
+    const maxIntrRateB = getMaxIntrRate(b.savingoptions_set);
+
+    return maxIntrRateB - maxIntrRateA;
+  });
+} else {
+  basicproducts.value = result.sort((a, b) => {
+    const getMaxIntrRate = (arr) => {
+      return Math.max(...arr.map((item) => item.intr_rate));
+    };
+
+    const maxIntrRateA = getMaxIntrRate(a.savingoptions_set);
+    const maxIntrRateB = getMaxIntrRate(b.savingoptions_set);
+
+    return maxIntrRateB - maxIntrRateA;
+  });
+}
 };
 
 onMounted(() => {
@@ -121,6 +167,30 @@ onMounted(() => {
     });
   });
 });
+
+const primaryBankItems = [
+  "한국은행",
+  "수출입은행",
+  "KDB산업은행",
+  "IBK기업은행",
+  "Sh수협은행",
+  "NH농협은행",
+  "KB국민은행",
+  "신한은행",
+  "우리은행",
+  "KEB하나은행",
+  "부산은행",
+  "경남은행",
+  "대구은행",
+  "광주은행",
+  "전북은행",
+  "제주은행",
+  "SC제일은행",
+  "씨티은행",
+  "카카오뱅크",
+  "케이뱅크",
+  "토스뱅크",
+];
 </script>
 
 <style scoped></style>

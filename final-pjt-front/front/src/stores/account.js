@@ -66,7 +66,7 @@ export const useAccountStore = defineStore(
           Getuserinfo()
         })
         .then((res) => {
-          alert("환영합니다! 자유롭게 이용해주세요!");
+          // alert("환영합니다! 자유롭게 이용해주세요!");
           router.push("/");
         })
         .catch((err) => {
