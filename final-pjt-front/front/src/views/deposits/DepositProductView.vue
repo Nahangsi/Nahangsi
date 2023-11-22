@@ -41,16 +41,15 @@
           <DepositProductItemBsic :depositProduct="depositProduct" />
         </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
-
 import { useAccountStore } from "@/stores/account";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
 import DepositProductItemBest from "@/components/deposit/DepositProductItemBest.vue"
 import DepositProductItemBsic from "@/components/deposit/DepositProductItemBsic.vue"
 
@@ -141,6 +140,7 @@ const selectbank = (bank) => {
 
 
 
+
 onMounted(() => {
   axios({
     method: 'get',
@@ -195,6 +195,7 @@ const primaryBankItems = [
   "케이뱅크",
   "토스뱅크",
 ];
+
 
 </script>
 

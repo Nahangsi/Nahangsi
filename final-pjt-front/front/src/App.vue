@@ -1,21 +1,37 @@
 <template>
+  <v-layout>
+    <v-system-bar>
+    <v-icon icon="mdi-wifi-strength-4"></v-icon>
+    <v-icon icon="mdi-signal" class="ms-2"></v-icon>
+    <v-icon icon="mdi-battery" class="ms-2"></v-icon>
+
+    <span class="ms-2">3:13PM</span> 
+    </v-system-bar>
+  </v-layout>
+
+   <v-card class="nav">
+    <v-tabs
+      v-model="tab"
+      bg-color="blue-darken-1"
+    >
+      <v-tab value="three"><RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink></v-tab>
+      <v-tab value="four"><RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink></v-tab>
+      <div v-if="store.isLogin">
+        <v-tab value="five"  @click="logout">로그아웃</v-tab>
+        <v-tab value="six"><RouterLink :to="{ name : 'mypagepasswordupdate'}">비밀번호변경</RouterLink></v-tab>
+      </div>
+      <div v-else>
+        <v-tab value="five">
+          <RouterLink :to="{ name: 'login' }">로그인</RouterLink>
+        </v-tab>
+        <v-tab value="six">
+          <RouterLink :to="{ name: 'signup'}">회원가입</RouterLink>
+        </v-tab>
+      </div>
+    </v-tabs>
+  </v-card>
+
   <nav>
-    <RouterLink to="/">Home</RouterLink> |
-    <RouterLink :to="{ name: 'Bank' }">은행</RouterLink> |
-    <RouterLink :to="{name : 'bankmap'}">가까운 은행 찾기</RouterLink> |
-    <RouterLink :to="{ name: 'CurrencyCal' }">환전</RouterLink> |
-    <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink> |
-
-    <RouterLink :to="{ name: 'depositproduct' }">예금 상품</RouterLink>
-    <RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink>
-
-    <div v-if="store.isLogin">
-      <p @click="logout">로그아웃</p>
-    </div>
-    <div v-else>
-      <RouterLink :to="{ name: 'signup' }">회원가입</RouterLink>
-      <RouterLink :to="{ name: 'login' }">로그인</RouterLink>
-    </div>
   </nav>
 
   <v-layout class="overflow-visible" style="height: 56px">
@@ -25,7 +41,7 @@
         <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
       </v-btn>
       <v-btn>
-        <v-icon icon="fa:fas fa-lock"></v-icon>
+        <v-icon>mdi-home</v-icon>
         <RouterLink to="/">Home</RouterLink>
       </v-btn>
 
@@ -66,5 +82,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.nav {margin-top: 25px;}
 </style>
 

@@ -16,7 +16,6 @@ urlpatterns = [
    # 예금 상품 중복 없이 반환
    path('get_info/', views.get_info),
    # 적금 상품 중복 없이 반환
-   path('get_info2/', views.get_info2)
-
+   path('get_info2/', views.get_info2),
 ]
 

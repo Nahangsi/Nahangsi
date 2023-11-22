@@ -33,7 +33,6 @@ const props = defineProps({
 }); // 최고 저축 금리
 
 
-
 const maxrateitme = ref(null);
 
 const everyone = ref("");
@@ -78,6 +77,7 @@ if (props.savingProduct.savingoptions_set[0].rsrv_type_nm === "자유적립식")
 } else {
   saving.value = "정기적금";
 }
+
 </script>
 
 <style scoped>

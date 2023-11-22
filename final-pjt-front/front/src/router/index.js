@@ -25,6 +25,7 @@ import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
+// import Calendar from "../views/mypage/Calendar.vue";
 // cart
 import CartView from '../views/CartView.vue'
 
@@ -138,13 +139,21 @@ const router = createRouter({
       name: "savingproduct",
       component: SavingProductView,
     },
+
     // 금융상품 상세 페이지
     {
       path: "/productdetail/:id",
       name: "productdetail",
       component: DepositProductDetailView,
     },
+    // // 캘린더
+    // {
+    //   path: "/calendar",
+    //   name: "calendar",
+    //   component : Calendar,
+    // },
 ],
+
 });
 
 export default router;

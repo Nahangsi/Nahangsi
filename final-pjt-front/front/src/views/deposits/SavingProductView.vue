@@ -19,7 +19,7 @@
 
     <div>
       <div v-show="rate === true">
-        <div v-for="savingProduct in bestproducts">
+        <div v-for="savingProduct in bestproducts" :key="savingProduct.id">
           <SavingProductItemBest :savingProduct="savingProduct" />
         </div>
       </div>
