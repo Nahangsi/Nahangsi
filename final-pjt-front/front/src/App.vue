@@ -31,6 +31,11 @@
     </v-tabs>
   </v-card>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 08117597f022b4d4a36e110cf706f5473c3e6557
   <v-layout class="overflow-visible" style="height: 56px">
     <v-bottom-navigation v-model="value" color="teal" grow>
       <v-btn>
