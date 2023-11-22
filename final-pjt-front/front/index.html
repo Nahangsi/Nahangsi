@@ -3,11 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 초기 화면 너비 고정 -->
+    <meta
+      name="viewport"
+      content="width=390, height=844, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
     <title>Vite App</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+      // window.Kakao.init("ab9f8105b411eb6af7b88cc720fee623");
+    </script>
+
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab9f8105b411eb6af7b88cc720fee623&libraries=services"
+    ></script>
   </body>
 </html>
