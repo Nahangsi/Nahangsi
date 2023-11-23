@@ -15,7 +15,7 @@
       <div title="아이콘" style="flex-grow: 2">
         <v-avatar
           class="icon"
-          :image= "`src/assets/${depositProduct.kor_co_nm}.png`"
+          :image= "`src/assets/${savingProduct.kor_co_nm}.png`"
           size="50"
         ></v-avatar>
       </div>

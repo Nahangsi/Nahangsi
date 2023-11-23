@@ -10,6 +10,12 @@
   <v-container style="margin-bottom : 100px;">
     <v-row justify="center" v-if="viewproduct">
       <v-col v-show="rate==true">
+
+        <!-- 차트 그려질 부분 -->
+        <!-- <div style="width: 300px; height:400px;">
+
+        </div> -->
+
         <div v-for="depositProduct in depositProducts" :key="depositProduct.id">
           <v-card class="card">
             <v-card-title>{{ depositProduct.fin_prdt_nm }}</v-card-title>
@@ -65,8 +71,12 @@
   </v-container>   
 </template>
 
+
+
 <script setup>
 import { onMounted, ref } from 'vue'
+
+
 // true : 예금, false : 적금
 const rate = ref(true);
 

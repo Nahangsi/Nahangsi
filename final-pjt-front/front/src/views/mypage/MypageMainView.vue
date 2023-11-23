@@ -5,7 +5,7 @@
       <!-- Avatar Column -->
       <v-col cols="3" md="3">
         <v-avatar class="icon" :size="60">
-          <v-img src="src/assets/gom.png" />
+          <!-- <v-img src="src/assets/gom.png" /> -->
         </v-avatar>
       </v-col>
 
@@ -42,7 +42,7 @@
       </v-btn
     >
     
-    <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'Recommend' }"
+    <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'cart' }"
       >    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"><v-avatar color="surface-variant" rounded="0" :size="60">
           <v-img src="src/assets/zzim.gif" />
         </v-avatar><p>내가 찜한 상품</p></div>    

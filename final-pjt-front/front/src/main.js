@@ -18,6 +18,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+// chart
+import Chart from 'chart.js/auto'
+
 
 const vuetify = createVuetify({
   components,
@@ -33,6 +36,6 @@ app.use(router);
 app.use(pinia);
 app.use(vuetify);
 app.use(AOS)
-
+// app.use(Chart)
 
 app.mount("#app");
