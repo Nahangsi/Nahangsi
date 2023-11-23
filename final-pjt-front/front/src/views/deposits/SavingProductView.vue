@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <p style="font-size: 30px; font-weight: 700; margin: 10px;">정기 예금</p>
+    <p style="font-size: 30px; font-weight: 700; margin: 10px;">정기 적금</p>
 
     <v-form @submit.prevent="selectbank(bank)">
       <v-autocomplete
@@ -62,6 +62,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -76,6 +77,7 @@ const basicproducts = ref(null);
 const bestproducts = ref(null);
 
 const bottomSheetOpenterm = ref(false);
+const bank = ref(null)
 
 const rate = ref(true);
 

@@ -23,4 +23,5 @@ const store = useCounterStore()
 
 <style scoped>
 
+
 </style>

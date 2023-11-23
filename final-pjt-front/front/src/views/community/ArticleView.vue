@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h2>자유게시판</h2>
-    <p>*회원들 간 금융 상품을 소개하고, 소중한 의견을 공유하는 공간입니다.</p> 
+    <div style="margin-top: 20px;">
+      <h2>자유게시판</h2>
+    <p style="font-size: 12px; color: #858585;">회원들 간 금융 상품을 소개하고, 소중한 의견을 공유하는 공간입니다.</p> 
 
     <v-container>
       
@@ -32,6 +33,8 @@
           @click="goToCreateView"
           height="30" 
           style="border-radius: 5px; max-width: 50px;"
+          color="#1E88E5"
+          class="fixed-button"
           >
             글쓰기
           </v-btn>
@@ -41,6 +44,8 @@
       <ArticleList />
 
     </v-container>
+    </div>
+ 
   </div>
 </template>
 
@@ -87,5 +92,13 @@ p {
 v-btn {
   margin-bottom: 50px;
 
+}
+
+.fixed-button {
+  position: fixed; 
+  bottom: 80px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 999; 
 }
 </style>

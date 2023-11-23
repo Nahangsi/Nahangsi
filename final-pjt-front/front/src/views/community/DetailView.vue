@@ -37,14 +37,19 @@
         <v-divider></v-divider>
 
         <v-row v-for="comment in article.comments" :key="comment.id">
-          <v-col>
-            <p>{{ comment.id }} - {{ comment.content }}</p>
+          <v-col style="margin-top: 20px;">
+            <p style="font-size: 14px; font-weight: 700;">익명</p>
+            <p style="font-weight: 400; color: #858585;">{{ comment.content }}</p>
+
+            <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>
+
             <v-row v-if="comment.user == userInfo">
-              <v-col>
+              <v-col style="text-align: right;">
                 <v-btn @click="editComment(comment)">댓글 수정</v-btn>
                 <v-btn @click="deleteComment(comment.id)">댓글 삭제</v-btn>
               </v-col>
             </v-row>
+            
             <v-row v-if="comment.editing">
               <v-col>
                 <v-text-field v-model="comment.editedContent" label="수정 내용"></v-text-field>

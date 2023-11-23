@@ -4,6 +4,7 @@
         <v-form>
           <v-row >
               <v-select
+              variant="underlined"
                 v-model="selectPro"
                 :items="store.mainList"
                 label="시 / 도"
@@ -11,12 +12,14 @@
                 color="teal-darken-2"
               ></v-select>
               <v-select
+              variant="underlined"
                 v-model="selectCity"
                 :items="store.subList[selectPro]"
                 label="시 / 군 / 구"
                 @change="selectedCity"
               ></v-select>
               <v-select
+              variant="underlined"
                 v-model="selectB"
                 :items="store.bankList"
                 label="은행"
@@ -24,7 +27,7 @@
               ></v-select>
             </v-row>
             <!-- 찾기 버튼 -->
-            <v-btn class="button" @click="searchNow" color="teal-darken-2">찾기</v-btn>
+            <v-btn class="button" @click="searchNow" color="#1E88E5">찾기</v-btn>
   
         </v-form>
   

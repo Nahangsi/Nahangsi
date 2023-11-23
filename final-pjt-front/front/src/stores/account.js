@@ -88,6 +88,8 @@ export const useAccountStore = defineStore(
           alert("로그아웃 되었습니다!");
           // isLogin.value = false;
           token.value = null;
+          // 로그아웃했을때 userinfo에 들어있는 내용을 지운다..
+          userinfo.value = null;
           router.push("/");
         })
         .catch((err) => {

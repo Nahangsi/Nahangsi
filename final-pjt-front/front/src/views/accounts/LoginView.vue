@@ -7,12 +7,14 @@
           v-model.trim="username"
           label="아이디"
           variant="outlined"
+          clearable
         ></v-text-field>
         <v-text-field
           v-model.trim="password1"
           label="비밀번호"
           type="password"
           variant="outlined"
+          clearable
         ></v-text-field>
         <v-btn
           class="font-weight-black mt-2 submit"
@@ -20,7 +22,6 @@
           block
           variant="text"
           >로그인
-          <v-icon> mdi-lock</v-icon>
           </v-btn>
         <v-btn variant="text" class="footer"> <RouterLink :to="{ name: 'signup'}" style="color:darkgrey; text-decoration: none;">회원가입 > </RouterLink></v-btn>
         <v-btn variant="text" class="footer"> 비밀번호찾기 > </v-btn>
@@ -66,7 +67,7 @@ const moverouter = (go) => {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .submit {
-  background-color: #1565c0;
+  background-color: #1E88E5;
   color: whitesmoke;
 }
 .footer {
