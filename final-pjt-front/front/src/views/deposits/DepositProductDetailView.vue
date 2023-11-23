@@ -1,17 +1,24 @@
 <template>
-  <div class="gray" v-if="item" style="height: 1500px;">
+  <div class="gray" v-if="item" style="height: 1500px">
     <v-card variant="flat" class="mb-5 card" height="300px">
       <v-card-text>
         <v-avatar
           class="icon mt-2 mb-7"
-          :image= "`src/assets/${depositProduct.kor_co_nm}.png`"
+          :image="`/src/assets/${imgsrc}.png`"
           size="70"
-          
         ></v-avatar>
         <h2 class="mb-2">{{ item.kor_co_nm }}</h2>
         <h2 class="mb-2">{{ item.fin_prdt_nm }}</h2>
-        <p style="margin-top: 50px; font-size: 15px; font-weight: bolder;" class="fontgray">{{ item.kor_co_nm }}에서 보기></p>
-        <P class="fontgray" style="margin-top: 10px; font-size: 13px; font-weight: 300;">금융 감독원 {{ item.dcls_strt_day.substring(2, 4) }}.{{
+        <p
+          style="margin-top: 50px; font-size: 15px; font-weight: bolder"
+          class="fontgray"
+        >
+          {{ item.kor_co_nm }}에서 보기>
+        </p>
+        <P
+          class="fontgray"
+          style="margin-top: 10px; font-size: 13px; font-weight: 300"
+          >금융 감독원 {{ item.dcls_strt_day.substring(2, 4) }}.{{
             item.dcls_strt_day.substring(4, 6)
           }}.{{ item.dcls_strt_day.substring(6, 8) }}일 공시된 내용 기반</P
         >
@@ -74,7 +81,7 @@
 
       <v-expand-transition>
         <div v-show="cardshow">
-          <v-card-text style="margin-top: 0px; padding-top: 0px;">
+          <v-card-text style="margin-top: 0px; padding-top: 0px">
             <h2 class="ml-1 mt-2 mb-3 fontgray bold-text">만기 후 이자율</h2>
             <p class="ml-1 fontgray">{{ item.mtrt_int }}</p>
           </v-card-text>
@@ -101,6 +108,7 @@ const cardshow = ref(false);
 
 const rate1 = ref(null);
 const rate2 = ref(null);
+const imgsrc = ref(null);
 
 const getrate = (term) => {
   item.value.depositoptions_set.forEach((x) => {
@@ -121,6 +129,9 @@ onMounted(() => {
 
       rate1.value = item.value.depositoptions_set[0].intr_rate;
       rate2.value = item.value.depositoptions_set[0].intr_rate2;
+    })
+    .then((res) => {
+      imgsrc.value = item.value.kor_co_nm;
     })
     .catch((err) => {});
 });
@@ -184,5 +195,7 @@ onMounted(() => {
 .icon {
   box-shadow: 1px 2px 8px #cccccc;
 }
-p { font-size: 16px;}
+p {
+  font-size: 16px;
+}
 </style>

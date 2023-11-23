@@ -9,7 +9,7 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ('user', 'article',)
 
 class ArticleListSerializer(serializers.ModelSerializer):
-    # username = serializers.CharField(source='user.username', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
     # comments = CommentSerializer(many=True, read_only=True)
     
     class Meta:
@@ -28,6 +28,7 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ('user',)
         
 class ArticleDetailSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     
     class Meta:
