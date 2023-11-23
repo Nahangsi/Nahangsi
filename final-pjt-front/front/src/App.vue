@@ -42,19 +42,16 @@
 
   <v-layout class="overflow-visible">
     <v-bottom-navigation v-model="value" color="teal" grow>
-      <v-btn>
+      <v-btn @click.stop="gonav('ArticleView')">
         <v-icon>mdi-history</v-icon>
-        <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
       </v-btn>
-      <v-btn>
+      <v-btn @click.stop="gonav('home')">
         <v-icon>mdi-home</v-icon>
-        <RouterLink to="/">Home</RouterLink>
       </v-btn>
 
-      <v-btn>
+      <v-btn @click.stop="gonav('mypage')">
         <v-icon icon="mdi-map-marker"></v-icon>
         <div @click="logincon">
-          <RouterLink :to="{ name: 'mypage' }">Profile</RouterLink>
         </div>
       </v-btn>
     </v-bottom-navigation>
@@ -80,6 +77,10 @@ const logincon = () => {
     router.push({ name: "login" });
   }
 };
+
+const gonav = (go) => {
+  router.push({name: go})
+}
 </script>
 
 <style scoped>
@@ -90,4 +91,9 @@ a {
 .nav {
   margin-top: 25px;
 }
+</style>
+
+<style>
+* { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+
 </style>

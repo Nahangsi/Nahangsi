@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <v-sheet width="300" class="mx-auto">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <p style="margin-top: 100px; font-size: 24px; font-weight: 600;">비밀번호 변경하기</p>
+    <v-sheet style="margin-top: 50px;" width="300" class="mx-auto">
       <v-form @submit.prevent="passwordupdate">
         <v-text-field
           label="이전 비밀번호"
@@ -16,7 +17,7 @@
           :rules="rules"
           type="password"
         ></v-text-field>
-        <v-btn type="submit" block class="mt-2" variant="outlined"
+        <v-btn style="" type="submit" block class="mt-5" variant="outlined"
           >비밀번호 변경하기</v-btn
         >
       </v-form>

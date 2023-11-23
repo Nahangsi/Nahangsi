@@ -1,29 +1,99 @@
 <template>
-  <div>
-    <v-avatar
-      class="icon"
-      image="https://item.kakaocdn.net/do/9fc0462374fa73111ee6b47046b9ce7b8b566dca82634c93f811198148a26065"
-      size="40"
-    ></v-avatar>
-    {{ savingProduct.kor_co_nm }}
-    {{ savingProduct.fin_prdt_nm }}
-    <h3>기본 {{ maxRate1 }} %</h3>
-    <p>최고 {{ maxRate2 }} %</p>
-    <v-chip>
+  <div
+    style="
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    "
+    @click="godetail"
+  >
+    <div
+      title="아이콘+옆에것들 전체박스"
+      style="display: flex; flex-direction: row; margin: 10px"
+    >
+      <div title="아이콘" style="flex-grow: 2">
+        <v-avatar
+          class="icon"
+          image="https://item.kakaocdn.net/do/9fc0462374fa73111ee6b47046b9ce7b8b566dca82634c93f811198148a26065"
+          size="50"
+        ></v-avatar>
+      </div>
+      <div
+        title="글자+칩"
+        style="display: flex; flex-grow: 8; flex-direction: column"
+      >
+        <div
+          title="제목+금리"
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-grow: 6;
+          "
+        >
+          <div
+            title="제목"
+            style="display: flex; flex-direction: column; margin-bottom: 15px"
+          >
+            <p style="font-size: 14px; font-weight: 400">
+              {{ savingProduct.kor_co_nm }}
+            </p>
+            <p style="font-size: 14px; font-weight: 400">
+              {{ savingProduct.fin_prdt_nm }}
+            </p>
+          </div>
+          <div
+            title="금리"
+            style="
+              display: flex;
+              flex-direction: column;
+              flex-wrap: nowrap;
+              align-items: flex-end;
+              flex-grow: 4;"
+          >
+            <div>
+              <p style="font-size: 18px; font-weight: 600; color: #1E88E5;">기본 {{ maxRate1 }} %</p>
+            </div>
+            <div>
+              <p style="font-size: 14px; font-weight: 400; color: #858585;">최고 {{ maxRate2 }} %</p>
+            </div>
+          </div>
+        </div>
+        <div
+          title="칩+좋아요"
+          style="display: flex; justify-content: space-between"
+        >
+          <div title="칩">
+            <v-chip  style="color: #858585; background-color: #F0F2F5; font-weight: 500; margin: 0 5px;" density="comfortable" variant="text">
       {{ saving }}
     </v-chip>
-    <v-chip>
-      {{ everyone }}
-    </v-chip>
-    <v-chip>
-      {{ remote }}
-    </v-chip>
-    <button @click="likesavingProduct" :class="{ 'liked': savingProduct.liked }">
-                {{ savingProduct.liked ? '좋아요 취소' : '좋아요' }}
-    </button>   
-    <v-divider :thickness="1"></v-divider>
+            <v-chip  style="color: #858585; background-color: #F0F2F5; font-weight: 500; margin: 0 5px;" density="comfortable" variant="text">
+              {{ everyone }}
+            </v-chip>
+            <v-chip style="color: #858585; background-color: #F0F2F5; font-weight: 500;" density="comfortable" variant="text">
+              {{ remote }}
+            </v-chip>
+          </div>
+          <div title="찜하기">
+            <button
+            @click.stop="likesavingProduct"
+              :class="{ liked: savingProduct.liked }"
+            >
+              {{ savingProduct.liked ? '💗' : '🤍' }}
+            </button>
+            <!-- -----
+              혹시 안되면 class 의 liked ""문자열 처리해보기
+            ----- -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>
 </template>
+
 
 <script setup>
 import { useAccountStore } from "@/stores/account";

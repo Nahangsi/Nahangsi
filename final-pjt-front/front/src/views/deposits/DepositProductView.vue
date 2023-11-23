@@ -1,32 +1,52 @@
 <template>
   <div>
-    정기 예금
-    <button @click="rate = true">최고금리순</button>
-    <button @click="rate = false">기본금리순</button>
+    <p style="font-size: 30px; font-weight: 700; margin: 10px;">정기 예금</p>
 
-    <v-bottom-sheet v-model="bottomSheetOpenterm">
-      <template v-slot:activator="{ props }">
-        <v-btn v-bind="props" text="기간 선택"></v-btn>
-      </template>
-
-      <v-card height="400">
-        <v-btn height="50" @click="selectterm(6)">6개월</v-btn>
-        <v-btn height="50" @click="selectterm(12)">12개월</v-btn>
-        <v-btn height="50" @click="selectterm(24)">24개월</v-btn>
-        <v-btn height="50" @click="selectterm(36)">36개월</v-btn>
-      </v-card>
-    </v-bottom-sheet>
     <v-form @submit.prevent="selectbank(bank)">
       <v-autocomplete
   label="은행 선택"
   :items="primaryBankItems"
-  variant="outlined"
+  variant="underlined"
   v-model="bank"
+  style="margin-bottom: -10px;
+   margin-left: 10px; margin-right: 10px;"
 ></v-autocomplete>
-<v-btn  type="submit" block class="mt-2 submit" variant="outlined"
-          >Submit</v-btn
+
+<div title="은행 기간 비트윈" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+  <div style="width: 100px; margin-bottom: 10px; margin-left: 10px;">
+  <v-btn   style="" type="submit" block class="mt-2 submit" variant="outlined"
+          >은행 검색</v-btn
         >
+      </div>
+        <div title="기간선택" style="margin-top: 7px; margin-right: 10px;">
+          <v-bottom-sheet v-model="bottomSheetOpenterm">
+      <template v-slot:activator="{ props }">
+        <v-btn color="#1E88E5" v-bind="props" text="기간 선택" variant="outlined"></v-btn>
+      </template>
+
+      <v-card height="400">
+        <v-btn style="font-size: 20px;" variant="text" height="100" @click="selectterm(6)">6개월</v-btn>
+        <v-divider :thickness="1"></v-divider>
+        <v-btn style="font-size: 20px;" variant="text" height="100" @click="selectterm(12)">12개월</v-btn>
+        <v-divider :thickness="1"></v-divider>
+        <v-btn style="font-size: 20px;" variant="text" height="100" @click="selectterm(24)">24개월</v-btn>
+        <v-divider :thickness="1"></v-divider>
+        <v-btn style="font-size: 20px;" variant="text" height="100" @click="selectterm(36)">36개월</v-btn>
+      </v-card>
+    </v-bottom-sheet>
+        </div>
+</div>
+
+
     </v-form>
+
+    <v-btn @click="rate = true" variant="text">
+      최고금리순
+</v-btn>
+<v-btn @click="rate = false" variant="text">
+      기본금리순
+</v-btn>
 
 
 

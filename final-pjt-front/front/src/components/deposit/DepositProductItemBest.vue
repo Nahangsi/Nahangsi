@@ -36,10 +36,10 @@
             title="제목"
             style="display: flex; flex-direction: column; margin-bottom: 15px"
           >
-            <p style="font-size: 14px; font-weight: bolder">
+            <p style="font-size: 14px; font-weight: 400">
               {{ depositProduct.kor_co_nm }}
             </p>
-            <p style="font-size: 14px; font-weight: bolder">
+            <p style="font-size: 14px; font-weight: 400">
               {{ depositProduct.fin_prdt_nm }}
             </p>
           </div>
@@ -54,10 +54,10 @@
             "
           >
             <div>
-              <p style="font-size: 18px">최고 {{ maxRate2 }} %</p>
+              <p style="font-size: 18px; font-weight: 600; color: #1E88E5;">최고 {{ maxRate2 }} %</p>
             </div>
             <div>
-              <p>기본 {{ maxRate1 }} %</p>
+              <p style="font-size: 14px; font-weight: 400; color: #858585;">기본 {{ maxRate1 }} %</p>
             </div>
           </div>
         </div>
@@ -66,19 +66,19 @@
           style="display: flex; justify-content: space-between"
         >
           <div title="칩">
-            <v-chip density="comfortable">
+            <v-chip  style="color: #858585; background-color: #F0F2F5; font-weight: 500; margin: 0 5px;" density="comfortable" variant="text">
               {{ everyone }}
             </v-chip>
-            <v-chip density="comfortable">
+            <v-chip style="color: #858585; background-color: #F0F2F5; font-weight: 500;" density="comfortable" variant="text">
               {{ remote }}
             </v-chip>
           </div>
           <div title="찜하기">
             <button
-              @click="likedepositProduct"
+              @click.stop="likedepositProduct"
               :class="{ liked: depositProduct.liked }"
             >
-              {{ depositProduct.liked ? "좋아요 취소" : "좋아요" }}
+              {{ depositProduct.liked ? '💗' : '🤍' }}
             </button>
           </div>
         </div>
@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  <v-divider :thickness="1"></v-divider>
+  <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>
 </template>
 
 <script setup>
