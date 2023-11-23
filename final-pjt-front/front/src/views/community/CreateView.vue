@@ -1,23 +1,38 @@
 <template>
-  <!-- 게시글 생성 -->
-  <div>
-    <h2>게시글 작성</h2>
-    <form @submit.prevent="createArticle">
-      <label for="title">제목 : </label>
-      <input type="text" id="title" v-model.trim="title" /><br />
-      <label for="content">내용 : </label>
-      <textarea id="content" cols="30" rows="10" v-model="content"></textarea
-      ><br />
-      <label for="category">카테고리</label>
-      <select id="category" v-model="category">
-        <option value="예금">예금</option>
-        <option value="적금">적금</option>
-        
-        <option value="기타">기타</option></select
-      ><br />
-      <input type="submit" id="submit" />
-    </form>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <v-card>
+          <v-card-title>
+            <h2 class="text-h5">게시글 작성</h2>
+          </v-card-title>
+          <v-form @submit.prevent="createArticle">
+            <v-text-field
+              v-model.trim="title"
+              label="제목"
+              required
+            ></v-text-field>
+
+            <v-textarea
+              v-model="content"
+              label="내용"
+              rows="5"
+              required
+            ></v-textarea>
+
+            <v-select
+              v-model="category"
+              label="카테고리"
+              :items="['예금', '적금', '기타']"
+              required
+            ></v-select>
+
+            <v-btn type="submit" color="primary">작성 완료</v-btn>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script setup>

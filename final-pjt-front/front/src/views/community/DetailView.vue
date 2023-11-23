@@ -1,38 +1,62 @@
 <template>
-  <div class="article-detail">
-    <div class="container">
-      <h2>상세 정보</h2>
-      <p>글 번호 : {{ article?.id }}</p>
-      <p>제목 : {{ article?.title }}</p>
-      <p>내용 : {{ article?.content }}</p>
-      <p>작성일 : {{ formatDate(article?.created_at) }}</p>
-      <p>수정일 : {{ formatDate(article?.updated_at) }}</p>
-      <div v-if="article.user == userInfo">
-        <button @click="moveUpdate">수정</button> |
-        <button @click="deleteArticle">삭제</button>
-      </div>
-      <hr />
-      <form @submit.prevent="createComment">
-        <label for="content">댓글 내용 : </label>
-        <input type="text" v-model="content" /> /
-        <input type="submit" value="댓글 작성" />
-      </form>
-      <div v-for="comment in article.comments" :key="comment.id">
-      <p>{{ comment.id }} - {{ comment.content }}</p>
-      <div v-if="comment.user == userInfo">
-          <button @click="editComment(comment)">댓글 수정</button> |
-          <button @click="deleteComment(comment.id)">댓글 삭제</button>
-        </div>
-      <div v-if="comment.editing">
-      <label for="editedContent">수정 내용 : </label>
-      <input type="text" v-model="comment.editedContent" />
-      <button @click="saveComment(comment)">저장</button> |
-      <button @click="cancelEdit(comment)">취소</button>
-    </div>
-    </div>
-    </div>
-  </div>
-  <!-- <RouterView /> -->
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>
+            <h2 class="text-h5">상세 정보</h2>
+          </v-card-title>
+          <v-card-text>
+            <p>글 번호: {{ article?.id }}</p>
+            <p>제목: {{ article?.title }}</p>
+            <p>내용: {{ article?.content }}</p>
+            <p>작성일: {{ formatDate(article?.created_at) }}</p>
+            <p>수정일: {{ formatDate(article?.updated_at) }}</p>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions v-if="article.user == userInfo">
+            <v-btn @click="moveUpdate">수정</v-btn>
+            <v-btn @click="deleteArticle">삭제</v-btn>
+          </v-card-actions>
+        </v-card>
+
+        <v-divider></v-divider>
+
+        <v-form @submit.prevent="createComment">
+          <v-row>
+            <v-col>
+              <v-text-field v-model="content" label="댓글 내용"></v-text-field>
+            </v-col>
+            <v-col>
+              <br>
+              <v-btn type="submit">댓글 작성</v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+
+        <v-divider></v-divider>
+
+        <v-row v-for="comment in article.comments" :key="comment.id">
+          <v-col>
+            <p>{{ comment.id }} - {{ comment.content }}</p>
+            <v-row v-if="comment.user == userInfo">
+              <v-col>
+                <v-btn @click="editComment(comment)">댓글 수정</v-btn>
+                <v-btn @click="deleteComment(comment.id)">댓글 삭제</v-btn>
+              </v-col>
+            </v-row>
+            <v-row v-if="comment.editing">
+              <v-col>
+                <v-text-field v-model="comment.editedContent" label="수정 내용"></v-text-field>
+                <v-btn @click="saveComment(comment)">저장</v-btn>
+                <v-btn @click="cancelEdit(comment)">취소</v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script setup>

@@ -1,25 +1,30 @@
 <template>
-    <div>
-        <div>
-        <h2>게시글 수정</h2>
-        <hr class="my-4" />
-        <form @submit.prevent="updatePost">
-        <div>
-            <label for="title">제목:</label>
-            <input type="text" id="title" v-model="title" />
-        </div>
-        <div>
-            <label for="content">내용:</label>
-            <textarea id="content" v-model="content"></textarea>
-        </div>
-            <div class="pt-4">
-                <button type="submit" class="btn btn-primary" @click="updatePost">수정</button> |
-
-                <button type="button" class="btn btn-outline-danger me-2" @click="goDetailView">취소</button>
-            </div>
-        </form>
-    </div>
-    </div>
+    <v-container>
+      <v-row>
+        <v-col>
+          <h2 class="text-h5">게시글 수정</h2>
+          <v-divider class="my-4"></v-divider>
+          <v-form @submit.prevent="updatePost">
+            <v-row>
+              <v-col>
+                <v-text-field v-model="title" label="제목"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea v-model="content" label="내용"></v-textarea>
+              </v-col>
+            </v-row>
+            <v-row class="pt-4">
+              <v-col>
+                <v-btn type="submit" color="primary" @click="updatePost">수정</v-btn>
+                <v-btn type="button" color="error" class="me-2" @click="goDetailView">취소</v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-col>
+      </v-row>
+    </v-container>
   </template>
   
   <script setup>
