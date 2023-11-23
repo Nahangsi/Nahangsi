@@ -1,19 +1,20 @@
 <template>
-    <v-list lines="two">
+    <v-list @click="goToDetailView" lines="two">
       <v-list-item>
-        <v-list-item-avatar>
-          <span class="font-weight-black">{{ formatDate(article.created_at) }}</span>
-        </v-list-item-avatar>
+
   
         <v-list-item-content>
-          <v-list-item-title class="mb-1">{{ article.title }}</v-list-item-title>
-          <v-list-item-subtitle class="mt-1">{{ article.content }}</v-list-item-subtitle>
+          <v-list-item-title style="font-weight: 700;" class="mb-1">{{ article.title }}</v-list-item-title>
+          <v-list-item-subtitle style="font-weight: 400;" class="mt-1">{{ article.content }}</v-list-item-subtitle>
+          <div style="text-align: right;">
+            <span style="font-size: 14px; color: #858585;">{{ formatDate(article.created_at) }}</span>
+          </div>
+          
   
           <v-divider class="mb-2"></v-divider>
-  
-          <v-btn size="small" variant="tonal" @click="goToDetailView">
-            상세 보기
-          </v-btn>
+
+
+
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -55,4 +56,6 @@ const goToDetailView = () => {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
+
+
 </style>

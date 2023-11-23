@@ -10,6 +10,7 @@
           v-model="oldPassword"
           :rules="rules"
           type="password"
+          clearable
         ></v-text-field>
         <v-text-field
           label="변경할 비밀번호"
@@ -17,6 +18,7 @@
           v-model="newPassword"
           :rules="rules"
           type="password"
+          clearable
         ></v-text-field>
         <v-btn style="" type="submit" block class="mt-5" variant="outlined"
           >비밀번호 변경하기</v-btn

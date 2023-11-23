@@ -1,16 +1,18 @@
 <template>
-  <v-container>
+  <div style="background-color: #F6F7F9; height: 1000px;" >
+    <v-container>
     <v-row justify="center">
       <v-col cols="12" md="8">
-        <v-card>
-          <v-card-title>
-            <h2 class="text-h5">게시글 작성</h2>
+        <v-card style="margin: 10px; height: 800px; display: flex; flex-direction: column; ">
+          <v-card-title style="text-align: center;" >
+            <p style="font-size: 24px; font-weight: 600; margin-top: 60px;">게시글 작성</p>
           </v-card-title>
-          <v-form @submit.prevent="createArticle">
+          <v-form style="margin: 20px; text-align: center; "  @submit.prevent="createArticle">
             <v-text-field
               v-model.trim="title"
               label="제목"
               required
+              clearable variant="underlined"
             ></v-text-field>
 
             <v-textarea
@@ -18,21 +20,25 @@
               label="내용"
               rows="5"
               required
+              clearable variant="underlined"
             ></v-textarea>
 
             <v-select
+            variant="outlined"
               v-model="category"
               label="카테고리"
               :items="['예금', '적금', '기타']"
               required
             ></v-select>
 
-            <v-btn type="submit" color="primary">작성 완료</v-btn>
+            <v-btn block type="submit" color="#1E88E5">작성 완료</v-btn>
           </v-form>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
+  </div>
+  
 </template>
 
 <script setup>

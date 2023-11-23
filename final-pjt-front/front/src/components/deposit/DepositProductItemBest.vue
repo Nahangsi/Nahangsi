@@ -16,7 +16,7 @@
       <div title="아이콘" style="flex-grow: 2">
         <v-avatar
           class="icon"
-          image="https://item.kakaocdn.net/do/9fc0462374fa73111ee6b47046b9ce7b8b566dca82634c93f811198148a26065"
+          :image= "`src/assets/${depositProduct.kor_co_nm}.png`"
           size="50"
         ></v-avatar>
       </div>

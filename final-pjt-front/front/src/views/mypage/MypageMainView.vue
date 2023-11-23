@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <div style="height: 780px;">
+    <v-container>
     <v-row>
       <!-- Avatar Column -->
       <v-col cols="3" md="3">
@@ -41,7 +42,7 @@
       </v-btn
     >
     
-    <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'mypagepasswordupdate' }"
+    <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'Recommend' }"
       >    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"><v-avatar color="surface-variant" rounded="0" :size="60">
           <v-img src="src/assets/zzim.gif" />
         </v-avatar><p>내가 찜한 상품</p></div>    
@@ -57,25 +58,25 @@
     <v-row>
       <v-col cols="12" md="6">
         <v-card variant="flat" style="background-color: #F6F7F9;">
-          <v-card-title>My Profile 🙏</v-card-title>
+          <v-card-title>My Profile</v-card-title>
           <v-card-text>
             <v-list-item>
               <v-list-item-content style="font-size: 16px;" >이름 : </v-list-item-content>
-              <v-list-item-content>{{ User.username }}</v-list-item-content>
+              <v-list-item-content style="color: #959595;">{{ User.username }}</v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>저축 목표 : </v-list-item-content>
-              <v-list-item-content>{{ User.savings_goal }}</v-list-item-content>
+              <v-list-item-content style="font-size: 16px;">저축 목표 : </v-list-item-content>
+              <v-list-item-content style="color: #959595;">{{ User.savings_goal }}</v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>가입 상품 : </v-list-item-content>
-              <v-list-item-content v-if="product">{{
+              <v-list-item-content style="font-size: 16px;">가입 상품 : </v-list-item-content>
+              <v-list-item-content style="color: #959595;" v-if="product">{{
                 product
               }}</v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>저축 목표 금액 : </v-list-item-content>
-              <v-list-item-content>{{ User.money }}만원 </v-list-item-content>
+              <v-list-item-content style="font-size: 16px; ">저축 목표 금액 : </v-list-item-content>
+              <v-list-item-content style="color: #959595;"> {{ User.money }} 만원</v-list-item-content>
             </v-list-item>
           </v-card-text>
         </v-card>
@@ -86,79 +87,31 @@
   <p style="font-size: 20px; font-weight: 600; margin: 10px;">필요한 기능을 모아봤어요!</p>
 
   <!-- 내가 찜한 목록, 캘린더, 은행찾기, 환전 -->
-  <v-icon icon="mdi-chevron-right"></v-icon>
+
 
 <v-card height="200">
   <v-divider :thickness="1"></v-divider>
-        <v-btn append-icon="mdi-chevron-right" style="font-size: 20px;" variant="text" height="50" @click="selectterm(6)">
-          6개월</v-btn>
+        <v-btn block append-icon="mdi-chevron-right" style="font-size: 16px; display: flex; justify-content: space-between; font-weight: 400;" variant="text" height="50" @click="gonav('Bank')">
+          내 주변 은행 찾기</v-btn>
         <v-divider :thickness="1"></v-divider>
-        <v-btn style="font-size: 20px;" variant="text" height="50" @click="selectterm(12)">12개월</v-btn>
+        <v-btn block append-icon="mdi-chevron-right" style="font-size: 16px; display: flex; justify-content: space-between; font-weight: 400;" variant="text" height="50" @click="gonav('CurrencyCal')">환율 조회</v-btn>
         <v-divider :thickness="1"></v-divider>
-        <v-btn style="font-size: 20px;" variant="text" height="50" @click="selectterm(24)">24개월</v-btn>
+        <v-btn block append-icon="mdi-chevron-right" style="font-size: 16px; display: flex; justify-content: space-between; font-weight: 400;" variant="text" height="50" @click="gonav('Calendar')">당신만의 캘린더</v-btn>
         <v-divider :thickness="1"></v-divider>
-        <v-btn style="font-size: 20px;" variant="text" height="50" @click="selectterm(36)">36개월</v-btn>
+        <v-btn block append-icon="mdi-chevron-right" style="font-size: 16px; display: flex; justify-content: space-between; font-weight: 400;" variant="text" height="50" @click="gonav('mypageendmembership')">탈퇴하기</v-btn>
       </v-card>
-
-  <!-- 만들어지면 vue component 넣기 -->
-  <v-container class="text-center" style="margin-bottom: 50px">
-    <v-row justify="center">
-      <v-col cols="12">
-        <v-btn block rounded="xl" size="x-large" class="text-left"
-          ><RouterLink class="none" :to="{ name: 'cart' }"
-            >내가 찜한 상품</RouterLink
-          ></v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-btn block rounded="xl" size="x-large" class="text-left"
-          ><RouterLink class="none" :to="{ name: 'CurrencyCal' }"
-            >환전</RouterLink
-          ></v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-btn block rounded="xl" size="x-large" class="text-left"
-          ><RouterLink class="none" :to="{ name: 'Bank' }"
-            >은행찾기</RouterLink
-          ></v-btn
-        >
-      </v-col>
-    </v-row>
-  </v-container>
-
-  <div title="밑줄"  style="display: flex; justify-content: space-between;">
-      <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'CurrencyCal' }"
-      >    <div>
-        <v-avatar color="surface-variant" rounded="0" :size="60">
-          <v-img src="src/assets/change.gif" />
-        </v-avatar><p>환율 보기</p>
-      </div>   
-      </v-btn
-    >    
-    <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'Bank' }"
-      >   <div><v-avatar color="surface-variant" rounded="0" :size="60">
-          <v-img src="src/assets/change.gif" />
-        </v-avatar><p>내 주변 은행 찾기</p></div>     
-      </v-btn>
-      <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'Bank' }"
-      >   <div><v-avatar color="surface-variant" rounded="0" :size="60">
-          <v-img src="src/assets/change.gif" />
-        </v-avatar><p>내 주변 은행 찾기</p></div>     
-      </v-btn>
-    </div>
+  </div>
+  
+    
 </template>
 
 <script setup>
 import { useAccountStore } from "@/stores/account";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 import { ref } from "vue";
 
+const router = useRouter()
 const store = useAccountStore();
 const User = store.userinfo;
 const product = ref(null);
@@ -167,6 +120,10 @@ if (User.financial_products !== null) {
     1,
     User.financial_products.length - 1
   );
+}
+
+const gonav = (go) => {
+  router.push({name: go})
 }
 </script>
 
