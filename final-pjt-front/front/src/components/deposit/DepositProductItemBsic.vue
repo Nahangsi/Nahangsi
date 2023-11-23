@@ -16,9 +16,10 @@
       <div title="아이콘" style="flex-grow: 2">
         <v-avatar
           class="icon"
-          image="https://item.kakaocdn.net/do/9fc0462374fa73111ee6b47046b9ce7b8b566dca82634c93f811198148a26065"
+          :image= "`src/assets/${depositProduct.kor_co_nm}.png`"
           size="50"
-        ></v-avatar>
+        >
+      </v-avatar>
       </div>
       <div
         title="글자+칩"
@@ -31,8 +32,7 @@
             flex-direction: row;
             justify-content: space-between;
             flex-grow: 6;
-          "
-        >
+          ">
           <div
             title="제목"
             style="display: flex; flex-direction: column; margin-bottom: 15px"
@@ -119,6 +119,7 @@ const addToDepositCart = (depositProduct) => {
   );
 };
 
+
 // 좋아요를 누르면 바로 cart로 이동하면서 담긴 상품 표시됨
 // const navigateToCartView = () => {
 //   router.push({ name: 'cart' })
@@ -161,7 +162,6 @@ if (
 }
 
 const godetail = () => {
-  console.log(props.depositProduct);
 
   router.push({
     name: "productdetail",

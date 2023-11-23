@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="signup">회원가입</h2>
+    <h2 class="signup" style="margin-bottom: 40px;">회원가입</h2>
     <v-sheet width="300" class="mx-auto">
       <v-form @submit.prevent="signup">
         <v-text-field
@@ -9,6 +9,7 @@
           label="아이디"
           variant="outlined"
           class="mb-2"
+          clearable
           
         ></v-text-field>
         <v-text-field
@@ -20,6 +21,7 @@
           hint="이메일은 선택사항이에요"
           variant="outlined"
           class="m-6 email"
+          clearable
         ></v-text-field>
         <v-text-field
           v-model.trim="password1"
@@ -28,19 +30,21 @@
           hint="비밀번호는 영문, 숫자 조합 8자리 이상이에요!"
           variant="outlined"
           class="mb-1"
+          clearable
         ></v-text-field>
         <v-text-field
           v-model.trim="password2"
           label="비밀번호 확인"
           type="password"
-          hint="Enter your password to access this website"
           variant="outlined"
+          clearable
         ></v-text-field>
         <v-autocomplete
           label="연령대"
           v-model="age"
           :items="['10대', '20대', '30대', '40대', '50대', '60대 이상']"
           variant="outlined"
+          clearable
         ></v-autocomplete>
         <v-combobox
           v-model="financialProducts"
@@ -48,42 +52,49 @@
           label="가입 중인 금융상품을 선택해주세요!"
           multiple
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="money"
           :items="moneyItems"
           label="월 저축 금액을 알려주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="salary"
           :items="salaryItems"
           label="연봉을 선택해주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="primaryBank"
           :items="primaryBankItems"
           label="주거래은행을 선택해주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="savingsGoal"
           :items="savingsGoalItmes"
           label="저축목표를 선택해주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="savingsTerm"
           :items="savingsTermItmes"
           label="저축기간 선택해주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-combobox
           v-model="occupation"
           :items="occupationItmes"
           label="직종을 선택해주세요!!"
           variant="outlined"
+          clearable
         ></v-combobox>
         <v-btn  type="submit" block class="mt-2 submit" variant="outlined"
           >Submit</v-btn

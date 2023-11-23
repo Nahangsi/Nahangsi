@@ -46,17 +46,18 @@
 
       <v-btn @click.stop="gonav('ArticleView')">
         <v-icon icon="mdi-message-text"></v-icon>
+        <div>Article</div>
 
       </v-btn>
       <v-btn @click.stop="gonav('home')">
         <v-icon>mdi-home</v-icon>
+        <div>Home</div>
+        
       </v-btn>
 
-      <v-btn @click.stop="gonav('mypage')">
-        <v-icon icon="mdi-account"></v-icon>
-
-        <div @click="logincon">
-        </div>
+      <v-btn @click.stop="logincon">
+          <v-icon icon="mdi-account"></v-icon>
+          <div>Mypage</div>
       </v-btn>
     </v-bottom-navigation>
   </v-layout>
@@ -79,6 +80,8 @@ const logincon = () => {
   if (store.isLogin === false) {
     alert("로그인시 이용가능합니다");
     router.push({ name: "login" });
+  } else {
+    router.push({name:'mypage'})
   }
 };
 
