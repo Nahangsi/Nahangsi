@@ -10,9 +10,6 @@
 
       <!-- Text Content Column -->
       <v-col cols="9" md="9">
-
-          
-
         <p style="font-size: 20px;">안녕하세요 <span style="font-weight: 600; color: #1E88E5;">{{ User.username }}님!</span></p>
         <p style="font-size: 15px; font-weight: 400; color: #959595;">재정 보충이 필요한 상태입니다 :)</p>
       </v-col>
@@ -47,7 +44,7 @@
     <v-btn style="display: flex; flex-direction: column; align-items: center; justify-content: center;" variant="text" class="my-btn" :to="{ name: 'mypagepasswordupdate' }"
       >    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;"><v-avatar color="surface-variant" rounded="0" :size="60">
           <v-img src="src/assets/zzim.gif" />
-        </v-avatar><p>찜한 상품</p></div>    
+        </v-avatar><p>내가 찜한 상품</p></div>    
       </v-btn
     > 
     </div>
@@ -128,15 +125,6 @@
         <v-btn block rounded="xl" size="x-large" class="text-left"
           ><RouterLink class="none" :to="{ name: 'Bank' }"
             >은행찾기</RouterLink
-          ></v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-btn block rounded="xl" size="x-large" class="text-left"
-          ><RouterLink class="none" :to="{ name: 'Calendar' }"
-            >캘린더</RouterLink
           ></v-btn
         >
       </v-col>

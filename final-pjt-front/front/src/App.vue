@@ -43,7 +43,7 @@
 
   <v-layout class="overflow-visible">
     <v-bottom-navigation v-model="value" color="teal" grow>
-
+      <!-- <div v-if="store.isLogin"></div> -->
       <v-btn @click.stop="gonav('ArticleView')">
         <v-icon icon="mdi-message-text"></v-icon>
 
