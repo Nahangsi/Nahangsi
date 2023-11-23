@@ -1,66 +1,37 @@
 <template>
   <div style="height: 2000px">
-    <h1>메인 페이지</h1>
-    <p
-      class="video__description"
-      data-aos="fade-left"
-      data-aos-anchor-placement="center-center"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid
-      deleniti dignissimos esse ex expedita fuga nostrum, nulla obcaecati odio
-      perspiciatis quas quia repellat sit suscipit, temporibus unde, veniam
-      vero.
-    </p>
-    <v-carousel show-arrows="hover" cycle="true" interval="4500">
-      <v-carousel-item
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        cover
-      ></v-carousel-item>
 
-      <v-carousel-item
-        src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
-        cover
-      ></v-carousel-item>
+    <v-carousel style="max-width: 100%; height: 600px;" show-arrows="hover" cycle="true" interval="4500">
+      <v-carousel-item cover>
+        <img src="src/assets/장바구니.png" style="object-fit: cover; width: 100%; height: 100%;" alt="장바구니">
+      </v-carousel-item>
 
-      <v-carousel-item
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        cover
-      ></v-carousel-item>
+      <v-carousel-item cover>
+        <img src="src/assets/최고금리.png" style="object-fit: cover; width: 100%; height: 100%;" alt="최고금리">
+      </v-carousel-item>
+
+      <v-carousel-item cover>
+        <img src="src/assets/은행찾기.png" style="object-fit: cover; width: 100%; height: 100%;" alt="은행찾기">
+      </v-carousel-item>
     </v-carousel>
 
-    <p
-      class="video__description"
-      data-aos="fade-left"
-      data-aos-anchor-placement="center-center"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid
-      deleniti dignissimos esse ex expedita fuga nostrum, nulla obcaecati odio
-      perspiciatis quas quia repellat sit suscipit, temporibus unde, veniam
-      vero.
+    <p class="video__description" data-aos="fade-left" data-aos-anchor-placement="center-center">
+      Your description content here 
+    </p>`
+    <p class="video__description" data-aos="fade-right" data-aos-anchor-placement="center-center">
+      Your description content here 
     </p>
-    <p
-      class="video__description"
-      data-aos="fade-left"
-      data-aos-anchor-placement="center-center"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid
-      deleniti dignissimos esse ex expedita fuga nostrum, nulla obcaecati odio
-      perspiciatis quas quia repellat sit suscipit, temporibus unde, veniam
-      vero.
-    </p>
-    <p
-      class="video__description"
-      data-aos="fade-left"
-      data-aos-anchor-placement="center-center"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid
-      deleniti dignissimos esse ex expedita fuga nostrum, nulla obcaecati odio
-      perspiciatis quas quia repellat sit suscipit, temporibus unde, veniam
-      vero.
+    <p class="video__description" data-aos="fade-top" data-aos-anchor-placement="center-center">
+      Your description content here 
     </p>
   </div>
 </template>
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped>
+v-carousel {
+  margin-top: 30px;
+}
+
+</style>
