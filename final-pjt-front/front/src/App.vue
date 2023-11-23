@@ -31,10 +31,10 @@
     </v-tabs>
   </v-card>
 
-  <v-layout class="overflow-visible" style="height: 56px">
+  <v-layout class="overflow-visible">
     <v-bottom-navigation v-model="value" color="teal" grow>
       <v-btn>
-        <v-icon>mdi-history</v-icon>
+        <v-icon icon="mdi-message-text"></v-icon>
         <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink>
       </v-btn>
       <v-btn>
@@ -43,7 +43,7 @@
       </v-btn>
 
       <v-btn>
-        <v-icon icon="mdi-map-marker"></v-icon>
+        <v-icon icon="mdi-account"></v-icon>
         <div @click="logincon">
           <RouterLink :to="{ name: 'mypage' }">Profile</RouterLink>
         </div>

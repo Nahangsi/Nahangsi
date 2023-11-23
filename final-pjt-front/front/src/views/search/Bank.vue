@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app >
       <v-container class="map">
         <v-form>
           <v-row >
@@ -182,6 +182,5 @@
     position: absolute; /* position을 absolute로 변경 */
     z-index: 5; /* 찾기 버튼을 지도 위로 올리기 위한 z-index 값 */
   }
-  .map { }
 </style>
   

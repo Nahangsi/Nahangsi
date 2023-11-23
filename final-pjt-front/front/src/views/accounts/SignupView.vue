@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>회원가입</h1>
+    <h2 class="signup">회원가입</h2>
     <v-sheet width="300" class="mx-auto">
       <v-form @submit.prevent="signup">
         <v-text-field
@@ -14,7 +14,7 @@
         <v-text-field
           v-model.trim="email"
 
-          label="Email"
+          label="이메일"
           placeholder="kimhyeonsu@magic.com"
           type="email"
           hint="이메일은 선택사항이에요"
@@ -23,7 +23,7 @@
         ></v-text-field>
         <v-text-field
           v-model.trim="password1"
-          label="Password"
+          label="비밀번호"
           type="password"
           hint="비밀번호는 영문, 숫자 조합 8자리 이상이에요!"
           variant="outlined"
@@ -31,13 +31,11 @@
         ></v-text-field>
         <v-text-field
           v-model.trim="password2"
-          label="Password"
+          label="비밀번호 확인"
           type="password"
           hint="Enter your password to access this website"
           variant="outlined"
         ></v-text-field>
-        <p>아래는 선택사항입니다!</p>
-        <p>하지만, 선택을 해주신다면 알맞은 금융 상품을 추천해드릴게요!</p>
         <v-autocomplete
           label="연령대"
           v-model="age"
@@ -267,8 +265,23 @@ const signup = function () {
 
 .submit {
   margin-bottom: 100px;
+  color : #1E88E5;
+  font-weight: bolder;
+  font-size: 15;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 10px;
 }
 .email {
   margin-bottom: 5px;
+}
+
+.signup {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: 30px;
+  font-weight:bolder;
+  color: dimgrey;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>

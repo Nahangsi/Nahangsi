@@ -16,7 +16,7 @@
             :rules="rules"
             type="password"
           ></v-text-field>
-          <v-btn type="submit" block class="mt-2" variant="outlined"
+          <v-btn type="submit" block class="mt-2 button" variant="outlined"
             >비밀번호 변경하기</v-btn
           >
         </v-form>
@@ -87,5 +87,16 @@
   };
   </script>
   
-  <style scoped></style>
+  <style scoped>
+  .button {
+  color: #1E88E5;
+  border-color: #1E88E5;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  text-align: center;
+  font-weight:bolder;
+  font-size : 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+  </style>
   

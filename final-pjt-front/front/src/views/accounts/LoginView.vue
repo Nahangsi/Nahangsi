@@ -12,7 +12,6 @@
           v-model.trim="password1"
           label="비밀번호"
           type="password"
-          hint="비밀번호는 8자리 이상 입력해주세요!"
           variant="outlined"
         ></v-text-field>
         <v-btn
@@ -58,9 +57,13 @@ const moverouter = (go) => {
 
 <style scoped>
 .login {
+  margin-top: 50px;
+  margin-bottom: 50px;
   text-align: center;
-  margin-bottom: 25px;
-  font-size: 24px;
+  font-size: 30px;
+  font-weight:bolder;
+  color: dimgrey;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .submit {
   background-color: #1565c0;

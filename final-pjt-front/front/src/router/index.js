@@ -154,7 +154,7 @@ const router = createRouter({
     // 캘린더
     {
       path: "/calendar",
-      name: "calendar",
+      name: "Calendar",
       component : Calendar,
     },
 ],

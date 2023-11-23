@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
    # 금융 상품 가져오는 url
-   path('save-deposit-product/', views.save_deposit_products),
+   path('save-deposit-products/', views.save_deposit_products),
    # 정기 예금 상품 목록 반환 
    path('deposit-product/', views.deposit_products),
    # 특정 예금 상품의 옵션 리스트 반환
