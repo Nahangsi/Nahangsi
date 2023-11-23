@@ -25,8 +25,8 @@
 
         <v-tab value="five" @click="logout">로그아웃</v-tab>
         <v-tab value="six"
-          ><RouterLink :to="{ name: 'mypagepasswordupdate' }"
-            >비밀번호변경</RouterLink
+          ><RouterLink :to="{ name: 'Recommend' }"
+            >상품 추천받기</RouterLink
           ></v-tab
         >
       </div>

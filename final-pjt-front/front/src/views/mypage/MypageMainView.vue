@@ -77,8 +77,8 @@
               }}</v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>시드 머니 :</v-list-item-content>
-              <v-list-item-content>{{ User.money }}</v-list-item-content>
+              <v-list-item-content>저축 목표 금액 : </v-list-item-content>
+              <v-list-item-content>{{ User.money }}만원 </v-list-item-content>
             </v-list-item>
           </v-card-text>
         </v-card>
@@ -108,7 +108,9 @@
     <v-row justify="center">
       <v-col cols="12">
         <v-btn block rounded="xl" size="x-large" class="text-left"
-          >내가 찜한 상품</v-btn
+          ><RouterLink class="none" :to="{ name: 'cart' }"
+            >내가 찜한 상품</RouterLink
+          ></v-btn
         >
       </v-col>
     </v-row>
@@ -132,7 +134,11 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <!-- <v-btn block rounded="xl" size="x-large" class="text-left"><RouterLink class="none" :to="{name : 'calendar'}">캘린더</RouterLink></v-btn> -->
+        <v-btn block rounded="xl" size="x-large" class="text-left"
+          ><RouterLink class="none" :to="{ name: 'Calendar' }"
+            >캘린더</RouterLink
+          ></v-btn
+        >
       </v-col>
     </v-row>
   </v-container>

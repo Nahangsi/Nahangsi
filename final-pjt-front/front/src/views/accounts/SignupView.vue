@@ -52,7 +52,7 @@
         <v-combobox
           v-model="money"
           :items="moneyItems"
-          label="월 저축 금액을 알려주세요!!"
+          label="투자 가능한 금액을 알려주세요!!"
           variant="outlined"
         ></v-combobox>
         <v-combobox
