@@ -28,6 +28,9 @@ import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
 // import Calendar from "../views/mypage/Calendar.vue";
 // cart
 import CartView from '../views/CartView.vue'
+// aos
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 
 
@@ -43,7 +46,7 @@ const router = createRouter({
     },
     // 게시글 메인페이지
     {
-      path: "/",
+      path: "/.",
       name: "ArticleView",
       component: ArticleView,
     },
@@ -154,6 +157,11 @@ const router = createRouter({
     // },
 ],
 
+});
+
+router.beforeEach((to, from, next) => {
+  AOS.init(); // Initialize AOS
+  next();
 });
 
 export default router;
