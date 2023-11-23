@@ -22,6 +22,7 @@
         ></v-tab
       >
       <div v-if="store.isLogin">
+
         <v-tab value="five" @click="logout">로그아웃</v-tab>
         <v-tab value="six"
           ><RouterLink :to="{ name: 'mypagepasswordupdate' }"
@@ -42,15 +43,18 @@
 
   <v-layout class="overflow-visible">
     <v-bottom-navigation v-model="value" color="teal" grow>
+
       <v-btn @click.stop="gonav('ArticleView')">
-        <v-icon>mdi-history</v-icon>
+        <v-icon icon="mdi-message-text"></v-icon>
+
       </v-btn>
       <v-btn @click.stop="gonav('home')">
         <v-icon>mdi-home</v-icon>
       </v-btn>
 
       <v-btn @click.stop="gonav('mypage')">
-        <v-icon icon="mdi-map-marker"></v-icon>
+        <v-icon icon="mdi-account"></v-icon>
+
         <div @click="logincon">
         </div>
       </v-btn>

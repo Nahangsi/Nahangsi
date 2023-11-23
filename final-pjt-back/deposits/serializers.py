@@ -55,4 +55,3 @@ class SelectSavingSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingProducts
         fields = ('fin_prdt_nm',)
-

@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app >
       <v-container class="map">
         <v-form>
           <v-row >
@@ -32,17 +32,6 @@
   
         <v-divider class="my-4"></v-divider>
   
-        <div v-if="bankMarkers.length > 0">
-          <h6>{{ searchResultText }}</h6>
-          <v-list>
-            <v-list-item v-for="bankMarker in bankMarkers" :key="bankMarker.place_name">
-              <v-list-item-content>{{ bankMarker.place_name }}</v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </div>
-        <div v-else>
-          <h6>검색 목록이 없습니다.</h6>
-        </div>
       </v-container>
     </v-app>
   </template>
@@ -191,9 +180,7 @@
     margin: 10px;
     text-align: center;
     position: absolute; /* position을 absolute로 변경 */
-    z-index: 3; /* 찾기 버튼을 지도 위로 올리기 위한 z-index 값 */
-    color : #1E88E5
+    z-index: 5; /* 찾기 버튼을 지도 위로 올리기 위한 z-index 값 */
   }
-  .map { }
 </style>
   

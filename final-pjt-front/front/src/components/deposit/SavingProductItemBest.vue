@@ -67,6 +67,7 @@
             <v-chip  style="color: #858585; background-color: #F0F2F5; font-weight: 500; margin: 0 5px;" density="comfortable" variant="text">
       {{ saving }}
     </v-chip>
+
             <v-chip  style="color: #858585; background-color: #F0F2F5; font-weight: 500; margin: 0 5px;" density="comfortable" variant="text">
               {{ everyone }}
             </v-chip>
@@ -88,6 +89,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>

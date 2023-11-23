@@ -1,4 +1,5 @@
 <template>
+
   <div style="display: flex; flex-direction: column; align-items: center;">
     <p style="margin-top: 100px; font-size: 24px; font-weight: 600;">비밀번호 변경하기</p>
     <v-sheet style="margin-top: 50px;" width="300" class="mx-auto">
@@ -73,19 +74,37 @@ const passwordupdate = () => {
           alert("회원정보가 수정되었습니다!");
           store.Getuserinfo();
           router.push({ name: "mypage" });
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
-          router.push({ name: "mypage" });
-        });
-    } else {
-      alert("이전 비밀번호와 동일한 비밀번호를 사용할 수 없어요!");
-    }
-  } else {
-    alert("비밀번호 입력란이 비어있습니다. 확인해주세요!");
-  }
-};
-</script>
 
-<style scoped></style>
+        })
+          .then((res) => {
+            alert("회원정보가 수정되었습니다!");
+            store.Getuserinfo();
+            router.push({ name: "mypage" });
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("회원정보 수정에 실패했습니다. 다시 시도해주세요!");
+            router.push({ name: "mypage" });
+          });
+      } else {
+        alert("이전 비밀번호와 동일한 비밀번호를 사용할 수 없어요!");
+      }
+    } else {
+      alert("비밀번호 입력란이 비어있습니다. 확인해주세요!");
+    }
+  };
+  </script>
+  
+  <style scoped>
+  .button {
+  color: #1E88E5;
+  border-color: #1E88E5;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  text-align: center;
+  font-weight:bolder;
+  font-size : 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+  </style>
+  

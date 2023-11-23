@@ -1,83 +1,137 @@
 <template>
-    <!-- <div>
-        <h1>찜한 상품</h1>
-        <div v-if="cartItems" class="product-list">
-            <div v-for="product in cartItems" :key="product.id" class="product-card">
-                <img :src="product.image" alt="">
-                <strong>{{ product.title }}</strong>
-                <p>상품 설명 : ${{ product.content }}</p>
-                <button @click="goDetail(product)">상세페이지로 이동</button>
-                <button @click="removeCart(product)">찜한 상품 삭제</button>  
-            </div>
-        </div>
-        <div v-else>
-        <strong>찜한 상품이 없습니다.</strong>
-        </div>
-    </div> -->
-    <div>
-    <h2>Cart View</h2>
-    <hr>
-    <p class="font-weight-bold">예금!</p>
-    <div v-if="likedDepositProducts.length === 0">
-      <p>동록된 예금 상품이 없습니다.</p>
-    </div>
-    <div v-else>
-      <ul>
-        <li v-for="depositProduct in likedDepositProducts" :key="depositProduct.id">
-          {{ depositProduct.fin_prdt_nm }}
-        </li>
-      </ul>
-    </div>
+  <v-container>
+    <v-row style="margin-left:50px" justify="center">
+      <v-col md="6"  @click="rate=true"  button>예금 상품</v-col>
+      <v-col md="6"  @click="rate=false" button>적금 상품</v-col>
+    </v-row>
+  </v-container>
 
-    <hr>
-    <hr>
-    <p class="font-weight-bold">적금!</p>
-    <div v-if="likedsavingProducts.length === 0">
-      <p>동록된 적금 상품이 없습니다.</p>
-    </div>
-    <div v-else>
-      <ul>
-        <li v-for="savingProduct in likedsavingProducts" :key="savingProduct.id">
-          {{ savingProduct.fin_prdt_nm }}
-        </li>
-      </ul>
-    </div>
-  </div>
+  
+  <v-container style="margin-bottom : 100px;">
+    <v-row justify="center" v-if="viewproduct">
+      <v-col v-show="rate==true">
+        <div v-for="depositProduct in depositProducts" :key="depositProduct.id">
+          <v-card class="card">
+            <v-card-title>{{ depositProduct.fin_prdt_nm }}</v-card-title>
+            <v-card-text>
+              <v-list-item>
+                <v-list-content>최고 우대 금리 : </v-list-content>
+                <v-list-content>{{ getMaxIntrRate2(depositProduct.depositoptions_set) }}</v-list-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-content>기본 금리 : </v-list-content>
+                <v-list-content>{{ getMaxIntrRate(depositProduct.depositoptions_set) }}</v-list-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>가입 대상 : </v-list-item-content>
+                <v-list-item-content>{{ depositProduct.join_member }}</v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>가입 기간 : </v-list-item-content>
+                <v-list-item-content>{{getSavetrmText(depositProduct.depositoptions_set)}}</v-list-item-content>
+              </v-list-item>
+            </v-card-text>
+
+          </v-card>
+        </div>
+      </v-col>
+      <v-col v-show="rate==false">
+        <div v-for="savingProduct in savingProducts" :key="savingProduct.id">
+          <v-card class="card">
+            <v-card-title>{{ savingProduct.fin_prdt_nm }}</v-card-title>
+            <v-card-text>
+              <v-list-item>
+                <v-list-content>최고 금리 : </v-list-content>
+                <v-list-content>{{ getMaxIntrRate2(savingProduct.savingoptions_set) }}</v-list-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-content>기본 금리 : </v-list-content>
+                <v-list-content>{{ getMaxIntrRate(savingProduct.savingoptions_set) }}</v-list-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>가입 대상 : </v-list-item-content>
+                <v-list-item-content>{{ savingProduct.join_member }}</v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>가입 기간 : </v-list-item-content>
+                <v-list-item-content>{{ getSavetrmText(savingProduct.savingoptions_set) }}</v-list-item-content>
+              </v-list-item>
+            </v-card-text>
+          </v-card>
+        </div>
+      </v-col>
+
+    </v-row>     
+  </v-container>   
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
+// true : 예금, false : 적금
+const rate = ref(true);
 
 const likedDepositProducts = JSON.parse(localStorage.getItem('likedDepositProducts')) || [];
 const likedsavingProducts = JSON.parse(localStorage.getItem('likedsavingProducts')) || [];
 
+const depositProducts = ref(null);
+const savingProducts = ref(null);
 
-// const router = useRouter()
+const getMaxIntrRate2 = (arr) => {
+  const maxRate = Math.max(...arr.map((item) => item.intr_rate2));
+  return maxRate.toFixed(2) + '%';
+}
 
-// const cartItems = ref(null)
+const getMaxIntrRate = (arr) => {
+  const maxRate = Math.max(...arr.map((item) => item.intr_rate));
+  return maxRate.toFixed(2) + '%';
+}
 
-// cartItems.value = JSON.parse(localStorage.getItem('cart'))
+const getallsavetrm = (arr) => {
+  return arr.map((item) => item.save_trm);
+}
 
-// const goDetail = (product) => {
-//   router.push(`/${product.id}`)
-// }
+const getSavetrmText = (optionsSet) => {
+  const savetrmArray = getallsavetrm(optionsSet);
+  const savetrmArray2 = savetrmArray.map((item) => item + '개월');
+  return savetrmArray2.join(', ');
+};
 
-// const removeCart = (product) => {
-//   // localStoage 에서 삭제
+const viewproduct = () => {
+  
+    depositProducts.value = likedDepositProducts.sort((a, b) => {
+      const getMaxIntrRate = (arr) => {
+        return Math.max(...arr.map((item) => item.intr_rate2));
+      };
+      const maxIntrRateA = getMaxIntrRate(a.depositoptions_set);
+      const maxIntrRateB = getMaxIntrRate(b.depositoptions_set);
 
-//   // 삭제할 아이템 index 검색
-//   const itemIdx = cartItems.value.findIndex((item) => item.id === product.id)
- 
-//   // 데이터 삭제
-//   cartItems.value.splice(itemIdx, 1)
+      return maxIntrRateB - maxIntrRateA;
+    })
+    
+    savingProducts.value = likedsavingProducts.sort((a, b) => {
+      const getMaxIntrRate = (arr) => {
+        return Math.max(...arr.map((item) => item.intr_rate))
+      }
 
-//   // 삭제된 데이터를 기준으로 데이터를 반영
-//   localStorage.setItem('cart', JSON.stringify(cartItems.value))
-// }
+      const maxIntrRateA = getMaxIntrRate(a.savingoptions_set)
+      const maxIntrRateB = getMaxIntrRate(b.savingoptions_set)
+
+      return maxIntrRateB - maxIntrRateA
+    }).reverse()
+  
+  console.log(depositProducts.value)
+  console.log(savingProducts.value)
+}
+
+onMounted(() => {
+  viewproduct()
+})
+
 
 </script>
 
 <style scoped>
-
+.card {
+  margin-bottom: 30px;
+}
 </style>

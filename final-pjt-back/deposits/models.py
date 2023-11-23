@@ -101,5 +101,3 @@ class SavingOptions(models.Model):
     # 최대 우대 금리
     intr_rate2 = models.FloatField(null=True)
 
-
-

@@ -1,31 +1,14 @@
 <template>
-    <div id="app">
-      <h1>Vue Calendar</h1>
-      <datepicker v-model="selectedDate" :format="customFormat"></datepicker>
-      <p>Selected Date: {{ selectedDate }}</p>
+    <div>
+        <img src="src/assets/gom2.png" style="width: 100%; height: 100%; margin-top: 0px 
+        ; margin-bottom: 0px;">
     </div>
-  </template>
-  
-  <script>
-  import Datepicker from 'vuejs-datepicker';
-  
-  export default {
-    components: {
-      Datepicker,
-    },
-    data() {
-      return {
-        selectedDate: null,
-        customFormat: 'yyyy-MM-dd', // 날짜 형식을 지정할 수 있습니다.
-      };
-    },
-  };
-  </script>
-  
-  <style>
-  #app {
-    text-align: center;
-    margin-top: 20px;
-  }
-  </style>
-  
+</template>
+
+<script setup>
+
+</script>
+
+<style  scoped>
+
+</style>

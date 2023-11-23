@@ -9,6 +9,7 @@ import DepositProductDetailView from '@/views/deposits/DepositProductDetailView.
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
 import Bank from "@/views/search/Bank.vue"
+
 // community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
@@ -17,20 +18,26 @@ import UpdateView from '@/views/community/UpdateView.vue'
 
 // home
 import HomeView from "../views/HomeView.vue";
+
 // accounts
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
+
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
-// import Calendar from "../views/mypage/Calendar.vue";
+import Calendar from "../views/mypage/Calendar.vue";
+
 // cart
 import CartView from '../views/CartView.vue'
 // aos
 import AOS from "aos";
 import 'aos/dist/aos.css';
+
+// recommend
+import RecommendView from '../views/deposits/RecommendView.vue'
 
 
 
@@ -118,6 +125,12 @@ const router = createRouter({
       component : Bank
 
     },
+     // 회원정보 수정
+     {
+      path: "/mypageupdate",
+      name: "mypageupdate",
+      component: MypageUpdateView,
+    },
     // 비밀번호 수정
     {
       path: "/mypagepasswordupdate",
@@ -142,19 +155,24 @@ const router = createRouter({
       name: "savingproduct",
       component: SavingProductView,
     },
-
     // 금융상품 상세 페이지
     {
       path: "/productdetail/:id",
       name: "productdetail",
       component: DepositProductDetailView,
     },
-    // // 캘린더
-    // {
-    //   path: "/calendar",
-    //   name: "calendar",
-    //   component : Calendar,
-    // },
+    // 캘린더
+    {
+      path: "/calendar",
+      name: "Calendar",
+      component : Calendar,
+    },
+    // 추천상품
+    {
+      path: "/recommend",
+      name: "Recommend",
+      component: RecommendView,
+    },
 ],
 
 });

@@ -3,43 +3,46 @@
     <v-row justify="center">
       <v-col cols="12" md="8">
         <v-card>
-          <v-card-title>
-            <h2 class="headline">환율 계산기💰</h2>
+          <v-card-title style="margin-bottom: 20px; color: #1E88E5; font-weight:bolder">
+            <p>{{ `${year}년 ${month}월 ${day}일` }} 기준 </p>
           </v-card-title>
           <v-card-text>
-            <v-row>
-              <v-col cols="10" md="6">
-                <v-autocomplete
-                  v-model="select1"
-                  :items="payments"
-                  variant="outlined"
-                  label="환율 국가 선택"
-                ></v-autocomplete>
-              </v-col>
-              <v-col cols="10" md="6">
-                <v-autocomplete
+            <v-row class="select">
+              <v-col cols="9" md="6">
+                <v-autocomplete 
                   v-model="select2"
                   :items="criterion"
                   variant="outlined"
                   label="환율 기준 선택"
+                  width="100%"
                 ></v-autocomplete>
               </v-col>
-            </v-row>
+          </v-row>
 
            
             <v-row>
-              <v-col cols="10" md="6">
+                <v-autocomplete 
+                v-model="select1"
+                :items="payments"
+                variant="outlined"
+                label="환율 국가 선택"
+                style="margin-left: 10px;"
+              ></v-autocomplete>
+
                 <v-text-field
                   v-model.number="payment1"
                   @input="updatePayment2(Math.round((payment1 * rate) / currencyUnit))"
                   variant="outlined"
                   label="가격 선택"
+                  style="margin-left: 10px;"
                 >
                   <template v-slot:append>
                     {{ currencyName }}
                   </template>
                 </v-text-field>
-              </v-col>
+            
+            <!--  = 이모지 넣어주기 : 궁 -->
+
               <v-col cols="10" md="6">
                 <v-text-field
                   v-model.number="payment2"
@@ -60,6 +63,13 @@
 <script setup>
 import { ref, watch } from "vue";
 import axios from "axios";
+import moment from 'moment'
+
+const now = moment();
+
+const year = now.year();
+const month = now.month() + 1;
+const day = now.date();
 
 
 const payments = ref([
@@ -123,7 +133,10 @@ watch([currencyName], () => {
 </script>
 
 <style scoped>
-.custom-select {
-
+.select {
+  margin-bottom: 20px;
 }
+
+
+
 </style>

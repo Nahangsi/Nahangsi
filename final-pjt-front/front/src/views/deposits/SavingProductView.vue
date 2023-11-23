@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <p style="font-size: 30px; font-weight: 700; margin: 10px;">정기 예금</p>
 
@@ -48,18 +49,6 @@
       기본금리순
 </v-btn>
 
-    <div>
-      <div v-show="rate === true">
-        <div v-for="savingProduct in bestproducts" :key="savingProduct.id">
-          <SavingProductItemBest :savingProduct="savingProduct" />
-        </div>
-      </div>
-      <div v-show="rate === false">
-        <div v-for="savingProduct in basicproducts">
-          <SavingProductItemBasic :savingProduct="savingProduct" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

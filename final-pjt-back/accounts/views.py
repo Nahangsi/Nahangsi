@@ -88,3 +88,5 @@ def change_password(request):
             return Response({'error': '이전 비밀번호를 확인해주세요!'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+

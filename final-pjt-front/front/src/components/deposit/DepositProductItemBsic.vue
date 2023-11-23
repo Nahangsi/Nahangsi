@@ -1,4 +1,5 @@
 <template>
+
   <div
     style="
       height: 150px;
@@ -84,6 +85,7 @@
       </div>
     </div>
   </div>
+
 
   <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>
 </template>
@@ -172,4 +174,5 @@ const godetail = () => {
 .icon {
   box-shadow: 1px 2px 8px #cccccc;
 }
+
 </style>
