@@ -14,6 +14,7 @@ urlpatterns = [
    path('saving-product/', views.saving_products),
    # 특정 적금 상품 상세 정보 반환
    path('saving-product/<str:fin_prdt_cd>/', views.saving_product_options),
-   # 예금 상품 최고 우대 금리, 저축금리 정렬해서 반환
+   # 사용자별 금융 상품 추천 결과 반환
+   path('recommendation/', views.recommendation),
 ]
 

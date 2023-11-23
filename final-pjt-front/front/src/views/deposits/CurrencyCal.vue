@@ -40,10 +40,8 @@
                     {{ currencyName }}
                   </template>
                 </v-text-field>
-
-            <v-col cols="12" style="width: 40px; text-align: center;">
-              <v-icon icon="mdi-equal"></v-icon>
-            </v-col>
+            
+            <!--  = 이모지 넣어주기 : 궁 -->
 
               <v-col cols="10" md="6">
                 <v-text-field
@@ -138,4 +136,7 @@ watch([currencyName], () => {
 .select {
   margin-bottom: 20px;
 }
+
+
+
 </style>

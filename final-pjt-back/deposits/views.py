@@ -86,3 +86,26 @@ def saving_product_options(request, fin_prdt_cd):
     serializer = SavingProductsSerializer(savingoptions, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+# 사용자별 금융 상품 추천 결과 반환
+@api_view(['GET'])
+def recommendation(request):
+    # 사용자가 선택한 상품의 fin_prdt_cd를 받아옴
+    fin_prdt_cd = request.GET.get('fin_prdt_cd')
+    # 해당 상품의 상품군을 받아옴
+    fin_prdt_cd_group = fin_prdt_cd[:2]
+    # 해당 상품의 금리를 받아옴
+    fin_prdt_cd_interest = DepositOptions.objects.get(fin_prdt_cd=fin_prdt_cd).intr_rate
+    # 해당 상품의 만기를 받아옴
+    fin_prdt_cd_mtrt_int = DepositOptions.objects.get(fin_prdt_cd=fin_prdt_cd).mtrt_int
+    # 해당 상품의 가입금액을 받아옴
+    fin_prdt_cd_join_member = DepositOptions.objects.get(fin_prdt_cd=fin_prdt_cd).join_member
+    # 해당 상품의 가입기간을 받아옴
+    fin_prdt_cd_save_trm = DepositOptions.objects.get(fin_prdt_cd=fin_prdt_cd).save_trm
+    # 해당 상품의 가입방법을 받아옴
+    fin_prdt_cd_intr_rate_type = DepositOptions.objects.get(fin_prdt_cd=fin_prdt_cd).intr_rate_type
+
+    # 해당 상품의 상품군과 금리가 같은 상품을 추천
+    fin_prdt_cd_group_list = DepositOptions.objects.filter(fin_prdt_cd__startswith=fin_prdt_cd_group, intr_rate=fin_prdt_cd_interest).exclude(fin_prdt_cd=fin_prdt_cd)
+    serializer = DepositOptionsSerializer(fin_prdt_cd_group_list, many=True)
+    
+    

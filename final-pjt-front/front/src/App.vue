@@ -18,7 +18,7 @@
       <v-tab value="four"><RouterLink :to="{ name: 'savingproduct' }">적금 상품</RouterLink></v-tab>
       <div v-if="store.isLogin">
         <v-tab value="five"  @click="logout">로그아웃</v-tab>
-        <v-tab value="six"><RouterLink :to="{ name : 'mypagepasswordupdate'}">비밀번호변경</RouterLink></v-tab>
+        <v-tab value="six"><RouterLink :to="{ name : 'Recommend'}">상품 추천 받기</RouterLink></v-tab>
       </div>
       <div v-else>
         <v-tab value="five">

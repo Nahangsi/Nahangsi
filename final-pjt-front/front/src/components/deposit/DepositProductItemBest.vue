@@ -12,7 +12,7 @@
   {{ remote }}
 </v-chip>
 </div>
-<button @click="likedepositProduct" :class="{ 'liked': depositProduct.liked }">
+<button @click.stop="likedepositProduct" :class="{ liked: depositProduct.liked }">
   {{ depositProduct.liked ? '좋아요 취소' : '좋아요' }}
 </button>
 <v-divider :thickness="1"></v-divider>

@@ -9,6 +9,7 @@ import DepositProductDetailView from '@/views/deposits/DepositProductDetailView.
 // serach 
 import BankMapView from "@/views/search/BankMapView.vue"
 import Bank from "@/views/search/Bank.vue"
+
 // community
 import CreateView from '@/views/community/CreateView.vue'
 import ArticleView from '@/views/community/ArticleView.vue'
@@ -17,17 +18,23 @@ import UpdateView from '@/views/community/UpdateView.vue'
 
 // home
 import HomeView from "../views/HomeView.vue";
+
 // accounts
 import SignupView from "../views/accounts/SignupView.vue";
 import LoginView from "../views/accounts/LoginView.vue";
+
 // mypage
 import MypageMainView from "../views/mypage/MypageMainView.vue";
 import MypageUpdateView from "../views/mypage/MypageUpdateView.vue";
 import MypagePasswordUpdateView from "../views/mypage/MypagePasswordUpdateView.vue";
 import MypageUserdeleteView from "../views/mypage/MypageUserdeleteView.vue";
 import Calendar from "../views/mypage/Calendar.vue";
+
 // cart
 import CartView from '../views/CartView.vue'
+
+// recommend
+import RecommendView from '../views/deposits/RecommendView.vue'
 
 
 
@@ -156,6 +163,12 @@ const router = createRouter({
       path: "/calendar",
       name: "Calendar",
       component : Calendar,
+    },
+    // 추천상품
+    {
+      path: "/recommend",
+      name: "Recommend",
+      component: RecommendView,
     },
 ],
 
