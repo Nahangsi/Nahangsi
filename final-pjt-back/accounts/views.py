@@ -42,17 +42,6 @@ class CustomUserDetailsView(UserDetailsView):
         serializer.save()
 
 
-
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# @api_view(['PUT'])
-# def user_update(request):
-#     user = request.user
-#     serializer = CustomUserDetailsSerializer(user, data=request.data, partial=True)
-#     if serializer.is_valid(raise_exception=True):
-#         serializer.save()
-#         return Response(serializer.data)
-
 @api_view(['POST'])
 def user_delete(request):
     user = request.user

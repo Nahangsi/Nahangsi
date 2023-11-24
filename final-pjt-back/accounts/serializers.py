@@ -52,12 +52,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     age = serializers.IntegerField(required=False)
     money = serializers.IntegerField(required=False)
     salary = serializers.IntegerField(required=False)
-    # 값은 텍스트로 받지만 저장은인티져로 하는듯? 금융코드로
-    # financial_products = serializers.StringRelatedField(required=False)
-    # financial_products = serializers.ListField(child=serializers.MultipleChoiceField(options), required=False)
-    # financial_products = serializers.ListField(child=serializers.CharField(max_length=355), required=False)
     financial_products = serializers.ListField(child=serializers.CharField(max_length=355), required=False)
-    # financial_products = serializers.MultipleChoiceField(choices=options, required=False)
     primary_bank = serializers.CharField(required=False, max_length = 255)
     savings_goal = serializers.CharField(required=False, max_length = 50)
     occupation = serializers.CharField(required=False, max_length = 50)

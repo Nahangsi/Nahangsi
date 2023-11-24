@@ -80,6 +80,7 @@
           >
             <v-col style="width: 300px; margin-top: 13px">
               <v-text-field
+                clearable
                 variant="outlined"
                 v-model="content"
                 placeholder="댓글을 입력하세요"
@@ -134,11 +135,25 @@
             <v-row v-if="comment.editing">
               <v-col>
                 <v-text-field
+                  clearable
+                  variant="underlined"
                   v-model="comment.editedContent"
                   label="수정 내용"
                 ></v-text-field>
-                <v-btn @click="saveComment(comment)">저장</v-btn>
-                <v-btn @click="cancelEdit(comment)">취소</v-btn>
+                <v-btn
+                  style="color: #959595"
+                  size="small"
+                  variant="text"
+                  @click="saveComment(comment)"
+                  >저장</v-btn
+                >
+                <v-btn
+                  style="color: #959595"
+                  size="small"
+                  variant="text"
+                  @click="cancelEdit(comment)"
+                  >취소</v-btn
+                >
               </v-col>
             </v-row>
           </v-col>
