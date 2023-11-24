@@ -3,7 +3,7 @@ from django.conf import settings
 
 # 예금 상품 목록
 class DepositProducts(models.Model):
-    # 공시 제출월
+    # 공시 제출일
     dcls_month = models.TextField(null=True) 
     # 금융 회사 코드
     fin_co_no  = models.TextField(null=True)
