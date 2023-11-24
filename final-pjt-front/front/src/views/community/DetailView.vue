@@ -1,35 +1,100 @@
 <template>
-  <v-container>
+  <v-container style="margin-bottom: 100px; padding-bottom: 100px">
     <v-row>
       <v-col>
-        <v-card>
-          <v-card-title>
-            <h2 class="text-h5">상세 정보</h2>
-          </v-card-title>
-          <v-card-text>
-            <p>글 번호: {{ article?.id }}</p>
-            <p>제목: {{ article?.title }}</p>
-            <p>내용: {{ article?.content }}</p>
-            <p>작성일: {{ formatDate(article?.created_at) }}</p>
-            <p>수정일: {{ formatDate(article?.updated_at) }}</p>
+        <v-card variant="flat">
+          <div
+            style="
+              margin-top: 10px;
+              display: flex;
+              justify-content: space-between;
+            "
+          >
+            <div style="margin: 10px; display: flex">
+              <v-avatar color="surface-variant" rounded="0" :size="40">
+                <v-img
+                  src="https://w7.pngwing.com/pngs/188/501/png-transparent-computer-icons-anonymous-anonymity-anonymous-face-monochrome-head-thumbnail.png"
+                />
+              </v-avatar>
+              <div style="margin-left: 10px">
+                <p style="font-size: 16px; font-weight: 600">
+                  {{ article?.username }}
+                </p>
+                <p style="font-size: 13px; color: #959595">
+                  {{ formatDate(article?.created_at) }}
+                </p>
+              </div>
+            </div>
+            <div>
+              <v-card-actions v-if="article.user == userInfo">
+                <v-btn
+                  style="background-color: #f6f7f9"
+                  color="#959595"
+                  @click="deleteArticle"
+                  >삭제</v-btn
+                >
+              </v-card-actions>
+            </div>
+          </div>
+
+          <v-card-text style="height: 360px">
+            <p
+              style="
+                font-size: 24px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-weight: 600;
+              "
+            >
+              {{ article?.title }}
+            </p>
+            <p style="font-size: 18px; margin-top: 30px">
+              {{ article?.content }}
+            </p>
           </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions v-if="article.user == userInfo">
-            <v-btn @click="moveUpdate">수정</v-btn>
-            <v-btn @click="deleteArticle">삭제</v-btn>
+
+          <v-card-actions
+            variant="flat"
+            style="text-align: right"
+            v-if="article.user == userInfo"
+          >
+            <v-btn
+              style="background-color: #f6f7f9"
+              color="#959595"
+              @click="moveUpdate"
+              >수정</v-btn
+            >
           </v-card-actions>
         </v-card>
 
         <v-divider></v-divider>
 
         <v-form @submit.prevent="createComment">
-          <v-row>
-            <v-col>
-              <v-text-field v-model="content" label="댓글 내용"></v-text-field>
+          <v-row
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <v-col style="width: 300px; margin-top: 13px">
+              <v-text-field
+                variant="outlined"
+                v-model="content"
+                placeholder="댓글을 입력하세요"
+                style="width: 270px; padding-right: 0px; margin-top: 5px"
+              ></v-text-field>
             </v-col>
-            <v-col>
-              <br>
-              <v-btn type="submit">댓글 작성</v-btn>
+
+            <v-col style="padding-left: 0px; padding-right: 0px">
+              <v-btn
+                style="padding-left: 0px; padding-right: 0px"
+                size="large"
+                variant="text"
+                type="submit"
+                ><v-icon icon="mdi-send"></v-icon
+              ></v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -37,22 +102,41 @@
         <v-divider></v-divider>
 
         <v-row v-for="comment in article.comments" :key="comment.id">
-          <v-col style="margin-top: 20px;">
-            <p style="font-size: 14px; font-weight: 700;">익명</p>
-            <p style="font-weight: 400; color: #858585;">{{ comment.content }}</p>
+          <v-col style="margin-top: 10px">
+            <p style="font-size: 14px; font-weight: 700">익명</p>
+            <p style="font-weight: 400; color: #858585">
+              {{ comment.content }}
+            </p>
 
-            <v-divider style="margin-left: 20px; margin-right: 20px;" :thickness="1"></v-divider>
+            <v-divider style="margin: 10px" :thickness="1"></v-divider>
 
             <v-row v-if="comment.user == userInfo">
-              <v-col style="text-align: right;">
-                <v-btn @click="editComment(comment)">댓글 수정</v-btn>
-                <v-btn @click="deleteComment(comment.id)">댓글 삭제</v-btn>
+              <v-col
+                style="text-align: right; padding-top: 0px; padding-bottom: 0px"
+              >
+                <v-btn
+                  style="color: #959595"
+                  size="small"
+                  variant="text"
+                  @click="editComment(comment)"
+                  >댓글 수정</v-btn
+                >
+                <v-btn
+                  style="color: #959595"
+                  size="small"
+                  variant="text"
+                  @click="deleteComment(comment.id)"
+                  >댓글 삭제</v-btn
+                >
               </v-col>
             </v-row>
-            
+
             <v-row v-if="comment.editing">
               <v-col>
-                <v-text-field v-model="comment.editedContent" label="수정 내용"></v-text-field>
+                <v-text-field
+                  v-model="comment.editedContent"
+                  label="수정 내용"
+                ></v-text-field>
                 <v-btn @click="saveComment(comment)">저장</v-btn>
                 <v-btn @click="cancelEdit(comment)">취소</v-btn>
               </v-col>
@@ -65,10 +149,10 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useAccountStore } from '@/stores/account';
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useAccountStore } from "@/stores/account";
 
 const store = useAccountStore();
 const route = useRoute();
@@ -76,7 +160,6 @@ const router = useRouter();
 
 const article = ref({});
 const content = ref("");
-
 
 // 수정 페이지로 이동
 const moveUpdate = () => {
@@ -100,11 +183,8 @@ const deleteArticle = () => {
     });
 };
 
-
-
 // 댓글 생성
 const createComment = () => {
-  
   axios({
     method: "post",
     url: `${store.API_URL}/api/v1/articles/${route.params.id}/comments/`,
@@ -118,20 +198,19 @@ const createComment = () => {
     .then((res) => {
       console.log(res.data);
       // router.push({ name: "DetailView" });
-      console.log("댓글이 생성되었습니다.")
+      console.log("댓글이 생성되었습니다.");
       if (article.value && Array.isArray(article.value.comments)) {
         article.value.comments.push(res.data);
         article.value = { ...article.value };
       }
-      
+
       content.value = "";
-      console.log(article.value.comment)
+      console.log(article.value.comment);
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
 
 // 댓글 삭제
 const deleteComment = (commentId) => {
@@ -145,9 +224,9 @@ const deleteComment = (commentId) => {
     .then((res) => {
       console.log("댓글 삭제 완료");
       // router.go(); - 이걸 쓰게 되면 새로고침 되면서 삭제됨
-      article.value.comments = article.value.comments.filter(comment =>
-        comment.id !== commentId
-      )
+      article.value.comments = article.value.comments.filter(
+        (comment) => comment.id !== commentId
+      );
     })
     .catch((err) => {
       console.log(err);
@@ -187,17 +266,16 @@ const cancelEdit = (comment) => {
   comment.editing = false;
 };
 
-
 // 생성일 수정일을 연,월,일 까지만 나타내도록
 const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('ko-KR', options);
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
+  return new Date(dateString).toLocaleDateString("ko-KR", options);
 };
 
-const userInfo = ref(null)
+const userInfo = ref(null);
 onMounted(() => {
   axios({
-    method: 'GET',
+    method: "GET",
     url: `${store.API_URL}/api/v1/articles/${route.params.id}/`,
   })
     .then((res) => {
@@ -207,7 +285,7 @@ onMounted(() => {
       console.log(err);
     });
 
-    axios({
+  axios({
     method: "get",
     url: `http://127.0.0.1:8000/accounts/user_info/`,
     headers: {
@@ -215,7 +293,7 @@ onMounted(() => {
     },
   })
     .then((res) => {
-      userInfo.value = res.data.id
+      userInfo.value = res.data.id;
       // console.log(res.data);
     })
     .catch((err) => {
@@ -224,7 +302,4 @@ onMounted(() => {
 });
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>
