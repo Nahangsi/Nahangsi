@@ -15,7 +15,7 @@ from django.db.models import OuterRef, Subquery, Max
 
 @api_view(['GET'])
 def save_deposit_products(request):
-    api_key = '6cc8ddad19f72e1c6dac77032a46a8a8'
+    api_key = ''
     url = f'http://finlife.fss.or.kr/finlifeapi/'
     params = {
         'auth' : api_key,
